@@ -1,0 +1,69 @@
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  /* config options here */
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "placehold.co",
+        port: "",
+        pathname: "/**",
+      },
+    ],
+  },
+};
+
+module.exports = {
+  output: process.env.BUILD_STANDALONE === "true" ? "standalone" : undefined,
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          {
+            key: "Strict-Transport-Security",
+            value: "max-age=63072000; includeSubDomains; preload",
+          },
+          {
+            key: "X-Frame-Options",
+            value: "DENY",
+          },
+          {
+            key: "X-Content-Type-Options",
+            value: "nosniff",
+          },
+          {
+            key: "Content-Security-Policy",
+            value:
+              "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline' fonts.googleapis.com fonts.gstatic.com; img-src 'self' data:; font-src 'self' fonts.googleapis.com fonts.gstatic.com; connect-src 'self';",
+          },
+          {
+            key: "X-Permitted-Cross-Domain-Policies",
+            value: "none",
+          },
+          {
+            key: "Permissions-Policy",
+            value: "geolocation=(), microphone=(), camera=()", // Customize based on your needs
+          },
+          {
+            key: "Cross-Origin-Embedder-Policy",
+            value: "require-corp", // Be cautious with this, it might break some third-party embeds
+          },
+          {
+            key: "Cross-Origin-Opener-Policy",
+            value: "same-origin", // Can affect interactions with popup windows
+          },
+        ],
+      },
+    ];
+  },
+};
+
+export default nextConfig;

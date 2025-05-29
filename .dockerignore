@@ -1,0 +1,16 @@
+node_modules
+Dockerfile
+README.md
+.dockerignore
+.git
+.gitignore
+.next
+.env*
+.kamal/secrets*
+.vscode
+config
+docs
+.prettierrc.json
+eslint.config.mjs
+package-lock.json
+README.md

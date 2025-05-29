@@ -1,0 +1,11 @@
+KAMAL_REGISTRY_USERNAME='DockerUsername'    # From https://hub.docker.com/
+KAMAL_REGISTRY_PASSWORD='dckr_pat_F...'     # From https://hub.docker.com/
+
+KAMAL_REGISTRY_IMAGE='YourUser/YourImage'   # YourUser  = the Username from Docker 
+                                            # YourImage = The name of your image
+                                            # Example   = iamsmolli87/devtoolbox
+                                            
+KAMAL_SSH_USER='installer'                  # The username of your server. Most commonly 'root'. 
+KAMAL_SERVER='node0.web.example.com'        # The server to deploy to.
+KAMAL_SSL_NAME='example.com'                # The website name. Can be the same as KAMAL_SERVER. Used to generate SSL-Certificate. 
+                                            # Must be a valid URL. URL must be already propagated.
