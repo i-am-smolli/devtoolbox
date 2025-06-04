@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { LayoutDashboard, Binary, FileText, Code2, ArrowRight, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound, Fingerprint, BookText, Palette, TerminalSquare, CalendarClock, ClipboardList } from 'lucide-react';
+import { LayoutDashboard, Binary, FileText, Code2, ArrowRight, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound, Fingerprint, BookText, Palette, TerminalSquare, CalendarClock, ClipboardList, Shuffle } from 'lucide-react';
 
 const tools = [
   {
@@ -89,6 +89,12 @@ const tools = [
     description: 'Interpret cron expressions into a human-readable format.',
     href: '/devops-tools/cron-parser',
     icon: ClipboardList,
+  },
+  {
+    title: 'Base64 Encoder / Decoder',
+    description: 'Encode text to Base64 or decode Base64 back to text.',
+    href: '/dev-tools/base64-converter',
+    icon: Shuffle,
   }
 ];
 
