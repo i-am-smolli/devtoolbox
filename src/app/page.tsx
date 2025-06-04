@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { LayoutDashboard, Binary, FileText, Code2, ArrowRight, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound, Fingerprint, BookText } from 'lucide-react';
+import { LayoutDashboard, Binary, FileText, Code2, ArrowRight, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound, Fingerprint, BookText, Palette } from 'lucide-react';
 
 const tools = [
   {
@@ -66,6 +66,12 @@ const tools = [
     href: '/dev-tools/hash-generator',
     icon: Fingerprint,
   },
+  {
+    title: 'Color Converter',
+    description: 'Convert colors between HEX, RGB, and HSL formats.',
+    href: '/dev-tools/color-converter',
+    icon: Palette,
+  }
 ];
 
 export default function DashboardPage() {
