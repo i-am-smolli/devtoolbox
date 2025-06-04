@@ -26,7 +26,7 @@ const JsonExplorerNode: FC<JsonExplorerNodeProps> = ({ data, name, defaultOpen =
     const entries = Object.entries(data);
     const triggerContent = (
       <>
-        {name && <span className="font-semibold mr-1">{name}:</span>}
+        {name && <span className="font-semibold mr-1 truncate max-w-48 inline-block">{name}:</span>}
         <span className="mr-1">{'{'}</span>
         <Badge variant="secondary" className="mr-1">{entries.length} {entries.length === 1 ? 'key' : 'keys'}</Badge>
         {'}'}
@@ -34,7 +34,7 @@ const JsonExplorerNode: FC<JsonExplorerNodeProps> = ({ data, name, defaultOpen =
     );
 
     if (entries.length === 0) {
-      return <div className="ml-0.5 py-1 px-2 text-sm text-muted-foreground">{name ? <><span className="font-semibold mr-1">{name}:</span><span>{"{ }"}</span></> : "{ }"}</div>;
+      return <div className="ml-0.5 py-1 px-2 text-sm text-muted-foreground">{name ? <><span className="font-semibold mr-1 break-words">{name}:</span><span>{"{ }"}</span></> : "{ }"}</div>;
     }
 
     return (
@@ -57,7 +57,7 @@ const JsonExplorerNode: FC<JsonExplorerNodeProps> = ({ data, name, defaultOpen =
   if (type === 'array') {
     const triggerContent = (
       <>
-        {name && <span className="font-semibold mr-1">{name}:</span>}
+        {name && <span className="font-semibold mr-1 truncate max-w-48 inline-block">{name}:</span>}
         <span className="mr-1">{'['}</span>
         <Badge variant="secondary" className="mr-1">{data.length} {data.length === 1 ? 'item' : 'items'}</Badge>
         {']'}
@@ -65,7 +65,7 @@ const JsonExplorerNode: FC<JsonExplorerNodeProps> = ({ data, name, defaultOpen =
     );
 
     if (data.length === 0) {
-         return <div className="ml-0.5 py-1 px-2 text-sm text-muted-foreground">{name ? <><span className="font-semibold mr-1">{name}:</span><span>{"[ ]"}</span></> : "[ ]"}</div>;
+         return <div className="ml-0.5 py-1 px-2 text-sm text-muted-foreground">{name ? <><span className="font-semibold mr-1 break-words">{name}:</span><span>{"[ ]"}</span></> : "[ ]"}</div>;
     }
 
     return (
@@ -86,15 +86,15 @@ const JsonExplorerNode: FC<JsonExplorerNodeProps> = ({ data, name, defaultOpen =
   }
 
   let valueDisplay;
-  let valueClass = 'text-sm break-all';
+  let valueClass = 'text-sm'; // Base class, removed break-all
   switch (type) {
     case 'string':
       valueDisplay = `"${data}"`;
-      valueClass = cn(valueClass, 'text-accent');
+      valueClass = cn(valueClass, 'text-accent break-words'); // Added break-words for strings
       break;
     case 'number':
       valueDisplay = String(data);
-      valueClass = cn(valueClass, 'text-primary');
+      valueClass = cn(valueClass, 'text-primary'); // Numbers usually don't need specific break, but could add break-all if very long ones are common
       break;
     case 'boolean':
       valueDisplay = data ? 'true' : 'false';
@@ -110,11 +110,10 @@ const JsonExplorerNode: FC<JsonExplorerNodeProps> = ({ data, name, defaultOpen =
 
   return (
     <div className="flex items-start py-1 px-2 text-sm ml-0.5">
-      {name && <span className="font-semibold mr-1 shrink-0">{name}:</span>}
+      {name && <span className="font-semibold mr-1 shrink-0 break-words">{name}:</span>}
       <span className={valueClass}>{valueDisplay}</span>
     </div>
   );
 };
 
 export default JsonExplorerNode;
-
