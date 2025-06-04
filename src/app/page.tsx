@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { LayoutDashboard, Binary, FileText, Code2, ArrowRight, FolderTree, ArrowRightLeft, FileCode, FileLock2 } from 'lucide-react';
+import { LayoutDashboard, Binary, FileText, Code2, ArrowRight, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound } from 'lucide-react';
 
 const tools = [
   {
@@ -38,7 +38,7 @@ const tools = [
   },
   {
     title: 'Dockerfile Linter',
-    description: 'Analyze Dockerfiles for errors and adherence to best practices.',
+    description: 'Analyze Dockerfiles for common syntax errors and structural issues.',
     href: '/devops-tools/dockerfile-linter',
     icon: FileCode,
   },
@@ -47,6 +47,12 @@ const tools = [
     description: 'Parse, view, and manage environment variable files securely.',
     href: '/devops-tools/env-file-parser',
     icon: FileLock2,
+  },
+  {
+    title: 'Secure Password Generator',
+    description: 'Create strong, random passwords with customizable options.',
+    href: '/dev-tools/secure-password-generator',
+    icon: KeyRound,
   },
 ];
 
