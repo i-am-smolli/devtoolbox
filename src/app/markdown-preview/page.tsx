@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { PageHeader } from '@/components/page-header';
@@ -41,40 +41,55 @@ You can also use \`inline code\`.
 export default function MarkdownPreviewPage() {
   const [markdownInput, setMarkdownInput] = useState(initialMarkdown);
   const [isClient, setIsClient] = useState(false);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     setIsClient(true);
   }, []);
 
+  // Adjust textarea height based on content
+  useEffect(() => {
+    if (isClient && textareaRef.current) {
+      textareaRef.current.style.height = 'auto'; // Reset height to recalculate
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
+  }, [isClient, markdownInput]);
+
+  const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setMarkdownInput(e.target.value);
+    // Height adjustment is now handled by the useEffect listening to markdownInput
+  };
 
   return (
-    <div className="flex flex-col"> {/* Removed fixed height, now content-driven */}
+    <div className="flex flex-col">
       <PageHeader
         title="Markdown Previewer"
         description="Write Markdown text and see the rendered HTML in real-time."
         icon={FileText}
       />
-      <div className="grid md:grid-cols-2 gap-6"> {/* Removed flex-grow and min-h-0 */}
-        <Card className="flex flex-col"> {/* Removed min-h-0 */}
+      <div className="grid md:grid-cols-2 gap-6">
+        <Card className="flex flex-col">
           <CardHeader>
             <CardTitle className="font-headline">Markdown Input</CardTitle>
           </CardHeader>
-          <CardContent className="p-0"> {/* Removed flex-grow */}
+          <CardContent className="p-0">
             <Textarea
+              ref={textareaRef}
               placeholder="Type your Markdown here..."
               value={markdownInput}
-              onChange={(e) => setMarkdownInput(e.target.value)}
-              className="min-h-[400px] w-full resize-none border-0 rounded-none focus-visible:ring-0 p-4 font-code text-sm" // Removed h-full, added min-h-[400px]
+              onChange={handleTextareaChange}
+              className="w-full resize-none border-0 rounded-none focus-visible:ring-0 p-4 font-code text-sm"
               aria-label="Markdown Input"
+              style={{ overflowY: 'hidden' }} // Hide scrollbar as height is dynamic
             />
           </CardContent>
         </Card>
-        <Card className="flex flex-col"> {/* Removed min-h-0 */}
+        <Card className="flex flex-col">
           <CardHeader>
             <CardTitle className="font-headline">HTML Preview</CardTitle>
           </CardHeader>
-          <CardContent className="p-0"> {/* Removed flex-grow */}
-            <ScrollArea className="min-h-[400px] w-full p-4"> {/* Removed h-full, added min-h-[400px] */}
+          <CardContent className="flex-grow p-0"> {/* Allow content to grow */}
+            <ScrollArea className="h-full w-full p-4"> {/* ScrollArea takes full height */}
               {isClient ? (
                  <div className="markdown-preview-content">
                     <ReactMarkdown
@@ -82,7 +97,6 @@ export default function MarkdownPreviewPage() {
                       components={{
                         img: ({node, ...props}) => {
                           const altText = props.alt || '';
-                          // eslint-disable-next-line @next/next/no-img-element
                           if (props.src && props.src.startsWith('https://placehold.co/')) {
                             // eslint-disable-next-line @next/next/no-img-element
                             return <img {...props} alt={altText} data-ai-hint="abstract placeholder" />;
@@ -105,3 +119,4 @@ export default function MarkdownPreviewPage() {
     </div>
   );
 }
+
