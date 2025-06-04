@@ -4,7 +4,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { SidebarMenu, SidebarMenuItem, SidebarMenuButton } from '@/components/ui/sidebar';
-import { LayoutDashboard, Binary, FileText, Code2, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound, Fingerprint, BookText, Palette, TerminalSquare } from 'lucide-react';
+import { LayoutDashboard, Binary, FileText, Code2, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound, Fingerprint, BookText, Palette, TerminalSquare, CalendarClock } from 'lucide-react';
 
 const navItems = [
   { href: '/', label: 'Dashboard', icon: LayoutDashboard },
@@ -20,6 +20,7 @@ const navItems = [
   { href: '/devops-tools/yaml-json-converter', label: 'YAML/JSON Converter', icon: ArrowRightLeft },
   { href: '/devops-tools/dockerfile-linter', label: 'Dockerfile Linter', icon: FileCode },
   { href: '/devops-tools/env-file-parser', label: '.env File Parser', icon: FileLock2 },
+  { href: '/devops-tools/cron-expression-builder', label: 'Cron Builder', icon: CalendarClock },
 ];
 
 export function MainNav() {
