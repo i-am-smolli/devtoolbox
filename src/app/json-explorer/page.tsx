@@ -77,7 +77,7 @@ export default function JsonExplorerPage() {
   };
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-[calc(100vh-7rem)]"> {/* Adjusted height */}
       <PageHeader
         title="JSON Explorer"
         description="Paste your JSON data to navigate and explore its structure interactively."
