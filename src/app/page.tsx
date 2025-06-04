@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { LayoutDashboard, Binary, FileText, Code2, ArrowRight, FolderTree, ArrowRightLeft, Anchor, FileCode, FileLock2 } from 'lucide-react';
+import { LayoutDashboard, Binary, FileText, Code2, ArrowRight, FolderTree, ArrowRightLeft, FileCode, FileLock2 } from 'lucide-react';
 
 const tools = [
   {
@@ -35,12 +35,6 @@ const tools = [
     description: 'Convert data between YAML and JSON formats.',
     href: '/devops-tools/yaml-json-converter',
     icon: ArrowRightLeft,
-  },
-  {
-    title: 'Kubernetes YAML Validator',
-    description: 'Validate Kubernetes manifest files for syntax and best practices.',
-    href: '/devops-tools/kubernetes-yaml-validator',
-    icon: Anchor,
   },
   {
     title: 'Dockerfile Linter',
