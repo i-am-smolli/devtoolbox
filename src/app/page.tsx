@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { LayoutDashboard, Binary, FileText, Code2, ArrowRight } from 'lucide-react';
+import { LayoutDashboard, Binary, FileText, Code2, ArrowRight, FolderTree } from 'lucide-react';
 
 const tools = [
   {
@@ -23,6 +23,12 @@ const tools = [
     description: 'Validate, format, and inspect JSON data structures.',
     href: '/json-analyzer',
     icon: Code2,
+  },
+  {
+    title: 'JSON Explorer',
+    description: 'Navigate and explore complex JSON data in a tree view.',
+    href: '/json-explorer',
+    icon: FolderTree,
   },
 ];
 

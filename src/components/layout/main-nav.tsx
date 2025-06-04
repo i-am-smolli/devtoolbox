@@ -4,13 +4,14 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { SidebarMenu, SidebarMenuItem, SidebarMenuButton } from '@/components/ui/sidebar';
-import { LayoutDashboard, Binary, FileText, Code2 } from 'lucide-react';
+import { LayoutDashboard, Binary, FileText, Code2, FolderTree } from 'lucide-react';
 
 const navItems = [
   { href: '/', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/dev-tools/hex-to-binary', label: 'Hex to Binary', icon: Binary },
   { href: '/markdown-preview', label: 'Markdown Preview', icon: FileText },
   { href: '/json-analyzer', label: 'JSON Analyzer', icon: Code2 },
+  { href: '/json-explorer', label: 'JSON Explorer', icon: FolderTree },
 ];
 
 export function MainNav() {
