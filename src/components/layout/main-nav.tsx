@@ -4,7 +4,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { SidebarMenu, SidebarMenuItem, SidebarMenuButton } from '@/components/ui/sidebar';
-import { LayoutDashboard, Binary, FileText, Code2, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound } from 'lucide-react';
+import { LayoutDashboard, Binary, FileText, Code2, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound, Fingerprint } from 'lucide-react';
 
 const navItems = [
   { href: '/', label: 'Dashboard', icon: LayoutDashboard },
@@ -16,6 +16,7 @@ const navItems = [
   { href: '/devops-tools/dockerfile-linter', label: 'Dockerfile Linter', icon: FileCode },
   { href: '/devops-tools/env-file-parser', label: '.env File Parser', icon: FileLock2 },
   { href: '/dev-tools/secure-password-generator', label: 'Password Generator', icon: KeyRound },
+  { href: '/dev-tools/hash-generator', label: 'Hash Generator', icon: Fingerprint },
 ];
 
 export function MainNav() {

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { LayoutDashboard, Binary, FileText, Code2, ArrowRight, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound } from 'lucide-react';
+import { LayoutDashboard, Binary, FileText, Code2, ArrowRight, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound, Fingerprint } from 'lucide-react';
 
 const tools = [
   {
@@ -53,6 +53,12 @@ const tools = [
     description: 'Create strong, random passwords with customizable options.',
     href: '/dev-tools/secure-password-generator',
     icon: KeyRound,
+  },
+  {
+    title: 'Hash Generator',
+    description: 'Generate hashes from text using various algorithms.',
+    href: '/dev-tools/hash-generator',
+    icon: Fingerprint,
   },
 ];
 
