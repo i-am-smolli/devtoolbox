@@ -15,7 +15,6 @@ import { useToast } from "@/hooks/use-toast";
 
 const ALGORITHMS = [
   { value: 'sha-1', label: 'SHA-1' },
-  { value: 'sha-224', label: 'SHA-224' },
   { value: 'sha-256', label: 'SHA-256' },
   { value: 'sha-384', label: 'SHA-384' },
   { value: 'sha-512', label: 'SHA-512' },
@@ -23,7 +22,6 @@ const ALGORITHMS = [
 
 const SUBTLE_CRYPTO_ALGO_MAP: { [key: string]: string } = {
   'sha-1': 'SHA-1',
-  'sha-224': 'SHA-224',
   'sha-256': 'SHA-256',
   'sha-384': 'SHA-384',
   'sha-512': 'SHA-512',
