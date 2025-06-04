@@ -48,33 +48,33 @@ export default function MarkdownPreviewPage() {
 
 
   return (
-    <div className="flex flex-col h-[calc(100vh-var(--header-height,4rem)-2*theme(spacing.6))]"> {/* Adjust height based on header/paddings */}
+    <div className="flex flex-col"> {/* Removed fixed height, now content-driven */}
       <PageHeader
         title="Markdown Previewer"
         description="Write Markdown text and see the rendered HTML in real-time."
         icon={FileText}
       />
-      <div className="grid md:grid-cols-2 gap-6 flex-grow min-h-0">
-        <Card className="flex flex-col min-h-0">
+      <div className="grid md:grid-cols-2 gap-6"> {/* Removed flex-grow and min-h-0 */}
+        <Card className="flex flex-col"> {/* Removed min-h-0 */}
           <CardHeader>
             <CardTitle className="font-headline">Markdown Input</CardTitle>
           </CardHeader>
-          <CardContent className="flex-grow p-0">
+          <CardContent className="p-0"> {/* Removed flex-grow */}
             <Textarea
               placeholder="Type your Markdown here..."
               value={markdownInput}
               onChange={(e) => setMarkdownInput(e.target.value)}
-              className="h-full w-full resize-none border-0 rounded-none focus-visible:ring-0 p-4 font-code text-sm"
+              className="min-h-[400px] w-full resize-none border-0 rounded-none focus-visible:ring-0 p-4 font-code text-sm" // Removed h-full, added min-h-[400px]
               aria-label="Markdown Input"
             />
           </CardContent>
         </Card>
-        <Card className="flex flex-col min-h-0">
+        <Card className="flex flex-col"> {/* Removed min-h-0 */}
           <CardHeader>
             <CardTitle className="font-headline">HTML Preview</CardTitle>
           </CardHeader>
-          <CardContent className="flex-grow p-0">
-            <ScrollArea className="h-full w-full p-4">
+          <CardContent className="p-0"> {/* Removed flex-grow */}
+            <ScrollArea className="min-h-[400px] w-full p-4"> {/* Removed h-full, added min-h-[400px] */}
               {isClient ? (
                  <div className="markdown-preview-content">
                     <ReactMarkdown
