@@ -4,7 +4,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { SidebarMenu, SidebarMenuItem, SidebarMenuButton } from '@/components/ui/sidebar';
-import { LayoutDashboard, Binary, FileText, Code2, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound, Fingerprint, BookText, Palette } from 'lucide-react';
+import { LayoutDashboard, Binary, FileText, Code2, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound, Fingerprint, BookText, Palette, TerminalSquare } from 'lucide-react';
 
 const navItems = [
   { href: '/', label: 'Dashboard', icon: LayoutDashboard },
@@ -12,6 +12,7 @@ const navItems = [
   { href: '/dev-tools/secure-password-generator', label: 'Password Generator', icon: KeyRound },
   { href: '/dev-tools/hash-generator', label: 'Hash Generator', icon: Fingerprint },
   { href: '/dev-tools/color-converter', label: 'Color Converter', icon: Palette },
+  { href: '/dev-tools/curl-generator', label: 'cURL Generator', icon: TerminalSquare },
   { href: '/markdown-preview', label: 'Markdown Preview', icon: FileText },
   { href: '/markdown-to-html', label: 'Markdown to HTML', icon: BookText },
   { href: '/json-analyzer', label: 'JSON Analyzer', icon: Code2 },
