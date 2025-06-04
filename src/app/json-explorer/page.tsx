@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
@@ -48,11 +48,19 @@ export default function JsonExplorerPage() {
   const [parsedJson, setParsedJson] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
   const [isClient, setIsClient] = useState(false);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     setIsClient(true);
     handleParseJson(initialJson);
   }, []);
+
+  useEffect(() => {
+    if (isClient && textareaRef.current) {
+      textareaRef.current.style.height = 'auto'; // Reset height to recalculate
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
+  }, [isClient, jsonInput]);
 
   const handleParseJson = (currentInput: string) => {
     if (!currentInput.trim()) {
@@ -77,50 +85,54 @@ export default function JsonExplorerPage() {
   };
 
   return (
-    <div className="flex flex-col h-full"> {/* Changed from h-[calc(100vh-7rem)] */}
+    <div className="flex flex-col">
       <PageHeader
         title="JSON Explorer"
         description="Paste your JSON data to navigate and explore its structure interactively."
         icon={FolderTree}
       />
-      <div className="grid md:grid-cols-2 gap-6 flex-grow min-h-0">
-        <Card className="flex flex-col min-h-0"> {/* Added min-h-0 */}
+      <div className="grid md:grid-cols-2 gap-6">
+        <Card className="flex flex-col">
           <CardHeader>
             <CardTitle className="font-headline">JSON Input</CardTitle>
           </CardHeader>
-          <CardContent className="flex-grow p-0">
+          <CardContent className="p-0">
             <Textarea
+              ref={textareaRef}
               placeholder="Paste your JSON here..."
               value={jsonInput}
               onChange={handleInputChange}
-              className="h-full w-full resize-none border-0 rounded-none focus-visible:ring-0 p-4 font-code text-sm"
+              className="w-full resize-none border-0 rounded-none focus-visible:ring-0 p-4 font-code text-sm"
               aria-label="JSON Input"
               aria-invalid={!!error}
               aria-describedby={error ? "json-error-message" : undefined}
+              style={{ overflowY: 'hidden' }}
             />
           </CardContent>
         </Card>
         
-        <Card className="flex flex-col min-h-0">
+        <Card className="flex flex-col">
           <CardHeader>
             <CardTitle className="font-headline">Explorer View</CardTitle>
           </CardHeader>
-          <CardContent className="flex-grow p-4 overflow-hidden">
-            {isClient && error && (
-              <Alert variant="destructive" id="json-error-message">
-                <AlertCircle className="h-4 w-4" />
-                <AlertTitle>Invalid JSON</AlertTitle>
-                <AlertDescription>{error}</AlertDescription>
-              </Alert>
+          <CardContent className="flex-grow p-0">
+             {isClient && error && (
+                <div className="p-4">
+                    <Alert variant="destructive" id="json-error-message" >
+                        <AlertCircle className="h-4 w-4" />
+                        <AlertTitle>Invalid JSON</AlertTitle>
+                        <AlertDescription>{error}</AlertDescription>
+                    </Alert>
+                </div>
             )}
-            {isClient && parsedJson && !error && (
-              <ScrollArea className="h-full w-full pr-2">
-                <JsonExplorerNode data={parsedJson} isRoot />
-              </ScrollArea>
-            )}
-            {isClient && !parsedJson && !error && (
-                <p className="text-muted-foreground p-4">Paste JSON in the input area to explore.</p>
-            )}
+            <ScrollArea className="h-full w-full p-4">
+                {isClient && parsedJson && !error && (
+                    <JsonExplorerNode data={parsedJson} isRoot />
+                )}
+                {isClient && !parsedJson && !error && (
+                    <p className="text-muted-foreground">Paste JSON in the input area to explore.</p>
+                )}
+            </ScrollArea>
           </CardContent>
         </Card>
       </div>
