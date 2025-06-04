@@ -4,7 +4,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { SidebarMenu, SidebarMenuItem, SidebarMenuButton } from '@/components/ui/sidebar';
-import { LayoutDashboard, Binary, FileText, Code2, FolderTree } from 'lucide-react';
+import { LayoutDashboard, Binary, FileText, Code2, FolderTree, ArrowRightLeft, Anchor, FileCode, FileLock2 } from 'lucide-react';
 
 const navItems = [
   { href: '/', label: 'Dashboard', icon: LayoutDashboard },
@@ -12,6 +12,10 @@ const navItems = [
   { href: '/markdown-preview', label: 'Markdown Preview', icon: FileText },
   { href: '/json-analyzer', label: 'JSON Analyzer', icon: Code2 },
   { href: '/json-explorer', label: 'JSON Explorer', icon: FolderTree },
+  { href: '/devops-tools/yaml-json-converter', label: 'YAML/JSON Converter', icon: ArrowRightLeft },
+  { href: '/devops-tools/kubernetes-yaml-validator', label: 'K8s YAML Validator', icon: Anchor },
+  { href: '/devops-tools/dockerfile-linter', label: 'Dockerfile Linter', icon: FileCode },
+  { href: '/devops-tools/env-file-parser', label: '.env File Parser', icon: FileLock2 },
 ];
 
 export function MainNav() {

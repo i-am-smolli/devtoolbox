@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { LayoutDashboard, Binary, FileText, Code2, ArrowRight, FolderTree } from 'lucide-react';
+import { LayoutDashboard, Binary, FileText, Code2, ArrowRight, FolderTree, ArrowRightLeft, Anchor, FileCode, FileLock2 } from 'lucide-react';
 
 const tools = [
   {
@@ -29,6 +29,30 @@ const tools = [
     description: 'Navigate and explore complex JSON data in a tree view.',
     href: '/json-explorer',
     icon: FolderTree,
+  },
+  {
+    title: 'YAML/JSON Converter',
+    description: 'Convert data between YAML and JSON formats.',
+    href: '/devops-tools/yaml-json-converter',
+    icon: ArrowRightLeft,
+  },
+  {
+    title: 'Kubernetes YAML Validator',
+    description: 'Validate Kubernetes manifest files for syntax and best practices.',
+    href: '/devops-tools/kubernetes-yaml-validator',
+    icon: Anchor,
+  },
+  {
+    title: 'Dockerfile Linter',
+    description: 'Analyze Dockerfiles for errors and adherence to best practices.',
+    href: '/devops-tools/dockerfile-linter',
+    icon: FileCode,
+  },
+  {
+    title: '.env File Parser & Viewer',
+    description: 'Parse, view, and manage environment variable files securely.',
+    href: '/devops-tools/env-file-parser',
+    icon: FileLock2,
   },
 ];
 
