@@ -77,14 +77,14 @@ export default function JsonExplorerPage() {
   };
 
   return (
-    <div className="flex flex-col h-[calc(100vh-7rem)]"> {/* Adjusted height */}
+    <div className="flex flex-col h-full"> {/* Changed from h-[calc(100vh-7rem)] */}
       <PageHeader
         title="JSON Explorer"
         description="Paste your JSON data to navigate and explore its structure interactively."
         icon={FolderTree}
       />
       <div className="grid md:grid-cols-2 gap-6 flex-grow min-h-0">
-        <Card className="flex flex-col">
+        <Card className="flex flex-col min-h-0"> {/* Added min-h-0 */}
           <CardHeader>
             <CardTitle className="font-headline">JSON Input</CardTitle>
           </CardHeader>
