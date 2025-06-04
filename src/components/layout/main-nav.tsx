@@ -4,7 +4,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { SidebarMenu, SidebarMenuItem, SidebarMenuButton } from '@/components/ui/sidebar';
-import { LayoutDashboard, Binary, FileText, Code2, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound, Fingerprint, BookText, Palette, TerminalSquare, CalendarClock, ClipboardList, Shuffle } from 'lucide-react';
+import { LayoutDashboard, Binary, FileText, Code2, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound, Fingerprint, BookText, Palette, TerminalSquare, CalendarClock, ClipboardList, Shuffle, Network } from 'lucide-react';
 
 const navItems = [
   { href: '/', label: 'Dashboard', icon: LayoutDashboard },
@@ -23,6 +23,7 @@ const navItems = [
   { href: '/devops-tools/env-file-parser', label: '.env File Parser', icon: FileLock2 },
   { href: '/devops-tools/cron-expression-builder', label: 'Cron Builder', icon: CalendarClock },
   { href: '/devops-tools/cron-parser', label: 'Cron Parser', icon: ClipboardList },
+  { href: '/networking-tools/cidr-calculator', label: 'CIDR Calculator', icon: Network },
 ];
 
 export function MainNav() {
