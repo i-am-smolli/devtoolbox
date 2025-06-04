@@ -34,7 +34,7 @@ You can also use \`inline code\`.
 
 [Visit Google](https://www.google.com)
 
-![Placeholder Image](https://placehold.co/300x200.png?text=Markdown+Image)
+![Placeholder Image](https://placehold.co/300x200.png)
 `;
 
 
@@ -77,8 +77,22 @@ export default function MarkdownPreviewPage() {
             <ScrollArea className="h-full w-full p-4">
               {isClient ? (
                  <div className="markdown-preview-content">
-                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                    {markdownInput}
+                    <ReactMarkdown
+                      remarkPlugins={[remarkGfm]}
+                      components={{
+                        img: ({node, ...props}) => {
+                          const altText = props.alt || '';
+                          // eslint-disable-next-line @next/next/no-img-element
+                          if (props.src && props.src.startsWith('https://placehold.co/')) {
+                            // eslint-disable-next-line @next/next/no-img-element
+                            return <img {...props} alt={altText} data-ai-hint="abstract placeholder" />;
+                          }
+                          // eslint-disable-next-line @next/next/no-img-element
+                          return <img {...props} alt={altText} />;
+                        }
+                      }}
+                    >
+                      {markdownInput}
                     </ReactMarkdown>
                 </div>
               ) : (
