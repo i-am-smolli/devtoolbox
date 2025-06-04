@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { LayoutDashboard, Binary, FileText, Code2, ArrowRight, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound, Fingerprint } from 'lucide-react';
+import { LayoutDashboard, Binary, FileText, Code2, ArrowRight, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound, Fingerprint, BookText } from 'lucide-react';
 
 const tools = [
   {
@@ -17,6 +17,12 @@ const tools = [
     description: 'See a live preview of your Markdown content as you type.',
     href: '/markdown-preview',
     icon: FileText,
+  },
+  {
+    title: 'Markdown to HTML Converter',
+    description: 'Convert Markdown text to its HTML representation.',
+    href: '/markdown-to-html',
+    icon: BookText,
   },
   {
     title: 'JSON Analyzer',
