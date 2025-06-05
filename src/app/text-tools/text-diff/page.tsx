@@ -51,25 +51,34 @@ export default function TextDiffPage() {
       return;
     }
 
-    try {
-      // Using diffLines for better structured diff; createTwoFilesPatch is also an option
-      const diffResult = Diff.diffLines(textA, textB, { newlineIsToken: false });
-      
-      // Convert the diff result into a unified diff format string
-      // The `createPatch` function expects filenames, old and new content.
-      // We can use placeholders for filenames.
-      const patch = Diff.createPatch('text-a.txt', 'text-b.txt', textA, textB, '', '', { context: 3 });
+    // Determine if there are actual line differences using diffLines
+    const lineChanges = Diff.diffLines(textA, textB, { newlineIsToken: true }); // Explicitly treat newlines as tokens
+    const hasActualLineDifferences = lineChanges.some(part => part.added || part.removed);
 
-      if (patch.trim() === "" || diffResult.every(part => !part.added && !part.removed)) {
-          setIsIdentical(true); // No actual changes detected by diffLines either
+    if (!hasActualLineDifferences) {
+      // If diffLines finds no added/removed lines, treat as identical for display
+      setIsIdentical(true);
+      setIsLoading(false);
+      return;
+    }
+
+    // If we reach here, diffLines found differences, so proceed to generate and show the patch
+    try {
+      const patch = Diff.createPatch('text-a.txt', 'text-b.txt', textA, textB, '', '', { context: 3 });
+      
+      const htmlOutput = diff2Html(patch, {
+        drawFileList: false,
+        matching: 'lines',
+        outputFormat: 'side-by-side',
+        // renderNothingWhenEmpty option removed, using default (false)
+      });
+
+      if (!htmlOutput || !htmlOutput.trim()) {
+        // This case means diffLines found differences, but diff2html produced no visual output.
+        setError("Differences were detected, but they could not be visualized. This can happen with certain types of whitespace changes or very subtle differences not captured by the line-diff display.");
+        setDiffOutputHtml(null);
       } else {
-          const htmlOutput = diff2Html(patch, {
-            drawFileList: false,
-            matching: 'lines',
-            outputFormat: 'side-by-side',
-            renderNothingWhenEmpty: true,
-          });
-          setDiffOutputHtml(htmlOutput);
+        setDiffOutputHtml(htmlOutput);
       }
     } catch (e: any) {
       console.error("Diff generation error:", e);
