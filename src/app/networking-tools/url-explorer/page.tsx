@@ -143,7 +143,7 @@ export default function UrlExplorerPage() {
             {parsedDetails.queryParams.length > 0 && (
               <div className="space-y-2 pt-2">
                 <h3 className="text-md font-semibold">Query Parameters</h3>
-                <ScrollArea className="border rounded-md max-h-96">
+                <ScrollArea className="border rounded-md"> {/* Removed max-h-96 */}
                   <Table>
                     <TableHeader>
                       <TableRow>
