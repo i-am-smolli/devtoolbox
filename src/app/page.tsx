@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { LayoutDashboard, Binary, FileText, Code2, ArrowRight, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound, Fingerprint, BookText, Palette, TerminalSquare, CalendarClock, ClipboardList, Shuffle, Network, Clock, CaseSensitive, Link as LinkIcon, SearchCode, Construction, Minimize2, Blocks, LockKeyhole, Pilcrow } from 'lucide-react';
+import { LayoutDashboard, Binary, FileText, Code2, ArrowRight, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound, Fingerprint, BookText, Palette, TerminalSquare, CalendarClock, ClipboardList, Shuffle, Network, Clock, CaseSensitive, Link as LinkIcon, SearchCode, Construction, Minimize2, Blocks, LockKeyhole, Pilcrow, Grid, Sparkles } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Dashboard - Developer Utilities & Tools',
@@ -161,12 +161,18 @@ const tools = [
     description: 'Generate placeholder text in various styles (Lorem, DevOps, Startup).',
     href: '/text-tools/lorem-ipsum-generator',
     icon: Pilcrow,
+  },
+  {
+    title: 'Icon Browser',
+    description: 'Browse and search Lucide React icons for your projects.',
+    href: '/dev-tools/icon-browser',
+    icon: Grid,
   }
 ];
 
 export default function DashboardPage() {
   return (
-    <div> {/* Removed "container mx-auto" classes here */}
+    <div>
       <PageHeader
         title="Welcome to DevToolbox"
         description="Your one-stop collection of essential developer utilities."

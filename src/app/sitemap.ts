@@ -33,6 +33,7 @@ const pages: string[] = [
   '/dev-tools/uuid-generator',
   '/dev-tools/jwt-decoder',
   '/text-tools/lorem-ipsum-generator',
+  '/dev-tools/icon-browser',
   // Note: The /text-tools/text-diff page is a placeholder for a removed tool and is intentionally not included.
 ];
 
