@@ -12,10 +12,10 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { ShieldCheck, Eye, EyeOff, AlertTriangle, CheckCircle2, XCircle, ShieldAlert } from 'lucide-react';
 
 interface PasswordStrengthResult {
-  score: number; // 0-115+
+  score: number; // Can be negative due to penalties, but visually capped 0-115+ for levels
   level: 'Very Weak' | 'Weak' | 'Medium' | 'Strong' | 'Very Strong' | 'Ultra';
   suggestions: string[];
-  percentage: number;
+  percentage: number; // For progress bar, 0-100
   colorClass: string;
   levelIcon: React.ElementType;
 }
@@ -29,7 +29,7 @@ const calculatePasswordStrength = (password: string): PasswordStrengthResult => 
 
   // Length score
   if (len < 8) {
-    score += 0; // Handled by specific check below
+    score += 0; 
   } else if (len >= 8 && len <= 11) {
     score += 20;
   } else if (len >= 12 && len <= 15) {
@@ -37,7 +37,7 @@ const calculatePasswordStrength = (password: string): PasswordStrengthResult => 
   } else if (len >= 16 && len <= 19) {
     score += 40;
   } else if (len >= 20) {
-    score += 50; // Boost for very long passwords
+    score += 50; 
   }
 
   let typesCount = 0;
@@ -75,17 +75,76 @@ const calculatePasswordStrength = (password: string): PasswordStrengthResult => 
   else if (typesCount === 3) score += 15;
   else if (typesCount === 4) score += 25;
   
-  // Additional suggestions based on overall score and length
-  if (len > 0 && len < 12 && score >= 50 && typesCount < 4) { // Only if not already strong due to variety
-     suggestions.push("Consider making your password longer (12+ characters) for greater strength.");
-  }
+  // Pattern Penalties
+  const consecutiveCharPenalty = 10;
+  const sequentialCharPenalty = 10;
+  const repeatingSubstringPenalty = 15;
 
+  let numConsecutiveGroups = 0;
+  if (len > 0) {
+    for (let i = 0; i < len - 2; i++) {
+      if (password[i] === password[i+1] && password[i+1] === password[i+2]) {
+        numConsecutiveGroups++;
+        // Move i past the current detected group to avoid re-penalizing parts of it.
+        // e.g., for "aaaa", penalize "aaa" once, then next check starts after "aaa".
+        i += 2; 
+      }
+    }
+    if (numConsecutiveGroups > 0) {
+      score -= numConsecutiveGroups * consecutiveCharPenalty;
+      suggestions.push(`Avoid using ${numConsecutiveGroups > 1 ? 'multiple groups of ' : ''}three or more identical characters in a row (e.g., "aaa", "111").`);
+    }
+
+    let numSequentialGroups = 0;
+    const sequences = [
+      "abcdefghijklmnopqrstuvwxyz",
+      "0123456789",
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZ" 
+    ];
+    const lowerPassword = password.toLowerCase(); // Check sequences case-insensitively for simplicity
+
+    for (let i = 0; i < len - 2; i++) {
+      const sub = lowerPassword.substring(i, i + 3);
+      let foundSequence = false;
+      for (const seq of sequences) {
+        if (seq.includes(sub) || seq.split('').reverse().join('').includes(sub)) {
+          numSequentialGroups++;
+          i += 2; // Move past this 3-char sequence
+          foundSequence = true;
+          break; 
+        }
+      }
+      if (foundSequence) continue;
+    }
+    if (numSequentialGroups > 0) {
+      score -= numSequentialGroups * sequentialCharPenalty;
+      suggestions.push(`Avoid using ${numSequentialGroups > 1 ? 'multiple ' : ''}sequences of three or more characters (e.g., "abc", "123").`);
+    }
+
+    let numRepeatingSubstrings = 0;
+    // Check for repeating substrings like "abcabc" (non-overlapping)
+    for (let subLen = 2; subLen <= Math.floor(len / 2); subLen++) {
+        for (let i = 0; i <= len - (2 * subLen); i++) {
+            const sub1 = password.substring(i, i + subLen);
+            const sub2 = password.substring(i + subLen, i + (2 * subLen));
+            if (sub1 === sub2) {
+                numRepeatingSubstrings++;
+                i += (subLen * 2) - 1; // Advance past the full detected pattern
+            }
+        }
+    }
+    if (numRepeatingSubstrings > 0) {
+        score -= numRepeatingSubstrings * repeatingSubstringPenalty;
+        suggestions.push(`Avoid using ${numRepeatingSubstrings > 1 ? 'multiple ' : ''}repeating patterns (e.g., "patternpattern").`);
+    }
+  }
 
   // Determine level and color
   let level: PasswordStrengthResult['level'];
   let colorClass: string;
   let levelIcon: React.ElementType;
-  let percentage = Math.min(100, Math.max(0, score)); // Cap visual percentage at 100
+  // Percentage for progress bar is capped 0-100, actual score can be different
+  let percentage = Math.min(100, Math.max(0, score)); 
 
   if (len === 0) {
     level = 'Very Weak';
@@ -97,7 +156,7 @@ const calculatePasswordStrength = (password: string): PasswordStrengthResult => 
   } else if (len < 8) {
     level = 'Very Weak';
     colorClass = '[&>div]:bg-destructive';
-    percentage = Math.max(5, percentage);
+    percentage = Math.max(5, percentage); // Show a sliver for short passwords
     levelIcon = XCircle;
     if (!suggestions.includes("Password is too short (minimum 8 characters recommended).")) {
         suggestions.unshift("Password is too short (minimum 8 characters recommended).");
@@ -118,32 +177,49 @@ const calculatePasswordStrength = (password: string): PasswordStrengthResult => 
     level = 'Strong';
     colorClass = '[&>div]:bg-sky-500';
     levelIcon = CheckCircle2;
-  } else if (score <= 110) { // Max score for Very Strong (e.g. 16-19 chars + all types)
+  } else if (score <= 110) { 
     level = 'Very Strong';
     colorClass = '[&>div]:bg-green-500';
     levelIcon = CheckCircle2;
-  } else { // score > 110 (effectively 20+ chars and all types)
+  } else { // score > 110
     level = 'Ultra';
-    colorClass = '[&>div]:bg-purple-600'; // New color for Ultra
-    levelIcon = ShieldAlert; // New icon for Ultra
+    colorClass = '[&>div]:bg-purple-600'; 
+    levelIcon = ShieldAlert; 
+  }
+  
+  // Additional suggestions based on overall score and length AFTER penalties
+  if (level !== 'Ultra' && level !== 'Very Strong' && len > 0 && len < 12 && score >= 50 && typesCount < 4) {
+     if (!suggestions.some(s => s.includes("longer"))) {
+        suggestions.push("Consider making your password longer (12+ characters) for greater strength.");
+     }
   }
   
   // Refine suggestions based on final level
   if (level === 'Ultra') {
+    const patternSuggestions = suggestions.filter(s => s.includes("Avoid using"));
     suggestions.length = 0;
     suggestions.push("This is an exceptionally strong password!");
+    if (patternSuggestions.length > 0) {
+      suggestions.push(...patternSuggestions); // Keep pattern warnings if any
+    }
   } else if (level === 'Very Strong') {
-    const hasOnlyLengthSuggestion = suggestions.every(s => s.startsWith("Consider making it even longer"));
-    if (suggestions.filter(s => !s.startsWith("Consider making")).length === 0 && len >=12) {
+    const patternSuggestions = suggestions.filter(s => s.includes("Avoid using"));
+    const onlyLengthSuggestion = suggestions.every(s => s.startsWith("Consider making it even longer") || s.includes("Avoid using"));
+    
+    if (suggestions.filter(s => !s.startsWith("Consider making") && !s.includes("Avoid using")).length === 0 && len >=12) {
         suggestions.length = 0;
         suggestions.push("This password appears to be very strong!");
-        if (len < 20) {
-             suggestions.push("For ultra strength, make it even longer (20+ characters).");
+        if (len < 20 && !suggestions.some(s => s.includes("longer"))) {
+             suggestions.push("For ultra strength, consider making it even longer (20+ characters).");
+        }
+        if (patternSuggestions.length > 0) {
+          suggestions.push(...patternSuggestions); // Keep pattern warnings
         }
     }
   } else if (len > 0 && len < 8 && level === 'Very Weak' && !suggestions.includes("Password is too short (minimum 8 characters recommended).")) {
      suggestions.unshift("Password is too short (minimum 8 characters recommended).");
   }
+
 
   return { score, level, suggestions, percentage, colorClass, levelIcon };
 };
@@ -156,7 +232,7 @@ export default function PasswordStrengthMeterPage() {
 
   useEffect(() => {
     setIsClient(true);
-    setStrength(calculatePasswordStrength(''));
+    setStrength(calculatePasswordStrength('')); // Calculate for empty string on mount
   }, []);
 
   useEffect(() => {
@@ -217,6 +293,7 @@ export default function PasswordStrengthMeterPage() {
                     strength.level === 'Very Strong' ? 'text-green-500' :
                     strength.level === 'Ultra' ? 'text-purple-600' : 'text-muted-foreground'
                   }`}>{strength.level}</span>
+                   <span className="text-xs text-muted-foreground"> (Score: {strength.score})</span>
                 </p>
               </div>
             </div>
@@ -225,7 +302,7 @@ export default function PasswordStrengthMeterPage() {
           {isClient && strength && strength.suggestions.length > 0 && (
             <Alert 
               variant={
-                strength.level === 'Very Weak' || (strength.level === 'Weak' && password.length > 0) 
+                strength.level === 'Very Weak' || (strength.level === 'Weak' && password.length > 0 && strength.score <= 60) 
                 ? 'destructive' 
                 : 'default'
               } 
@@ -239,8 +316,8 @@ export default function PasswordStrengthMeterPage() {
               <strength.levelIcon className="h-4 w-4" />
               <AlertTitle>
                 { password.length === 0 ? "Password Check" :
-                  strength.level === 'Ultra' ? "Exceptional Strength!" :
-                  strength.level === 'Very Strong' ? "Excellent!" : 
+                  strength.level === 'Ultra' && !strength.suggestions.some(s=>s.includes("Avoid using")) ? "Exceptional Strength!" :
+                  strength.level === 'Very Strong' && !strength.suggestions.some(s=>s.includes("Avoid using")) ? "Excellent!" : 
                   "Suggestions for a stronger password"
                 }
               </AlertTitle>
