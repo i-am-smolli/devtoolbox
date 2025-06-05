@@ -1,8 +1,8 @@
 
 'use client';
 
-import type { Metadata } from 'next';
 import { useState, useEffect, useRef } from 'react';
+import type { Metadata } from 'next';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
@@ -12,10 +12,7 @@ import { SearchCode, AlertCircle } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Label } from '@/components/ui/label';
 
-export const metadata: Metadata = {
-  title: 'URL Explorer - Analyze URL Components',
-  description: 'Paste a URL to break it down into its constituent parts: protocol, hostname, port, path, query parameters, and hash fragment. Useful for debugging and understanding URLs.',
-};
+// Metadata removed from here
 
 interface ParsedUrlDetails {
   protocol: string;
@@ -134,7 +131,7 @@ export default function UrlExplorerPage() {
                 parsedDetails[key] ? (
                   <div key={key} className="space-y-1">
                     <Label className="capitalize text-muted-foreground">{key.replace(/([A-Z])/g, ' $1').trim()}:</Label>
-                    <div 
+                    <div
                       className="flex h-auto min-h-10 w-full items-center rounded-md border border-input bg-muted/50 px-3 py-2 text-base font-code break-all md:text-sm"
                       aria-label={`${key} value`}
                     >
@@ -144,7 +141,7 @@ export default function UrlExplorerPage() {
                 ) : null
               ))}
             </div>
-            
+
             {parsedDetails.queryParams.length > 0 && (
               <div className="space-y-2 pt-2">
                 <h3 className="text-md font-semibold">Query Parameters</h3>

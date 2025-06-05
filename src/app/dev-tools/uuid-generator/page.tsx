@@ -1,7 +1,7 @@
 
 'use client';
 
-import type { Metadata } from 'next';
+// Metadata is handled by layout.tsx for this client component
 import { useState, useEffect, useRef } from 'react';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
@@ -12,8 +12,6 @@ import { Textarea } from '@/components/ui/textarea';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Blocks, Copy, AlertCircle, RefreshCw } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
-
-// Metadata removed from here as it's a client component
 
 const MIN_COUNT = 1;
 const MAX_COUNT = 1000; // Sensible limit to avoid browser freeze
