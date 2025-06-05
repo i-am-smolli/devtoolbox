@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { LayoutDashboard, Binary, FileText, Code2, ArrowRight, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound, Fingerprint, BookText, Palette, TerminalSquare, CalendarClock, ClipboardList, Shuffle, Network, Clock, CaseSensitive, Link as LinkIcon, SearchCode, Construction, Minimize2 } from 'lucide-react';
+import { LayoutDashboard, Binary, FileText, Code2, ArrowRight, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound, Fingerprint, BookText, Palette, TerminalSquare, CalendarClock, ClipboardList, Shuffle, Network, Clock, CaseSensitive, Link as LinkIcon, SearchCode, Construction, Minimize2, Blocks } from 'lucide-react';
 
 const tools = [
   {
@@ -137,6 +137,12 @@ const tools = [
     description: 'Construct URLs by specifying individual components like protocol, host, path, query parameters, and hash.',
     href: '/networking-tools/url-builder',
     icon: Construction,
+  },
+  {
+    title: 'UUID Generator',
+    description: 'Generate one or more Version 4 UUIDs.',
+    href: '/dev-tools/uuid-generator',
+    icon: Blocks,
   }
 ];
 
