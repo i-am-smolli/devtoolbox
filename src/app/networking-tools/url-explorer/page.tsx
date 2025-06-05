@@ -10,7 +10,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { SearchCode, AlertCircle } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
+// Removed Input as it's no longer used for displaying parsed details here.
 
 interface ParsedUrlDetails {
   protocol: string;
@@ -22,7 +22,7 @@ interface ParsedUrlDetails {
   queryParams: { key: string; value: string }[];
 }
 
-const initialUrl = 'https://www.example.com/path/to/page?name=DevToolbox&version=1.0&features=explorer&features=parser#section-details';
+const initialUrl = 'https://www.example.com/path/to/very/very/long/page/name/that/might/overflow/or/cause/issues/with/layout?name=DevToolbox&version=1.0&features=explorer&features=parser&another_long_query_parameter_key=with_an_equally_long_and_descriptive_value_to_test_wrapping_behavior#section-details-that-could-also-be-quite-long-and-test-the-limits-of-the-display-area';
 
 export default function UrlExplorerPage() {
   const [urlInput, setUrlInput] = useState(initialUrl);
@@ -128,8 +128,13 @@ export default function UrlExplorerPage() {
                 .map(key => (
                 parsedDetails[key] ? (
                   <div key={key} className="space-y-1">
-                    <Label className="capitalize text-muted-foreground">{key.replace(/([A-Z])/g, ' $1')}:</Label>
-                    <Input readOnly value={parsedDetails[key] as string} className="font-code bg-muted/50" />
+                    <Label className="capitalize text-muted-foreground">{key.replace(/([A-Z])/g, ' $1').trim()}:</Label>
+                    <div 
+                      className="flex h-auto min-h-10 w-full items-center rounded-md border border-input bg-muted/50 px-3 py-2 text-base font-code break-all md:text-sm"
+                      aria-label={`${key} value`}
+                    >
+                      {parsedDetails[key] as string}
+                    </div>
                   </div>
                 ) : null
               ))}
@@ -158,7 +163,7 @@ export default function UrlExplorerPage() {
                 </ScrollArea>
               </div>
             )}
-             {parsedDetails.queryParams.length === 0 && (
+             {parsedDetails.queryParams.length === 0 && parsedDetails.search === '' && (
                 <p className="text-muted-foreground text-sm pt-2">No query parameters found.</p>
              )}
           </CardContent>
