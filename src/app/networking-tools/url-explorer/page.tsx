@@ -12,7 +12,7 @@ import { SearchCode, AlertCircle } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Label } from '@/components/ui/label';
 
-// Metadata removed from here
+// Metadata is handled by layout.tsx
 
 interface ParsedUrlDetails {
   protocol: string;
