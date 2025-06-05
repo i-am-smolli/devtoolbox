@@ -37,10 +37,14 @@ export default function IconBrowserPage() {
 
   const handleIconClick = (icon: { name: string; component: LucideIcon }) => {
     setSelectedIcon(icon);
-    setTimeout(() => {
-      selectedIconPanelRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }, 50);
+    // Scroll behavior is now handled by useEffect
   };
+
+  useEffect(() => {
+    if (selectedIcon && selectedIconPanelRef.current) {
+      selectedIconPanelRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  }, [selectedIcon]); // Trigger effect when selectedIcon changes
 
   const handleCopyToClipboard = async (text: string, type: string) => {
     if (!text) return;
@@ -77,7 +81,7 @@ export default function IconBrowserPage() {
   const searchPlaceholder = useMemo(() => {
     if (!isClient) return "Loading icons...";
     return `Search ${allLucideIcons.length} icons...`;
-  }, [isClient]);
+  }, [isClient, allLucideIcons.length]);
 
 
   return (
