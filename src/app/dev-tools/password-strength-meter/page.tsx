@@ -9,11 +9,11 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Progress } from '@/components/ui/progress';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { ShieldCheck, Eye, EyeOff, AlertTriangle, CheckCircle2, XCircle } from 'lucide-react';
+import { ShieldCheck, Eye, EyeOff, AlertTriangle, CheckCircle2, XCircle, ShieldAlert } from 'lucide-react';
 
 interface PasswordStrengthResult {
-  score: number; // 0-100+
-  level: 'Very Weak' | 'Weak' | 'Medium' | 'Strong' | 'Very Strong';
+  score: number; // 0-115+
+  level: 'Very Weak' | 'Weak' | 'Medium' | 'Strong' | 'Very Strong' | 'Ultra';
   suggestions: string[];
   percentage: number;
   colorClass: string;
@@ -29,14 +29,15 @@ const calculatePasswordStrength = (password: string): PasswordStrengthResult => 
 
   // Length score
   if (len < 8) {
-    score += 0;
-    suggestions.push("Password is too short (minimum 8 characters recommended).");
+    score += 0; // Handled by specific check below
   } else if (len >= 8 && len <= 11) {
     score += 20;
   } else if (len >= 12 && len <= 15) {
     score += 30;
-  } else if (len >= 16) {
+  } else if (len >= 16 && len <= 19) {
     score += 40;
+  } else if (len >= 20) {
+    score += 50; // Boost for very long passwords
   }
 
   let typesCount = 0;
@@ -74,9 +75,9 @@ const calculatePasswordStrength = (password: string): PasswordStrengthResult => 
   else if (typesCount === 3) score += 15;
   else if (typesCount === 4) score += 25;
   
-  // Additional suggestions
-  if (len > 0 && len < 12 && score >= 50) {
-     suggestions.push("Consider making your password longer (12+ characters) for even greater strength.");
+  // Additional suggestions based on overall score and length
+  if (len > 0 && len < 12 && score >= 50 && typesCount < 4) { // Only if not already strong due to variety
+     suggestions.push("Consider making your password longer (12+ characters) for greater strength.");
   }
 
 
@@ -84,51 +85,65 @@ const calculatePasswordStrength = (password: string): PasswordStrengthResult => 
   let level: PasswordStrengthResult['level'];
   let colorClass: string;
   let levelIcon: React.ElementType;
-  let percentage = Math.min(100, Math.max(0, score)); // Cap percentage at 100
+  let percentage = Math.min(100, Math.max(0, score)); // Cap visual percentage at 100
 
   if (len === 0) {
-    level = 'Very Weak'; // Or some initial state like 'Enter a password'
+    level = 'Very Weak';
     colorClass = '[&>div]:bg-muted';
     percentage = 0;
     levelIcon = AlertTriangle;
-    suggestions.length = 0; // Clear suggestions for empty input
+    suggestions.length = 0;
     suggestions.push("Start typing a password to see its strength.");
   } else if (len < 8) {
     level = 'Very Weak';
     colorClass = '[&>div]:bg-destructive';
-    percentage = Math.max(5, percentage); // Show a little progress even if very weak but not empty
+    percentage = Math.max(5, percentage);
     levelIcon = XCircle;
-  } else if (score <= 35) {
+    if (!suggestions.includes("Password is too short (minimum 8 characters recommended).")) {
+        suggestions.unshift("Password is too short (minimum 8 characters recommended).");
+    }
+  } else if (score <= 40) {
     level = 'Very Weak';
     colorClass = '[&>div]:bg-destructive';
     levelIcon = XCircle;
-  } else if (score <= 55) {
+  } else if (score <= 60) {
     level = 'Weak';
     colorClass = '[&>div]:bg-orange-500';
     levelIcon = AlertTriangle;
-  } else if (score <= 75) {
+  } else if (score <= 80) {
     level = 'Medium';
     colorClass = '[&>div]:bg-yellow-500';
     levelIcon = AlertTriangle;
-  } else if (score <= 90) {
+  } else if (score <= 100) {
     level = 'Strong';
     colorClass = '[&>div]:bg-sky-500';
     levelIcon = CheckCircle2;
-  } else {
+  } else if (score <= 110) { // Max score for Very Strong (e.g. 16-19 chars + all types)
     level = 'Very Strong';
     colorClass = '[&>div]:bg-green-500';
     levelIcon = CheckCircle2;
-    if (suggestions.filter(s => !s.startsWith("Consider making")).length === 0 && len >= 12) {
-        suggestions.length = 0; // Clear improvement suggestions if very strong
-        suggestions.push("This password appears to be very strong!");
-    }
+  } else { // score > 110 (effectively 20+ chars and all types)
+    level = 'Ultra';
+    colorClass = '[&>div]:bg-purple-600'; // New color for Ultra
+    levelIcon = ShieldAlert; // New icon for Ultra
   }
   
-  // If password is very short but contains variety, it might still be weak
-  if (len > 0 && len < 8 && !suggestions.includes("Password is too short (minimum 8 characters recommended).")) {
+  // Refine suggestions based on final level
+  if (level === 'Ultra') {
+    suggestions.length = 0;
+    suggestions.push("This is an exceptionally strong password!");
+  } else if (level === 'Very Strong') {
+    const hasOnlyLengthSuggestion = suggestions.every(s => s.startsWith("Consider making it even longer"));
+    if (suggestions.filter(s => !s.startsWith("Consider making")).length === 0 && len >=12) {
+        suggestions.length = 0;
+        suggestions.push("This password appears to be very strong!");
+        if (len < 20) {
+             suggestions.push("For ultra strength, make it even longer (20+ characters).");
+        }
+    }
+  } else if (len > 0 && len < 8 && level === 'Very Weak' && !suggestions.includes("Password is too short (minimum 8 characters recommended).")) {
      suggestions.unshift("Password is too short (minimum 8 characters recommended).");
   }
-
 
   return { score, level, suggestions, percentage, colorClass, levelIcon };
 };
@@ -141,12 +156,11 @@ export default function PasswordStrengthMeterPage() {
 
   useEffect(() => {
     setIsClient(true);
-    // Calculate initial strength for empty password on mount
     setStrength(calculatePasswordStrength(''));
   }, []);
 
   useEffect(() => {
-    if (isClient) { // Only run calculations on client
+    if (isClient) {
         setStrength(calculatePasswordStrength(password));
     }
   }, [password, isClient]);
@@ -191,7 +205,8 @@ export default function PasswordStrengthMeterPage() {
                     strength.level === 'Weak' ? 'text-orange-500' :
                     strength.level === 'Medium' ? 'text-yellow-500' :
                     strength.level === 'Strong' ? 'text-sky-500' :
-                    strength.level === 'Very Strong' ? 'text-green-500' : 'text-muted-foreground'
+                    strength.level === 'Very Strong' ? 'text-green-500' :
+                    strength.level === 'Ultra' ? 'text-purple-600' : 'text-muted-foreground'
                 }`} />
                 <p className="text-sm font-medium">
                   Strength: <span className={`font-semibold ${
@@ -199,7 +214,8 @@ export default function PasswordStrengthMeterPage() {
                     strength.level === 'Weak' ? 'text-orange-500' :
                     strength.level === 'Medium' ? 'text-yellow-500' :
                     strength.level === 'Strong' ? 'text-sky-500' :
-                    strength.level === 'Very Strong' ? 'text-green-500' : 'text-muted-foreground'
+                    strength.level === 'Very Strong' ? 'text-green-500' :
+                    strength.level === 'Ultra' ? 'text-purple-600' : 'text-muted-foreground'
                   }`}>{strength.level}</span>
                 </p>
               </div>
@@ -207,7 +223,14 @@ export default function PasswordStrengthMeterPage() {
           )}
 
           {isClient && strength && strength.suggestions.length > 0 && (
-            <Alert variant={strength.level === 'Very Weak' || (strength.level === 'Weak' && password.length > 0) ? 'destructive' : 'default'} className={
+            <Alert 
+              variant={
+                strength.level === 'Very Weak' || (strength.level === 'Weak' && password.length > 0) 
+                ? 'destructive' 
+                : 'default'
+              } 
+              className={
+                strength.level === 'Ultra' && password.length > 0 ? 'border-purple-500' :
                 strength.level === 'Very Strong' && password.length > 0 ? 'border-green-500' :
                 strength.level === 'Strong' && password.length > 0 ? 'border-sky-500' :
                 strength.level === 'Medium' && password.length > 0 ? 'border-yellow-500' :
@@ -216,7 +239,9 @@ export default function PasswordStrengthMeterPage() {
               <strength.levelIcon className="h-4 w-4" />
               <AlertTitle>
                 { password.length === 0 ? "Password Check" :
-                  strength.level === 'Very Strong' ? "Excellent!" : "Suggestions for a stronger password"
+                  strength.level === 'Ultra' ? "Exceptional Strength!" :
+                  strength.level === 'Very Strong' ? "Excellent!" : 
+                  "Suggestions for a stronger password"
                 }
               </AlertTitle>
               <AlertDescription>
