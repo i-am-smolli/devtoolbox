@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { LayoutDashboard, Binary, FileText, Code2, ArrowRight, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound, Fingerprint, BookText, Palette, TerminalSquare, CalendarClock, ClipboardList, Shuffle, Network, Clock, CaseSensitive, Link as LinkIcon, SearchCode, Construction, Minimize2, Blocks, LockKeyhole, Pilcrow, Grid, Sparkles } from 'lucide-react';
+import { LayoutDashboard, Binary, FileText, Code2, ArrowRight, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound, Fingerprint, BookText, Palette, TerminalSquare, CalendarClock, ClipboardList, Shuffle, Network, Clock, CaseSensitive, Link as LinkIcon, SearchCode, Construction, Minimize2, Blocks, LockKeyhole, Pilcrow, Grid, Sparkles, ShieldCheck } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Dashboard - Developer Utilities & Tools',
@@ -65,6 +65,12 @@ const tools = [
     description: 'Create strong, random passwords with customizable options.',
     href: '/dev-tools/secure-password-generator',
     icon: KeyRound,
+  },
+  {
+    title: 'Password Strength Meter',
+    description: 'Analyze the strength of passwords and get improvement suggestions.',
+    href: '/dev-tools/password-strength-meter',
+    icon: ShieldCheck,
   },
   {
     title: 'Hash Generator',

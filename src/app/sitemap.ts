@@ -17,6 +17,7 @@ const pages: string[] = [
   '/devops-tools/dockerfile-linter',
   '/devops-tools/env-file-parser',
   '/dev-tools/secure-password-generator',
+  '/dev-tools/password-strength-meter',
   '/dev-tools/hash-generator',
   '/dev-tools/color-converter',
   '/dev-tools/curl-generator',
