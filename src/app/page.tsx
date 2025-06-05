@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { LayoutDashboard, Binary, FileText, Code2, ArrowRight, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound, Fingerprint, BookText, Palette, TerminalSquare, CalendarClock, ClipboardList, Shuffle, Network, Clock } from 'lucide-react';
+import { LayoutDashboard, Binary, FileText, Code2, ArrowRight, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound, Fingerprint, BookText, Palette, TerminalSquare, CalendarClock, ClipboardList, Shuffle, Network, Clock, CaseSensitive } from 'lucide-react';
 
 const tools = [
   {
@@ -107,6 +107,12 @@ const tools = [
     description: 'Convert between various date/time formats like Unix, ISO 8601, etc.',
     href: '/dev-tools/time-converter',
     icon: Clock,
+  },
+  {
+    title: 'Text Case Converter',
+    description: 'Convert text between different casing styles (camel, snake, etc.).',
+    href: '/text-tools/case-converter',
+    icon: CaseSensitive,
   }
 ];
 
@@ -119,7 +125,7 @@ export default function DashboardPage() {
         icon={LayoutDashboard}
       />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {tools.map((tool) => (
+        {tools.sort((a, b) => a.title.localeCompare(b.title)).map((tool) => (
           <Card key={tool.href} className="flex flex-col">
             <CardHeader>
               <div className="flex items-center gap-3 mb-2">
