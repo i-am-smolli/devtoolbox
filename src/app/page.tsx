@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { LayoutDashboard, Binary, FileText, Code2, ArrowRight, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound, Fingerprint, BookText, Palette, TerminalSquare, CalendarClock, ClipboardList, Shuffle, Network, Clock, CaseSensitive, Link as LinkIcon, SearchCode, Construction, Minimize2, Blocks, LockKeyhole } from 'lucide-react';
+import { LayoutDashboard, Binary, FileText, Code2, ArrowRight, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound, Fingerprint, BookText, Palette, TerminalSquare, CalendarClock, ClipboardList, Shuffle, Network, Clock, CaseSensitive, Link as LinkIcon, SearchCode, Construction, Minimize2, Blocks, LockKeyhole, Pilcrow } from 'lucide-react';
 
 const tools = [
   {
@@ -149,6 +149,12 @@ const tools = [
     description: 'Decode JSON Web Tokens to view their header and payload.',
     href: '/dev-tools/jwt-decoder',
     icon: LockKeyhole,
+  },
+  {
+    title: 'Lorem Ipsum Generator',
+    description: 'Generate placeholder text in various styles (Lorem, DevOps, Startup).',
+    href: '/text-tools/lorem-ipsum-generator',
+    icon: Pilcrow,
   }
 ];
 

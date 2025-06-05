@@ -4,7 +4,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { SidebarMenu, SidebarMenuItem, SidebarMenuButton } from '@/components/ui/sidebar';
-import { LayoutDashboard, Binary, FileText, Code2, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound, Fingerprint, BookText, Palette, TerminalSquare, CalendarClock, ClipboardList, Shuffle, Network, Clock, CaseSensitive, Link as LinkIcon, SearchCode, Construction, Minimize2, Blocks, LockKeyhole } from 'lucide-react';
+import { LayoutDashboard, Binary, FileText, Code2, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound, Fingerprint, BookText, Palette, TerminalSquare, CalendarClock, ClipboardList, Shuffle, Network, Clock, CaseSensitive, Link as LinkIcon, SearchCode, Construction, Minimize2, Blocks, LockKeyhole, Pilcrow } from 'lucide-react';
 
 const navItems = [
   { href: '/', label: 'Dashboard', icon: LayoutDashboard },
@@ -32,6 +32,7 @@ const navItems = [
   { href: '/networking-tools/url-builder', label: 'URL Builder', icon: Construction },
   { href: '/text-tools/case-converter', label: 'Text Case Converter', icon: CaseSensitive },
   { href: '/text-tools/to-one-liner', label: 'To One Liner', icon: Minimize2 },
+  { href: '/text-tools/lorem-ipsum-generator', label: 'Lorem Ipsum Generator', icon: Pilcrow },
 ];
 
 export function MainNav() {
