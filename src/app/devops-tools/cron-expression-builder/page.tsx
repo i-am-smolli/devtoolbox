@@ -1,7 +1,6 @@
 
 'use client';
 
-import type { Metadata } from 'next';
 import { useState, useEffect, useCallback } from 'react';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
@@ -12,11 +11,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { CalendarClock, Copy } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
-
-export const metadata: Metadata = {
-  title: 'Cron Expression Builder - Visual Cron Tool',
-  description: 'Visually construct and generate cron expressions for scheduling tasks. Easy-to-use interface for minutes, hours, days, months, and day of the week.',
-};
 
 type CronPartMode = 'every' | 'specific' | 'range' | 'step';
 
@@ -225,3 +219,5 @@ export default function CronExpressionBuilderPage() {
     </div>
   );
 }
+
+    
