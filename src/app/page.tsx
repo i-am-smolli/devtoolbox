@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { LayoutDashboard, Binary, FileText, Code2, ArrowRight, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound, Fingerprint, BookText, Palette, TerminalSquare, CalendarClock, ClipboardList, Shuffle, Network, Clock, CaseSensitive, Link as LinkIcon, SearchCode } from 'lucide-react';
+import { LayoutDashboard, Binary, FileText, Code2, ArrowRight, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound, Fingerprint, BookText, Palette, TerminalSquare, CalendarClock, ClipboardList, Shuffle, Network, Clock, CaseSensitive, Link as LinkIcon, SearchCode, Construction } from 'lucide-react';
 
 const tools = [
   {
@@ -125,6 +125,12 @@ const tools = [
     description: 'Break down URLs into components: protocol, host, path, and query parameters.',
     href: '/networking-tools/url-explorer',
     icon: SearchCode,
+  },
+  {
+    title: 'URL Builder',
+    description: 'Construct URLs by specifying individual components like protocol, host, path, query parameters, and hash.',
+    href: '/networking-tools/url-builder',
+    icon: Construction,
   }
 ];
 
