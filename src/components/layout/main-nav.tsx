@@ -4,7 +4,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { SidebarMenu, SidebarMenuItem, SidebarMenuButton } from '@/components/ui/sidebar';
-import { LayoutDashboard, Binary, FileText, Code2, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound, Fingerprint, BookText, Palette, TerminalSquare, CalendarClock, ClipboardList, Shuffle, Network, Clock, CaseSensitive, Link as LinkIcon, SearchCode, Construction, Minimize2, Blocks } from 'lucide-react';
+import { LayoutDashboard, Binary, FileText, Code2, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound, Fingerprint, BookText, Palette, TerminalSquare, CalendarClock, ClipboardList, Shuffle, Network, Clock, CaseSensitive, Link as LinkIcon, SearchCode, Construction, Minimize2, Blocks, LockKeyhole } from 'lucide-react';
 
 const navItems = [
   { href: '/', label: 'Dashboard', icon: LayoutDashboard },
@@ -13,6 +13,7 @@ const navItems = [
   { href: '/dev-tools/curl-generator', label: 'cURL Generator', icon: TerminalSquare },
   { href: '/dev-tools/hash-generator', label: 'Hash Generator', icon: Fingerprint },
   { href: '/dev-tools/hex-to-binary', label: 'Hex to Binary', icon: Binary },
+  { href: '/dev-tools/jwt-decoder', label: 'JWT Decoder', icon: LockKeyhole },
   { href: '/dev-tools/secure-password-generator', label: 'Password Generator', icon: KeyRound },
   { href: '/dev-tools/time-converter', label: 'Time Converter', icon: Clock },
   { href: '/dev-tools/url-encoder-decoder', label: 'URL Encoder/Decoder', icon: LinkIcon },
