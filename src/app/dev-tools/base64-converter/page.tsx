@@ -1,8 +1,8 @@
 
 'use client';
 
-import type { Metadata } from 'next';
 import { useState, useEffect, useRef } from 'react';
+// Removed: import type { Metadata } from 'next'; 
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
@@ -11,10 +11,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Shuffle, Copy, AlertCircle } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 
-export const metadata: Metadata = {
-  title: 'Base64 Encoder/Decoder - Online Dev Tool',
-  description: 'Easily encode text to Base64 or decode Base64 strings back to text. Handles UTF-8 characters. Free online developer tool.',
-};
+// Metadata will be handled by layout.tsx
 
 export default function Base64ConverterPage() {
   const [plainText, setPlainText] = useState('');
@@ -132,10 +129,10 @@ export default function Base64ConverterPage() {
           </CardContent>
           <CardFooter className="p-4 flex flex-col sm:flex-row gap-2 items-stretch">
             <Button onClick={handleEncode} className="w-full sm:flex-grow">Encode to Base64</Button>
-            <Button 
-              variant="outline" 
-              size="icon" 
-              onClick={() => handleCopyToClipboard(plainText, 'Plain Text')} 
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => handleCopyToClipboard(plainText, 'Plain Text')}
               aria-label="Copy plain text"
               disabled={!plainText}
               className="sm:w-auto"
@@ -163,10 +160,10 @@ export default function Base64ConverterPage() {
           </CardContent>
           <CardFooter className="p-4 flex flex-col sm:flex-row gap-2 items-stretch">
             <Button onClick={handleDecode} className="w-full sm:flex-grow">Decode from Base64</Button>
-            <Button 
-              variant="outline" 
-              size="icon" 
-              onClick={() => handleCopyToClipboard(base64Text, 'Base64')} 
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => handleCopyToClipboard(base64Text, 'Base64')}
               aria-label="Copy Base64 text"
               disabled={!base64Text}
               className="sm:w-auto"
