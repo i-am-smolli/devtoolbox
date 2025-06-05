@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Import diff2html styles */
+@import 'diff2html/bundles/css/diff2html.min.css';
+
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -83,3 +86,27 @@ body {
 .markdown-preview-content a { @apply text-primary hover:underline; }
 .markdown-preview-content img { @apply max-w-full h-auto rounded-md my-4; }
 .markdown-preview-content hr { @apply my-6 border-border; }
+
+/* diff2html specific overrides if needed */
+.d2h-file-header { @apply bg-card text-card-foreground p-2 rounded-t-md border-b; }
+.d2h-file-wrapper { @apply border rounded-md mb-4; }
+.d2h-diff-table { @apply w-full; }
+.d2h-code-line { @apply font-code text-xs; }
+.d2h-code-side-linenumber { @apply px-2 text-muted-foreground; }
+.d2h-code-line-ctn { @apply whitespace-pre-wrap break-words; }
+
+.d2h-ins { @apply bg-green-500/20; }
+.d2h-del { @apply bg-red-500/20; }
+.d2h-info { @apply bg-blue-500/10 text-muted-foreground; }
+/* Adjust colors for dark theme specifically */
+.dark .d2h-ins { @apply bg-green-700/30; }
+.dark .d2h-del { @apply bg-red-800/30; }
+.dark .d2h-info { @apply bg-blue-800/20; }
+
+/* Ensure line numbers and content align well */
+.d2h-code-side-linenumber, .d2h-code-line-prefix {
+  @apply align-top;
+}
+.d2h-code-line-ctn {
+  @apply pl-2;
+}
