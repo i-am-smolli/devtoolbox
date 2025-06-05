@@ -129,7 +129,7 @@ export default function IconBrowserPage() {
           </CardContent>
         </Card>
 
-        <Card className="md:col-span-1 flex flex-col min-h-0">
+        <Card className="md:col-span-1 flex flex-col min-h-0 sticky top-6 self-start">
           <CardHeader className="p-4">
             <CardTitle className="font-headline text-lg">Selected Icon</CardTitle>
           </CardHeader>
