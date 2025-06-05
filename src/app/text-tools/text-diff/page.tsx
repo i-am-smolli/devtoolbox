@@ -10,7 +10,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { GitCompareArrows, AlertCircle, CheckCircle, RefreshCw } from 'lucide-react';
 import * as Diff from 'diff';
 import { html as diff2Html } from 'diff2html';
-import 'diff2html/bundles/css/diff2html.min.css'; // Ensure this is handled correctly by your bundler or globals.css
+import 'diff2html/bundles/css/diff2html.min.css';
 
 export default function TextDiffPage() {
   const [textA, setTextA] = useState('');
@@ -37,52 +37,53 @@ export default function TextDiffPage() {
     setIsLoading(true);
     setError(null);
     setDiffOutputHtml(null);
-    setIsIdentical(false);
+    setIsIdentical(false); // Default to not identical if we proceed further
 
-    if (!textA.trim() && !textB.trim()) {
-        setError("Please enter text in at least one of the fields to compare.");
-        setIsLoading(false);
-        return;
-    }
-    
+    // Scenario 1: Texts are exactly identical
     if (textA === textB) {
       setIsIdentical(true);
       setIsLoading(false);
       return;
     }
 
-    // Determine if there are actual line differences using diffLines
-    const lineChanges = Diff.diffLines(textA, textB, { newlineIsToken: true }); // Explicitly treat newlines as tokens
-    const hasActualLineDifferences = lineChanges.some(part => part.added || part.removed);
-
-    if (!hasActualLineDifferences) {
-      // If diffLines finds no added/removed lines, treat as identical for display
-      setIsIdentical(true);
-      setIsLoading(false);
-      return;
-    }
-
-    // If we reach here, diffLines found differences, so proceed to generate and show the patch
+    // At this point, we know textA !== textB. So, isIdentical remains false.
+    // Proceed to generate a patch and visualize it.
     try {
       const patch = Diff.createPatch('text-a.txt', 'text-b.txt', textA, textB, '', '', { context: 3 });
       
-      const htmlOutput = diff2Html(patch, {
-        drawFileList: false,
-        matching: 'lines',
-        outputFormat: 'side-by-side',
-        // renderNothingWhenEmpty option removed, using default (false)
-      });
-
-      if (!htmlOutput || !htmlOutput.trim()) {
-        // This case means diffLines found differences, but diff2html produced no visual output.
-        setError("Differences were detected, but they could not be visualized. This can happen with certain types of whitespace changes or very subtle differences not captured by the line-diff display.");
-        setDiffOutputHtml(null);
+      // A patch always has headers. We need to check if it has actual change hunks.
+      // Hunks start with "@@ [...] @@".
+      if (!patch.includes('@@')) {
+        // No actual line changes according to createPatch/diffLines.
+        // Since textA !== textB was true, the differences are subtle (e.g. trailing whitespace, different line endings).
+        setError("Texts have subtle differences (e.g., changes in whitespace that don't alter line structure, or different line endings) that are not represented as line changes in this visual diff. The texts are not strictly identical.");
+        // isIdentical is already false. No visual diff from diff2html here.
+        setDiffOutputHtml(null); 
       } else {
-        setDiffOutputHtml(htmlOutput);
+        // Patch has hunks, so try to render them.
+        const htmlOutput = diff2Html(patch, {
+          drawFileList: false,
+          matching: 'lines', 
+          outputFormat: 'side-by-side',
+        });
+
+        // Ensure diff2html produced a table, meaning it rendered hunks.
+        if (htmlOutput && htmlOutput.includes('<table') && htmlOutput.includes('d2h-diff-table')) {
+          setDiffOutputHtml(htmlOutput);
+          // isIdentical remains false as we are showing differences.
+        } else {
+          // Patch had hunks, but diff2html didn't produce a usable table.
+          // This case should be rare if patch.includes('@@') was true.
+          setError("Differences were detected, but the visual diff could not be generated successfully. Please check the text content for unusual characters or structures.");
+          setDiffOutputHtml(null);
+          // isIdentical remains false.
+        }
       }
     } catch (e: any) {
       console.error("Diff generation error:", e);
       setError(`Error generating diff: ${e.message || 'Unknown error'}`);
+      setDiffOutputHtml(null);
+      // isIdentical remains false.
     }
     setIsLoading(false);
   };
@@ -141,7 +142,7 @@ export default function TextDiffPage() {
       {error && (
         <Alert variant="destructive">
           <AlertCircle className="h-4 w-4" />
-          <AlertTitle>Error</AlertTitle>
+          <AlertTitle>Comparison Result</AlertTitle>
           <AlertDescription>{error}</AlertDescription>
         </Alert>
       )}
