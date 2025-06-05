@@ -20,6 +20,7 @@ export default function IconBrowserPage() {
   const [selectedIcon, setSelectedIcon] = useState<{ name: string; component: LucideIcon } | null>(null);
   const { toast } = useToast();
   const [isClient, setIsClient] = useState(false);
+  const selectedIconPanelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setIsClient(true);
@@ -36,6 +37,9 @@ export default function IconBrowserPage() {
 
   const handleIconClick = (icon: { name: string; component: LucideIcon }) => {
     setSelectedIcon(icon);
+    setTimeout(() => {
+      selectedIconPanelRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 50);
   };
 
   const handleCopyToClipboard = async (text: string, type: string) => {
@@ -71,7 +75,7 @@ export default function IconBrowserPage() {
   };
   
   const searchPlaceholder = useMemo(() => {
-    if (!isClient) return "Loading icons..."; // Placeholder during server render / initial client mount
+    if (!isClient) return "Loading icons...";
     return `Search ${allLucideIcons.length} icons...`;
   }, [isClient]);
 
@@ -129,7 +133,7 @@ export default function IconBrowserPage() {
           </CardContent>
         </Card>
 
-        <Card className="md:col-span-1 flex flex-col min-h-0 sticky top-6 self-start">
+        <Card ref={selectedIconPanelRef} className="md:col-span-1 flex flex-col min-h-0 sticky top-6 self-start">
           <CardHeader className="p-4">
             <CardTitle className="font-headline text-lg">Selected Icon</CardTitle>
           </CardHeader>
