@@ -1,9 +1,9 @@
+/* Import diff2html styles */
+@import 'diff2html/bundles/css/diff2html.min.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* Import diff2html styles */
-@import 'diff2html/bundles/css/diff2html.min.css';
 
 body {
   font-family: Arial, Helvetica, sans-serif;
