@@ -2,7 +2,7 @@
 'use client';
 
 import { useState, useEffect, useMemo, useRef } from 'react';
-import { icons as lucideIconCollection, Search, Copy, Sparkles, Grid, MousePointerSquare } from 'lucide-react';
+import { icons as lucideIconCollection, Search, Copy, Sparkles, Grid, MousePointerSquareDashed } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -164,7 +164,7 @@ export default function IconBrowserPage() {
               <div className="text-muted-foreground">
                 {isClient ? (
                     <>
-                        <MousePointerSquare size={40} className="mb-2 mx-auto opacity-50" />
+                        <MousePointerSquareDashed size={40} className="mb-2 mx-auto opacity-50" />
                         <p className="text-sm">Select an icon to see details.</p>
                     </>
                 ) : (
