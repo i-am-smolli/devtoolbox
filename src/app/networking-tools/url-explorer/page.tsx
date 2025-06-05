@@ -2,7 +2,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import type { Metadata } from 'next';
+// Removed: import type { Metadata } from 'next';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
@@ -12,7 +12,7 @@ import { SearchCode, AlertCircle } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Label } from '@/components/ui/label';
 
-// Metadata is handled by layout.tsx
+// Metadata is now handled by layout.tsx
 
 interface ParsedUrlDetails {
   protocol: string;

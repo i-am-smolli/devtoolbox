@@ -1,7 +1,7 @@
 
 'use client';
 
-import type { Metadata } from 'next';
+// Removed: import type { Metadata } from 'next';
 import { useState, useEffect, useRef } from 'react';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -14,10 +14,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Fingerprint, Copy, AlertCircle, RefreshCw } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 
-export const metadata: Metadata = {
-  title: 'Hash Generator - SHA-1, SHA-256, SHA-384, SHA-512',
-  description: 'Generate cryptographic hashes (SHA-1, SHA-256, SHA-384, SHA-512) from your input text. Secure and client-side.',
-};
+// Metadata is now handled by layout.tsx
 
 const ALGORITHMS = [
   { value: 'sha-1', label: 'SHA-1' },

@@ -1,7 +1,7 @@
 
 'use client';
 
-import type { Metadata } from 'next';
+// Removed: import type { Metadata } from 'next';
 import { useState, useEffect, useRef } from 'react';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
@@ -12,10 +12,7 @@ import { ArrowRightLeft, AlertCircle, Copy } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 import yaml from 'js-yaml';
 
-export const metadata: Metadata = {
-  title: 'YAML/JSON Converter - Online Tool',
-  description: 'Convert data seamlessly between YAML and JSON formats. Easy to use for configuration files, data exchange, and more.',
-};
+// Metadata is now handled by layout.tsx
 
 export default function YamlJsonConverterPage() {
   const [yamlInput, setYamlInput] = useState('');

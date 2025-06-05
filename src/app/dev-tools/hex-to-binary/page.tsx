@@ -1,7 +1,7 @@
 
 'use client';
 
-import type { Metadata } from 'next';
+// Removed: import type { Metadata } from 'next';
 import { useState } from 'react';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -11,10 +11,7 @@ import { Label } from '@/components/ui/label';
 import { Binary, AlertCircle } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
-export const metadata: Metadata = {
-  title: 'Hex to Binary Converter - Online Dev Tool',
-  description: 'Quickly and easily convert hexadecimal (hex) values to their binary representation with this free online developer tool from DevToolbox.',
-};
+// Metadata is now handled by layout.tsx
 
 export default function HexToBinaryPage() {
   const [hexInput, setHexInput] = useState('');

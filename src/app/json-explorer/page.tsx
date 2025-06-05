@@ -1,7 +1,7 @@
 
 'use client';
 
-import type { Metadata } from 'next';
+// Removed: import type { Metadata } from 'next';
 import { useState, useEffect, useRef } from 'react';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -11,10 +11,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import JsonExplorerNode from '@/components/json-explorer-node';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
-export const metadata: Metadata = {
-  title: 'JSON Explorer - Navigate & View JSON Tree',
-  description: 'Interactively navigate and explore complex JSON data structures in a collapsible tree view. Easy to use online tool for developers.',
-};
+// Metadata is now handled by layout.tsx
 
 const initialJson = `{
   "id": "0001",

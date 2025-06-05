@@ -1,7 +1,7 @@
 
 'use client';
 
-import type { Metadata } from 'next';
+// Removed: import type { Metadata } from 'next';
 import { useState } from 'react';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -11,10 +11,7 @@ import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { ClipboardList, AlertCircle } from 'lucide-react';
 
-export const metadata: Metadata = {
-  title: 'Cron Expression Parser - Human-Readable Cron',
-  description: 'Enter a cron expression to parse it and see a human-readable interpretation of the schedule. Helps in understanding complex cron jobs.',
-};
+// Metadata is now handled by layout.tsx
 
 interface ParsedCronPart {
   label: string;

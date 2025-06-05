@@ -11,7 +11,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Shuffle, Copy, AlertCircle } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 
-// Metadata will be handled by layout.tsx
+// Metadata is now handled by layout.tsx
 
 export default function Base64ConverterPage() {
   const [plainText, setPlainText] = useState('');

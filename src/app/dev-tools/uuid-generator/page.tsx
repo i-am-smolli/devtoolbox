@@ -13,6 +13,8 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Blocks, Copy, AlertCircle, RefreshCw } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 
+// Metadata is now handled by layout.tsx
+
 const MIN_COUNT = 1;
 const MAX_COUNT = 1000; // Sensible limit to avoid browser freeze
 

@@ -1,7 +1,7 @@
 
 'use client';
 
-import type { Metadata } from 'next';
+// Removed: import type { Metadata } from 'next';
 import { useState, useEffect, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -11,10 +11,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { FileText } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
-export const metadata: Metadata = {
-  title: 'Markdown Previewer - Real-time Online Tool',
-  description: 'Write Markdown text and see the rendered HTML in real-time. Supports GitHub Flavored Markdown (GFM). Perfect for content creators and developers.',
-};
+// Metadata is now handled by layout.tsx
 
 const initialMarkdown = `# Markdown Previewer
 

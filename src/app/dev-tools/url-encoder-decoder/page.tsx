@@ -1,7 +1,7 @@
 
 'use client';
 
-import type { Metadata } from 'next';
+// Removed: import type { Metadata } from 'next';
 import { useState, useEffect, useRef } from 'react';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
@@ -11,10 +11,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Link as LinkIcon, Copy, AlertCircle } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 
-export const metadata: Metadata = {
-  title: 'URL Encoder / Decoder - Online Tool',
-  description: 'Encode strings to be URL-safe (percent-encoding) or decode URL-encoded strings back to their original form.',
-};
+// Metadata is now handled by layout.tsx
 
 export default function UrlEncoderDecoderPage() {
   const [plainText, setPlainText] = useState('');

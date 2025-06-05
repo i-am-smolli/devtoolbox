@@ -2,6 +2,7 @@
 'use client';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
+// Removed: import type { Metadata } from 'next';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -13,7 +14,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { TerminalSquare, Copy, PlusCircle, XCircle, AlertCircle } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 
-// Metadata will be handled by layout.tsx
+// Metadata is now handled by layout.tsx
 
 const HTTP_METHODS = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'];
 const METHODS_WITH_BODY = ['POST', 'PUT', 'PATCH'];

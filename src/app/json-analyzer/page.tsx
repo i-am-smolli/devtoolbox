@@ -1,7 +1,7 @@
 
 'use client';
 
-import type { Metadata } from 'next';
+// Removed: import type { Metadata } from 'next';
 import { useState, useEffect } from 'react';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -11,10 +11,7 @@ import { Code2, AlertCircle, CheckCircle } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { ScrollArea } from '@/components/ui/scroll-area';
 
-export const metadata: Metadata = {
-  title: 'JSON Analyzer - Validate & Format JSON',
-  description: 'Validate, format, and inspect your JSON data. Free online tool to ensure your JSON is well-formed and to pretty-print it.',
-};
+// Metadata is now handled by layout.tsx
 
 const initialJson = `{
   "name": "DevToolbox",

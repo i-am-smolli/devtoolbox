@@ -1,7 +1,7 @@
 
 'use client';
 
-import type { Metadata } from 'next';
+// Removed: import type { Metadata } from 'next';
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
@@ -15,10 +15,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Separator } from '@/components/ui/separator';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
-export const metadata: Metadata = {
-  title: 'URL Builder - Construct URLs Easily',
-  description: 'Construct well-formed URLs by specifying individual components like protocol, hostname, port, path, query parameters, and hash fragment. Online tool for developers.',
-};
+// Metadata is now handled by layout.tsx
 
 interface QueryParam {
   id: string;
@@ -103,7 +100,7 @@ export default function UrlBuilderPage() {
       }
     } catch (e: any) {
       setError(`Generated URL may be invalid: ${e.message}`);
-      setGeneratedUrl(url);
+      setGeneratedUrl(url); // Still set the URL for user to see
       return;
     }
 

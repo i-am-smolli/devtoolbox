@@ -1,7 +1,7 @@
 
 'use client';
 
-import type { Metadata } from 'next';
+// Removed: import type { Metadata } from 'next';
 import { useState, useEffect, useRef } from 'react';
 import { marked } from 'marked';
 import { PageHeader } from '@/components/page-header';
@@ -12,10 +12,7 @@ import { BookText, Copy } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 import { ScrollArea } from '@/components/ui/scroll-area';
 
-export const metadata: Metadata = {
-  title: 'Markdown to HTML Converter - Online Tool',
-  description: 'Convert your Markdown text into raw HTML code. Useful for developers needing to transform Markdown for web display or other uses.',
-};
+// Metadata is now handled by layout.tsx
 
 const initialMarkdown = `# Markdown to HTML Converter
 
