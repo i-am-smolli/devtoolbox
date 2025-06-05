@@ -67,7 +67,7 @@ export default function ToOneLinerPage() {
         icon={Minimize2}
       />
 
-      <div className="grid md:grid-cols-2 gap-6">
+      <div className="flex flex-col gap-6"> {/* Changed from grid md:grid-cols-2 */}
         <Card className="flex flex-col">
           <CardHeader>
             <CardTitle className="font-headline">Input Text</CardTitle>
