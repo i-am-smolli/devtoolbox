@@ -1,7 +1,6 @@
 
 'use client';
 
-import type { Metadata } from 'next';
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
@@ -14,10 +13,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { TerminalSquare, Copy, PlusCircle, XCircle, AlertCircle } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 
-export const metadata: Metadata = {
-  title: 'cURL Command Generator - Online Tool',
-  description: 'Easily construct cURL commands with a guided interface. Specify URL, method, headers, and request body for HTTP requests.',
-};
+// Metadata will be handled by layout.tsx
 
 const HTTP_METHODS = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'];
 const METHODS_WITH_BODY = ['POST', 'PUT', 'PATCH'];
