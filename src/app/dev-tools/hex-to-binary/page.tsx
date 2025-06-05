@@ -1,7 +1,6 @@
 
 'use client';
 
-// Removed: import type { Metadata } from 'next';
 import { useState } from 'react';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -10,8 +9,6 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Binary, AlertCircle } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-
-// Metadata is now handled by layout.tsx
 
 export default function HexToBinaryPage() {
   const [hexInput, setHexInput] = useState('');
@@ -61,7 +58,7 @@ export default function HexToBinaryPage() {
         description="Convert hexadecimal values to their binary representation."
         icon={Binary}
       />
-      <Card>
+      <Card className="w-full">
         <CardHeader>
           <CardTitle className="font-headline">Converter</CardTitle>
         </CardHeader>

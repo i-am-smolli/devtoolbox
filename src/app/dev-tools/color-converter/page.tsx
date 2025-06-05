@@ -2,15 +2,12 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-// Removed: import type { Metadata } from 'next';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Palette, AlertCircle } from 'lucide-react';
-
-// Metadata is now handled by layout.tsx
 
 // Conversion Functions
 function hexToRgb(hex: string): { r: number; g: number; b: number } | null {
@@ -202,7 +199,7 @@ export default function ColorConverterPage() {
         description="Convert colors between HEX, RGB, and HSL formats."
         icon={Palette}
       />
-      <Card>
+      <Card className="w-full">
         <CardHeader>
           <CardTitle className="font-headline">Converter</CardTitle>
         </CardHeader>
