@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { LayoutDashboard, Binary, FileText, Code2, ArrowRight, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound, Fingerprint, BookText, Palette, TerminalSquare, CalendarClock, ClipboardList, Shuffle, Network, Clock, CaseSensitive, Link as LinkIcon } from 'lucide-react';
+import { LayoutDashboard, Binary, FileText, Code2, ArrowRight, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound, Fingerprint, BookText, Palette, TerminalSquare, CalendarClock, ClipboardList, Shuffle, Network, Clock, CaseSensitive, Link as LinkIcon, SearchCode } from 'lucide-react';
 
 const tools = [
   {
@@ -119,6 +119,12 @@ const tools = [
     description: 'Encode strings to be URL-safe or decode them.',
     href: '/dev-tools/url-encoder-decoder',
     icon: LinkIcon,
+  },
+  {
+    title: 'URL Explorer',
+    description: 'Break down URLs into components: protocol, host, path, and query parameters.',
+    href: '/networking-tools/url-explorer',
+    icon: SearchCode,
   }
 ];
 

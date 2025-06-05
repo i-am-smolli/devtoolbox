@@ -4,7 +4,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { SidebarMenu, SidebarMenuItem, SidebarMenuButton } from '@/components/ui/sidebar';
-import { LayoutDashboard, Binary, FileText, Code2, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound, Fingerprint, BookText, Palette, TerminalSquare, CalendarClock, ClipboardList, Shuffle, Network, Clock, CaseSensitive, Link as LinkIcon } from 'lucide-react';
+import { LayoutDashboard, Binary, FileText, Code2, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound, Fingerprint, BookText, Palette, TerminalSquare, CalendarClock, ClipboardList, Shuffle, Network, Clock, CaseSensitive, Link as LinkIcon, SearchCode } from 'lucide-react';
 
 const navItems = [
   { href: '/', label: 'Dashboard', icon: LayoutDashboard },
@@ -26,6 +26,7 @@ const navItems = [
   { href: '/devops-tools/env-file-parser', label: '.env File Parser', icon: FileLock2 },
   { href: '/devops-tools/yaml-json-converter', label: 'YAML/JSON Converter', icon: ArrowRightLeft },
   { href: '/networking-tools/cidr-calculator', label: 'CIDR Calculator', icon: Network },
+  { href: '/networking-tools/url-explorer', label: 'URL Explorer', icon: SearchCode },
   { href: '/text-tools/case-converter', label: 'Text Case Converter', icon: CaseSensitive },
 ];
 
@@ -34,6 +35,12 @@ export function MainNav() {
   const sortedNavItems = [...navItems].sort((a, b) => {
     if (a.href === '/') return -1;
     if (b.href === '/') return 1;
+    // Group by category, then sort by label
+    const categoryA = a.href.split('/')[1] || '';
+    const categoryB = b.href.split('/')[1] || '';
+    if (categoryA !== categoryB) {
+      return categoryA.localeCompare(categoryB);
+    }
     return a.label.localeCompare(b.label);
   });
 
