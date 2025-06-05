@@ -1,7 +1,6 @@
 
 'use client';
 
-import type { Metadata } from 'next';
 import { useState, useEffect, useCallback } from 'react';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -9,11 +8,6 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Palette, AlertCircle } from 'lucide-react';
-
-export const metadata: Metadata = {
-  title: 'Color Converter - HEX, RGB, HSL Tool',
-  description: 'Convert colors seamlessly between HEX, RGB, and HSL formats. Interactive online tool for developers and designers.',
-};
 
 // Conversion Functions
 function hexToRgb(hex: string): { r: number; g: number; b: number } | null {
