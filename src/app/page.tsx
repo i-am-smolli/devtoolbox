@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { LayoutDashboard, Binary, FileText, Code2, ArrowRight, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound, Fingerprint, BookText, Palette, TerminalSquare, CalendarClock, ClipboardList, Shuffle, Network, Clock, CaseSensitive, Link as LinkIcon, SearchCode, Construction, Minimize2, Blocks, LockKeyhole, Pilcrow, GitCompareArrows } from 'lucide-react';
+import { LayoutDashboard, Binary, FileText, Code2, ArrowRight, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound, Fingerprint, BookText, Palette, TerminalSquare, CalendarClock, ClipboardList, Shuffle, Network, Clock, CaseSensitive, Link as LinkIcon, SearchCode, Construction, Minimize2, Blocks, LockKeyhole, Pilcrow } from 'lucide-react';
 
 const tools = [
   {
@@ -113,12 +113,6 @@ const tools = [
     description: 'Convert text between different casing styles (camel, snake, etc.).',
     href: '/text-tools/case-converter',
     icon: CaseSensitive,
-  },
-  {
-    title: 'Text Diff Checker',
-    description: 'Compare two blocks of text and highlight the differences.',
-    href: '/text-tools/text-diff',
-    icon: GitCompareArrows,
   },
   {
     title: 'To One Liner',
