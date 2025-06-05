@@ -166,7 +166,7 @@ const tools = [
 
 export default function DashboardPage() {
   return (
-    <div className="container mx-auto">
+    <div> {/* Removed "container mx-auto" classes here */}
       <PageHeader
         title="Welcome to DevToolbox"
         description="Your one-stop collection of essential developer utilities."
