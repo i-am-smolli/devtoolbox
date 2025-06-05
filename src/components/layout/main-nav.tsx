@@ -4,7 +4,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { SidebarMenu, SidebarMenuItem, SidebarMenuButton } from '@/components/ui/sidebar';
-import { LayoutDashboard, Binary, FileText, Code2, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound, Fingerprint, BookText, Palette, TerminalSquare, CalendarClock, ClipboardList, Shuffle, Network } from 'lucide-react';
+import { LayoutDashboard, Binary, FileText, Code2, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound, Fingerprint, BookText, Palette, TerminalSquare, CalendarClock, ClipboardList, Shuffle, Network, Clock } from 'lucide-react';
 
 const navItems = [
   { href: '/', label: 'Dashboard', icon: LayoutDashboard },
@@ -14,6 +14,7 @@ const navItems = [
   { href: '/dev-tools/color-converter', label: 'Color Converter', icon: Palette },
   { href: '/dev-tools/curl-generator', label: 'cURL Generator', icon: TerminalSquare },
   { href: '/dev-tools/base64-converter', label: 'Base64 Converter', icon: Shuffle },
+  { href: '/dev-tools/time-converter', label: 'Time Converter', icon: Clock },
   { href: '/markdown-preview', label: 'Markdown Preview', icon: FileText },
   { href: '/markdown-to-html', label: 'Markdown to HTML', icon: BookText },
   { href: '/json-analyzer', label: 'JSON Analyzer', icon: Code2 },

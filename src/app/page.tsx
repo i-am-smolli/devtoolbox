@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { LayoutDashboard, Binary, FileText, Code2, ArrowRight, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound, Fingerprint, BookText, Palette, TerminalSquare, CalendarClock, ClipboardList, Shuffle, Network } from 'lucide-react';
+import { LayoutDashboard, Binary, FileText, Code2, ArrowRight, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound, Fingerprint, BookText, Palette, TerminalSquare, CalendarClock, ClipboardList, Shuffle, Network, Clock } from 'lucide-react';
 
 const tools = [
   {
@@ -44,7 +44,7 @@ const tools = [
   },
   {
     title: 'Dockerfile Linter',
-    description: 'Analyze Dockerfiles for common syntax errors and structural issues.',
+    description: 'Analyze Dockerfiles for common syntax and structural issues.',
     href: '/devops-tools/dockerfile-linter',
     icon: FileCode,
   },
@@ -101,6 +101,12 @@ const tools = [
     description: 'Calculate network ranges and visualize subnets from CIDR notation.',
     href: '/networking-tools/cidr-calculator',
     icon: Network,
+  },
+  {
+    title: 'Time Converter',
+    description: 'Convert between various date/time formats like Unix, ISO 8601, etc.',
+    href: '/dev-tools/time-converter',
+    icon: Clock,
   }
 ];
 
