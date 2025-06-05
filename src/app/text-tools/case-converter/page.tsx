@@ -1,6 +1,7 @@
 
 'use client';
 
+import type { Metadata } from 'next';
 import { useState, useEffect, useRef } from 'react';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
@@ -8,6 +9,11 @@ import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { CaseSensitive, Copy } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
+
+export const metadata: Metadata = {
+  title: 'Text Case Converter - camelCase, snake_case, etc.',
+  description: 'Convert text between various casing styles like camelCase, snake_case, PascalCase, Title Case, UPPER CASE, lower case, and more. Free online tool.',
+};
 
 // Helper function to split words from various formats
 const toWords = (str: string): string[] => {

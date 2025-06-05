@@ -1,6 +1,7 @@
 
 'use client';
 
+import type { Metadata } from 'next';
 import { useState, useEffect } from 'react';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
@@ -11,6 +12,11 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { KeyRound, Copy, AlertCircle } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+
+export const metadata: Metadata = {
+  title: 'Secure Password Generator - Create Strong Passwords',
+  description: 'Generate strong, random, and secure passwords with customizable options for length, uppercase, lowercase, numbers, and symbols.',
+};
 
 const MIN_LENGTH = 8;
 const MAX_LENGTH = 128;

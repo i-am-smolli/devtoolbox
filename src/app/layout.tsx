@@ -5,8 +5,12 @@ import { AppLayout } from '@/components/layout/app-layout';
 import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
-  title: 'DevToolbox',
-  description: 'A collection of useful developer tools.',
+  title: {
+    default: 'DevToolbox - Essential Developer Utilities',
+    template: '%s | DevToolbox',
+  },
+  description: 'DevToolbox: A comprehensive suite of free online developer tools, including converters, generators, formatters, and utilities for JSON, YAML, Markdown, and more.',
+  keywords: ['developer tools', 'online tools', 'converters', 'generators', 'formatters', 'json tools', 'yaml tools', 'markdown tools', 'dev utilities', 'devtoolbox', 'hex to binary', 'json analyzer', 'markdown preview'],
 };
 
 export default function RootLayout({

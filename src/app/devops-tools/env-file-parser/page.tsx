@@ -1,6 +1,7 @@
 
 'use client';
 
+import type { Metadata } from 'next';
 import { useState, useEffect, useRef } from 'react';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -11,6 +12,11 @@ import { FileLock2, Copy, AlertCircle } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+
+export const metadata: Metadata = {
+  title: '.env File Parser & Viewer - Online Tool',
+  description: 'Paste your .env file content to parse and view environment variables in a structured table. Securely manage and inspect your .env files.',
+};
 
 interface EnvVariable {
   key: string;

@@ -1,6 +1,7 @@
 
 'use client';
 
+import type { Metadata } from 'next';
 import { useState, useEffect, useRef } from 'react';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -10,7 +11,11 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { SearchCode, AlertCircle } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Label } from '@/components/ui/label';
-// Removed Input as it's no longer used for displaying parsed details here.
+
+export const metadata: Metadata = {
+  title: 'URL Explorer - Analyze URL Components',
+  description: 'Paste a URL to break it down into its constituent parts: protocol, hostname, port, path, query parameters, and hash fragment. Useful for debugging and understanding URLs.',
+};
 
 interface ParsedUrlDetails {
   protocol: string;

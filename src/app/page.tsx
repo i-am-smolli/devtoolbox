@@ -1,9 +1,15 @@
 
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { LayoutDashboard, Binary, FileText, Code2, ArrowRight, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound, Fingerprint, BookText, Palette, TerminalSquare, CalendarClock, ClipboardList, Shuffle, Network, Clock, CaseSensitive, Link as LinkIcon, SearchCode, Construction, Minimize2, Blocks, LockKeyhole, Pilcrow } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: 'Dashboard - Developer Utilities & Tools',
+  description: 'Welcome to DevToolbox! Explore a wide range of essential online utilities for developers, including converters, generators, and analyzers.',
+};
 
 const tools = [
   {

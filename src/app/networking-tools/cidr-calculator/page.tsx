@@ -1,6 +1,7 @@
 
 'use client';
 
+import type { Metadata } from 'next';
 import { useState, useEffect, useCallback } from 'react';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
@@ -11,6 +12,11 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Network, AlertCircle } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
+
+export const metadata: Metadata = {
+  title: 'CIDR Calculator & Subnet Visualizer - Networking Tool',
+  description: 'Calculate network details from CIDR notation (network address, broadcast, usable hosts, subnet mask) and visualize subnets. Essential for network administrators.',
+};
 
 interface CidrCalculationResults {
   networkAddress: string;

@@ -1,6 +1,7 @@
 
 'use client';
 
+import type { Metadata } from 'next';
 import { useState, useEffect, useRef } from 'react';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
@@ -9,6 +10,11 @@ import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { FileCode, AlertCircle, CheckCircle, RefreshCw } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
+
+export const metadata: Metadata = {
+  title: 'Dockerfile Linter - Online Validator',
+  description: 'Analyze Dockerfiles for common syntax errors, structural issues, and best practice recommendations. Validate your Dockerfile online.',
+};
 
 interface LintIssue {
   line: number;

@@ -1,6 +1,7 @@
 
 'use client';
 
+import type { Metadata } from 'next';
 import { useState, useEffect, useRef } from 'react';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
@@ -11,6 +12,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { LockKeyhole, Copy, AlertTriangle, Info } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
+
+export const metadata: Metadata = {
+  title: 'JWT Decoder - Online Tool',
+  description: 'Decode JSON Web Tokens (JWT) to inspect their header and payload. Signature is NOT verified. Useful for debugging and understanding JWT structure.',
+};
 
 interface DecodedJwtPart {
   original: string;

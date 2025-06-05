@@ -1,6 +1,7 @@
 
 'use client';
 
+import type { Metadata } from 'next';
 import { useState, useEffect, useCallback } from 'react';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -15,6 +16,11 @@ import {
   addHours, subHours, addMinutes, subMinutes, addSeconds, subSeconds,
   isValid, formatRFC7231
 } from 'date-fns';
+
+export const metadata: Metadata = {
+  title: 'Time Converter - Unix, ISO 8601, Date, Time',
+  description: 'Convert timestamps between various formats including Unix (seconds/ms), ISO 8601, Date, Time, HTTP, and SQL. Adjust time easily.',
+};
 
 type TimeFormat =
   | 'unixSeconds'

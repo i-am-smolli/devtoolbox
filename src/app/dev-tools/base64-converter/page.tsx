@@ -1,6 +1,7 @@
 
 'use client';
 
+import type { Metadata } from 'next';
 import { useState, useEffect, useRef } from 'react';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
@@ -9,6 +10,11 @@ import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Shuffle, Copy, AlertCircle } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
+
+export const metadata: Metadata = {
+  title: 'Base64 Encoder/Decoder - Online Dev Tool',
+  description: 'Easily encode text to Base64 or decode Base64 strings back to text. Handles UTF-8 characters. Free online developer tool.',
+};
 
 export default function Base64ConverterPage() {
   const [plainText, setPlainText] = useState('');

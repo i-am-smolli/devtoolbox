@@ -1,6 +1,7 @@
 
 'use client';
 
+import type { Metadata } from 'next';
 import { useState, useEffect, useRef } from 'react';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
@@ -12,6 +13,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Pilcrow, Copy, AlertCircle, RefreshCw } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
+
+export const metadata: Metadata = {
+  title: 'Lorem Ipsum & Placeholder Text Generator',
+  description: 'Generate placeholder text in various styles: standard Lorem Ipsum, DevOps jargon, or Tech Startup buzzwords. Customize paragraph and sentence counts.',
+};
 
 const LOREM_WORDS = [
   'lorem', 'ipsum', 'dolor', 'sit', 'amet', 'consectetur', 'adipiscing', 'elit', 'sed', 'do', 'eiusmod',

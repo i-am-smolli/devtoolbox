@@ -1,6 +1,7 @@
 
 'use client';
 
+import type { Metadata } from 'next';
 import { useState, useEffect, useRef } from 'react';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
@@ -8,6 +9,11 @@ import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Minimize2, Copy } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
+
+export const metadata: Metadata = {
+  title: 'To One Liner - Text Converter Tool',
+  description: 'Convert multi-line text or code snippets into a single continuous line. Useful for preparing text for specific formats or commands.',
+};
 
 export default function ToOneLinerPage() {
   const [inputText, setInputText] = useState('');
