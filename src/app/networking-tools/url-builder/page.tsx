@@ -26,7 +26,7 @@ export default function UrlBuilderPage() {
   const [port, setPort] = useState('');
   const [pathname, setPathname] = useState('/path/to/resource');
   const [queryParams, setQueryParams] = useState<QueryParam[]>([
-    { id: Date.now().toString(), key: 'param1', value: 'value1' }
+    { id: 'initial-param-1', key: 'param1', value: 'value1' } // Use a static ID for initial item
   ]);
   const [hash, setHash] = useState('section-details');
   const [generatedUrl, setGeneratedUrl] = useState('');
@@ -48,17 +48,14 @@ export default function UrlBuilderPage() {
 
   const assembleUrl = useCallback(() => {
     setError(null);
-    if (!hostname.trim()) {
+    if (!hostname.trim() && (protocol === 'http' || protocol === 'https')) {
       setGeneratedUrl('');
-      // Optionally, set an error if hostname is mandatory for a selected protocol
-      if (protocol === 'http' || protocol === 'https') {
-        setError('Hostname cannot be empty for HTTP(S) protocols.');
-      }
+      setError('Hostname cannot be empty for HTTP(S) protocols.');
       return;
     }
-
+    
     let url = '';
-    if (protocol.trim()) {
+    if (protocol.trim() && protocol !== 'none') {
       url += `${protocol.trim()}://`;
     }
     url += hostname.trim();
@@ -89,17 +86,18 @@ export default function UrlBuilderPage() {
       url += currentHash;
     }
     
-    // Validate the generated URL
     try {
-      if (url.includes('://') || url.startsWith('//') || url.startsWith('mailto:') || url.startsWith('tel:')) {
-        new URL(url); // This will throw an error if the URL is malformed
+       if (url.includes('://') || url.startsWith('//') || url.startsWith('mailto:') || url.startsWith('tel:')) {
+        if (url.trim()) new URL(url); 
+      } else if (url.trim() === '' && (protocol === 'http' || protocol === 'https') && !hostname.trim()){
+        // This state is handled by the hostname check already, do nothing here to avoid double error/empty URL
       } else if (url.trim() !== '') {
-         // For relative URLs or paths that don't start with a protocol, direct validation might be too strict
-         // or not applicable. For now, we assume if it doesn't have a protocol, it might be a relative path.
+        // For relative URLs or paths, new URL might be too strict.
+        // Allow generation but skip new URL() validation if no protocol.
       }
     } catch (e: any) {
-      setError(`Generated URL is invalid: ${e.message}`);
-      setGeneratedUrl(url); // Still show the malformed URL
+      setError(`Generated URL may be invalid: ${e.message}`);
+      setGeneratedUrl(url);
       return;
     }
 
@@ -165,7 +163,7 @@ export default function UrlBuilderPage() {
                   <SelectItem value="ftp">ftp</SelectItem>
                   <SelectItem value="mailto">mailto</SelectItem>
                   <SelectItem value="tel">tel</SelectItem>
-                  <SelectItem value="">(none/relative)</SelectItem>
+                  <SelectItem value="none">(none/relative)</SelectItem>
                 </SelectContent>
               </Select>
             </div>

@@ -34,7 +34,7 @@ interface InputField {
   value: string;
 }
 
-const initialFields: Record<TimeFormat, Omit<InputField, 'value' | 'error'>> = {
+const initialFieldsDefinition: Record<TimeFormat, Omit<InputField, 'value' | 'error'>> = {
   unixSeconds: { id: 'unixSeconds', label: 'Unix Timestamp (seconds)', placeholder: 'e.g., 1678886400' },
   unixMilliseconds: { id: 'unixMilliseconds', label: 'Unix Timestamp (ms)', placeholder: 'e.g., 1678886400000' },
   iso8601: { id: 'iso8601', label: 'ISO 8601', placeholder: 'e.g., 2023-03-15T10:30:00.000Z' },
@@ -45,19 +45,26 @@ const initialFields: Record<TimeFormat, Omit<InputField, 'value' | 'error'>> = {
   sql: { id: 'sql', label: 'SQL Timestamp', placeholder: 'e.g., 2023-03-15 10:30:00' },
 };
 
+const initialFieldStates = (): Record<TimeFormat, InputField> =>
+  Object.entries(initialFieldsDefinition).reduce((acc, [key, val]) => {
+    acc[key as TimeFormat] = { ...val, value: '', error: null };
+    return acc;
+  }, {} as Record<TimeFormat, InputField>);
+
+
 export default function TimeConverterPage() {
-  const [currentDate, setCurrentDate] = useState<Date>(new Date());
-  const [fieldStates, setFieldStates] = useState<Record<TimeFormat, InputField>>(() =>
-    Object.entries(initialFields).reduce((acc, [key, val]) => {
-      acc[key as TimeFormat] = { ...val, value: '', error: null };
-      return acc;
-    }, {} as Record<TimeFormat, InputField>)
-  );
+  const [currentDate, setCurrentDate] = useState<Date | null>(null);
+  const [fieldStates, setFieldStates] = useState<Record<TimeFormat, InputField>>(initialFieldStates);
   const [localTimeDisplay, setLocalTimeDisplay] = useState('');
   const [isClient, setIsClient] = useState(false);
 
-  const formatFieldValue = useCallback((date: Date, fieldId: TimeFormat): string => {
-    if (!isValid(date)) return '';
+  useEffect(() => {
+    setIsClient(true);
+    setCurrentDate(new Date()); // Set current date on client mount
+  }, []);
+
+  const formatFieldValue = useCallback((date: Date | null, fieldId: TimeFormat): string => {
+    if (!date || !isValid(date)) return '';
     try {
       switch (fieldId) {
         case 'unixSeconds': return getUnixTime(date).toString();
@@ -74,21 +81,13 @@ export default function TimeConverterPage() {
   }, []);
 
   useEffect(() => {
-    setIsClient(true);
-    // Initialize all fields from the initial currentDate
-    const initialValues = { ...fieldStates };
-    for (const key in initialFields) {
-      const fieldId = key as TimeFormat;
-      initialValues[fieldId].value = formatFieldValue(currentDate, fieldId);
-      initialValues[fieldId].error = null;
+    if (!isClient || !currentDate || !isValid(currentDate)) {
+        if(isClient && !currentDate) { // Handle initial null state gracefully
+            setLocalTimeDisplay('Calculating...');
+            setFieldStates(initialFieldStates()); // Reset fields if date becomes null
+        }
+        return;
     }
-    setFieldStates(initialValues);
-    setLocalTimeDisplay(format(currentDate, "yyyy-MM-dd HH:mm:ss.SSS (OOOO)"));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [formatFieldValue]); // Only on mount using 'currentDate' at that time.
-
-  useEffect(() => {
-    if (!isClient || !isValid(currentDate)) return;
 
     setFieldStates(prevStates => {
       const newStates = { ...prevStates };
@@ -108,6 +107,7 @@ export default function TimeConverterPage() {
 
   const handleInputChange = (fieldId: TimeFormat, value: string) => {
     setFieldStates(prev => ({ ...prev, [fieldId]: { ...prev[fieldId], value, error: null } }));
+    if (!currentDate && value.trim() === "") return; // Don't parse if currentDate not set and input is cleared
 
     let parsedDate: Date | null = null;
     try {
@@ -124,7 +124,7 @@ export default function TimeConverterPage() {
         case 'dateOnly': {
           const d = parse(value, 'yyyy-MM-dd', new Date());
           if (isValid(d)) {
-            const tempDate = new Date(currentDate); // preserve time
+            const tempDate = currentDate ? new Date(currentDate) : new Date(0); // use epoch if no current date
             tempDate.setFullYear(d.getFullYear(), d.getMonth(), d.getDate());
             parsedDate = tempDate;
           }
@@ -133,8 +133,8 @@ export default function TimeConverterPage() {
         case 'timeOnly': {
           const t = parse(value, 'HH:mm:ss', new Date());
            if (isValid(t)) {
-            const tempDate = new Date(currentDate); // preserve date
-            tempDate.setHours(t.getHours(), t.getMinutes(), t.getSeconds(), 0); // reset ms for consistency
+            const tempDate = currentDate ? new Date(currentDate) : new Date(0);
+            tempDate.setHours(t.getHours(), t.getMinutes(), t.getSeconds(), 0);
             parsedDate = tempDate;
           }
           break;
@@ -143,8 +143,8 @@ export default function TimeConverterPage() {
           parsedDate = parse(value, "yyyy-'W'II-i", new Date());
           break;
         case 'http':
-          parsedDate = new Date(value); // Standard Date constructor handles RFC1123
-          if (!isValid(parsedDate) && value.trim() !== "") { // Fallback for some variations
+          parsedDate = new Date(value);
+          if (!isValid(parsedDate) && value.trim() !== "") {
              const d = parse(value, "EEE, dd MMM yyyy HH:mm:ss zzz", new Date());
              if (isValid(d)) parsedDate = d;
           }
@@ -156,7 +156,7 @@ export default function TimeConverterPage() {
 
       if (parsedDate && isValid(parsedDate)) {
         setCurrentDate(parsedDate);
-      } else if (value.trim() !== "") { // Only set error if input is not empty and parsing failed
+      } else if (value.trim() !== "") {
         setFieldStates(prev => ({ ...prev, [fieldId]: { ...prev[fieldId], error: 'Invalid format' } }));
       }
     } catch (e) {
@@ -169,7 +169,10 @@ export default function TimeConverterPage() {
   const handleSetToNow = () => setCurrentDate(new Date());
 
   const adjustTime = (operation: (date: Date, amount: number) => Date, amount: number) => {
-    setCurrentDate(prevDate => operation(prevDate, amount));
+    setCurrentDate(prevDate => {
+        if (!prevDate || !isValid(prevDate)) return new Date(); // Fallback if no valid date
+        return operation(prevDate, amount);
+    });
   };
 
   const tinkerButtonsConfig = [
@@ -239,6 +242,7 @@ export default function TimeConverterPage() {
                   className={`font-code ${field.error ? 'border-destructive focus-visible:ring-destructive' : ''}`}
                   aria-invalid={!!field.error}
                   aria-describedby={field.error ? `${field.id}-error` : undefined}
+                  disabled={!currentDate && !field.value} // Disable if no date set yet, unless user is typing
                 />
                 {field.error && (
                   <p id={`${field.id}-error`} className="text-xs text-destructive flex items-center">
