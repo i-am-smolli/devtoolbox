@@ -112,7 +112,7 @@ const formatPublicKey = (publicKey: any) => {
   return { algorithm, details, pem };
 };
 
-const formatExtensionValue = (ext: forge.pki.CertificateExtension): string => {
+const formatExtensionValue = (ext: any): string => {
   if (!ext) return 'N/A';
 
   if (ext.name === 'subjectAltName' && ext.altNames) {
