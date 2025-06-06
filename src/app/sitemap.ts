@@ -24,6 +24,7 @@ const pages: string[] = [
   '/devops-tools/cron-expression-builder',
   '/devops-tools/cron-parser',
   '/dev-tools/base64-converter',
+  '/dev-tools/certificate-viewer',
   '/networking-tools/cidr-calculator',
   '/dev-tools/time-converter',
   '/text-tools/case-converter',

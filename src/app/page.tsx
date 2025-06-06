@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { LayoutDashboard, Binary, FileText, Code2, ArrowRight, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound, Fingerprint, BookText, Palette, TerminalSquare, CalendarClock, ClipboardList, Shuffle, Network, Clock, CaseSensitive, Link as LinkIcon, SearchCode, Construction, Minimize2, Blocks, LockKeyhole, Pilcrow, Grid, Sparkles, ShieldCheck } from 'lucide-react';
+import { LayoutDashboard, Binary, FileText, Code2, ArrowRight, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound, Fingerprint, BookText, Palette, TerminalSquare, CalendarClock, ClipboardList, Shuffle, Network, Clock, CaseSensitive, Link as LinkIcon, SearchCode, Construction, Minimize2, Blocks, LockKeyhole, Pilcrow, Grid, Sparkles, ShieldCheck, FileKey } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Dashboard - Developer Utilities & Tools',
@@ -107,6 +107,12 @@ const tools = [
     description: 'Encode text to Base64 or decode Base64 back to text.',
     href: '/dev-tools/base64-converter',
     icon: Shuffle,
+  },
+  {
+    title: 'X.509 Certificate Viewer',
+    description: 'Parse and display details of a PEM-encoded X.509 certificate.',
+    href: '/dev-tools/certificate-viewer',
+    icon: FileKey,
   },
   {
     title: 'CIDR Calculator',

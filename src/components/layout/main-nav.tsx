@@ -4,11 +4,12 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { SidebarMenu, SidebarMenuItem, SidebarMenuButton } from '@/components/ui/sidebar';
-import { LayoutDashboard, Binary, FileText, Code2, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound, Fingerprint, BookText, Palette, TerminalSquare, CalendarClock, ClipboardList, Shuffle, Network, Clock, CaseSensitive, Link as LinkIcon, SearchCode, Construction, Minimize2, Blocks, LockKeyhole, Pilcrow, Grid, Sparkles, ShieldCheck } from 'lucide-react';
+import { LayoutDashboard, Binary, FileText, Code2, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound, Fingerprint, BookText, Palette, TerminalSquare, CalendarClock, ClipboardList, Shuffle, Network, Clock, CaseSensitive, Link as LinkIcon, SearchCode, Construction, Minimize2, Blocks, LockKeyhole, Pilcrow, Grid, Sparkles, ShieldCheck, FileKey } from 'lucide-react';
 
 const navItems = [
   { href: '/', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/dev-tools/base64-converter', label: 'Base64 Converter', icon: Shuffle },
+  { href: '/dev-tools/certificate-viewer', label: 'Certificate Viewer', icon: FileKey },
   { href: '/dev-tools/color-converter', label: 'Color Converter', icon: Palette },
   { href: '/dev-tools/curl-generator', label: 'cURL Generator', icon: TerminalSquare },
   { href: '/dev-tools/hash-generator', label: 'Hash Generator', icon: Fingerprint },
