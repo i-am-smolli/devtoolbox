@@ -13,6 +13,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { FileKey, AlertCircle, Copy, RefreshCw } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 import forge from 'node-forge';
+import { Badge } from '@/components/ui/badge';
 
 interface CertificateAttribute {
   oid: string;
