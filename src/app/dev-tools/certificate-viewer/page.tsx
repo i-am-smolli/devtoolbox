@@ -189,30 +189,30 @@ export default function CertificateViewerPage() {
       try {
         const cert = forge.pki.certificateFromPem(certificateInput) as any;
  
-        const getFingerprint = (mdAlgorithm: forge.md.MessageDigest) => {
+        const getFingerprint = (mdAlgorithm: { create: () => forge.md.MessageDigest }) => {
           const md = mdAlgorithm.create();
           md.update(forge.asn1.toDer(forge.pki.certificateToAsn1(cert)).getBytes());
           return md.digest().toHex().match(/.{1,2}/g)?.join(':').toUpperCase() || 'N/A';
         };
         
         const details: ParsedCertificateDetails = {
-          subject: cert.subject.attributes.map(formatAttribute),
-          issuer: cert.issuer.attributes.map(formatAttribute),
+          subject: cert.subject.attributes.map(formatAttribute) as CertificateAttribute[],
+          issuer: cert.issuer.attributes.map(formatAttribute) as CertificateAttribute[],
           validity: {
             notBefore: cert.validity.notBefore.toLocaleString(),
             notAfter: cert.validity.notAfter.toLocaleString(),
           },
-          serialNumber: cert.serialNumber.toUpperCase(),
-          signatureAlgorithm: OID_MAP[cert.signatureOid] || cert.signatureOid || 'N/A',
-          publicKey: formatPublicKey(cert.publicKey),
-          extensions: cert.extensions.map(ext => {
-            const name = OID_MAP[ext.id] || ext.name || ext.id || 'Unknown Extension';
+          serialNumber: (cert.serialNumber as string).toUpperCase(),
+          signatureAlgorithm: OID_MAP[cert.signatureOid as string] || cert.signatureOid || 'N/A',
+          publicKey: formatPublicKey(cert.publicKey) as ParsedCertificateDetails['publicKey'],
+          extensions: (cert.extensions as any[]).map((ext: any): ParsedExtension => {
+            const name: string = OID_MAP[ext.id as string] || ext.name || ext.id || 'Unknown Extension';
             return {
-                id: ext.id || 'N/A',
-                name: name,
-                critical: ext.critical || false,
-                value: ext.value,
-                valueString: formatExtensionValue(ext),
+              id: ext.id || 'N/A',
+              name: name,
+              critical: ext.critical || false,
+              value: ext.value,
+              valueString: formatExtensionValue(ext),
             };
           }),
           fingerprints: {

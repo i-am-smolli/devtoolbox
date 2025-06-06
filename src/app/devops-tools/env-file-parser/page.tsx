@@ -53,10 +53,10 @@ export default function EnvFileParserPage() {
         return;
       }
 
-      const parts = trimmedLine.split(/=(.*)/s); // Split only on the first '='
-      if (parts.length >= 2) {
-        const key = parts[0].trim();
-        let value = parts[1].trim();
+      const eqIndex = trimmedLine.indexOf('=');
+      if (eqIndex !== -1) {
+        const key = trimmedLine.substring(0, eqIndex).trim();
+        let value = trimmedLine.substring(eqIndex + 1).trim();
 
         // Strip surrounding quotes (single or double)
         if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
