@@ -268,119 +268,122 @@ export default function CertificateViewerPage() {
   );
 
   return (
-    <div className="flex flex-col space-y-6">
+    <div className="flex flex-col">
       <PageHeader
         title="X.509 Certificate Viewer"
         description="Paste a PEM-encoded certificate to view its details."
         icon={FileKey}
       />
+      <div className="mt-6 grid grid-cols-1 gap-6">
+        <Card>
+          <CardHeader>
+            <CardTitle className="font-headline">Certificate Input (PEM Format)</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Textarea
+              ref={textareaRef}
+              placeholder="-----BEGIN CERTIFICATE-----\nMIIC...\n-----END CERTIFICATE-----"
+              value={certificateInput}
+              onChange={(e) => setCertificateInput(e.target.value)}
+              className="w-full resize-none border rounded-md focus-visible:ring-1 p-4 font-code text-sm min-h-[200px]"
+              style={{ overflowY: 'hidden' }}
+              aria-label="Certificate PEM Input"
+            />
+          </CardContent>
+          <CardFooter>
+            <Button onClick={handleParseCertificate} disabled={isLoading || !isClient}>
+              {isLoading && <RefreshCw className="mr-2 h-4 w-4 animate-spin" />}
+              {isLoading ? 'Parsing...' : 'Parse Certificate'}
+            </Button>
+          </CardFooter>
+        </Card>
 
-      <Card>
-        <CardHeader>
-          <CardTitle className="font-headline">Certificate Input (PEM Format)</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <Textarea
-            ref={textareaRef}
-            placeholder="-----BEGIN CERTIFICATE-----\nMIIC...\n-----END CERTIFICATE-----"
-            value={certificateInput}
-            onChange={(e) => setCertificateInput(e.target.value)}
-            className="w-full resize-none border rounded-md focus-visible:ring-1 p-4 font-code text-sm min-h-[200px]"
-            style={{ overflowY: 'hidden' }}
-            aria-label="Certificate PEM Input"
-          />
-        </CardContent>
-        <CardFooter>
-          <Button onClick={handleParseCertificate} disabled={isLoading || !isClient}>
-            {isLoading && <RefreshCw className="mr-2 h-4 w-4 animate-spin" />}
-            {isLoading ? 'Parsing...' : 'Parse Certificate'}
-          </Button>
-        </CardFooter>
-      </Card>
+        {isClient && error && (
+          <Alert variant="destructive">
+            <AlertCircle className="h-4 w-4" />
+            <AlertTitle>Error</AlertTitle>
+            <AlertDescription>{error}</AlertDescription>
+          </Alert>
+        )}
 
-      {isClient && error && (
-        <Alert variant="destructive">
-          <AlertCircle className="h-4 w-4" />
-          <AlertTitle>Error</AlertTitle>
-          <AlertDescription>{error}</AlertDescription>
-        </Alert>
-      )}
-
-      {isClient && parsedDetails && !error && (
-        <div className="space-y-6">
-          <Card>
-            <CardHeader><CardTitle className="text-lg font-headline">General Information</CardTitle></CardHeader>
-            <CardContent className="space-y-2 text-sm">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-1">
-                <div><strong>Serial Number:</strong> <span className="font-code break-all">{parsedDetails.serialNumber}</span></div>
-                <div><strong>Signature Algorithm:</strong> {parsedDetails.signatureAlgorithm}</div>
-                <div><strong>Valid From:</strong> {parsedDetails.validity.notBefore}</div>
-                <div><strong>Valid Until:</strong> {parsedDetails.validity.notAfter}</div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {renderAttributesTable("Subject", parsedDetails.subject)}
-          {renderAttributesTable("Issuer", parsedDetails.issuer)}
-
-          <Card>
-            <CardHeader><CardTitle className="text-lg font-headline">Public Key Information</CardTitle></CardHeader>
-            <CardContent className="space-y-2 text-sm">
-              <div><strong>Algorithm:</strong> {parsedDetails.publicKey.algorithm}</div>
-              <div><strong>Details:</strong> {parsedDetails.publicKey.details}</div>
-              {parsedDetails.publicKey.pem && (
-                <div>
-                  <strong>Public Key (PEM):</strong>
-                  <Button variant="outline" size="sm" className="ml-2" onClick={() => handleCopyToClipboard(parsedDetails.publicKey.pem!, 'Public Key PEM')}>
-                     <Copy className="mr-1 h-3 w-3" /> Copy
-                  </Button>
-                  <Textarea value={parsedDetails.publicKey.pem} readOnly className="font-code text-xs mt-1 bg-muted/50 max-h-40" rows={3}/>
-                </div>
-              )}
-            </CardContent>
-          </Card>
-          
-          <Card>
-            <CardHeader><CardTitle className="text-lg font-headline">Fingerprints</CardTitle></CardHeader>
-            <CardContent className="space-y-1 text-sm">
-              <div><strong>SHA-1:</strong> <span className="font-code break-all">{parsedDetails.fingerprints.sha1}</span></div>
-              <div><strong>SHA-256:</strong> <span className="font-code break-all">{parsedDetails.fingerprints.sha256}</span></div>
-            </CardContent>
-          </Card>
-
-          {parsedDetails.extensions.length > 0 && (
+        {isClient && parsedDetails && !error && (
+          <>
             <Card>
-              <CardHeader><CardTitle className="text-lg font-headline">Extensions</CardTitle></CardHeader>
-              <CardContent>
-                <Accordion type="multiple" className="w-full">
-                  {parsedDetails.extensions.map((ext, index) => (
-                    <AccordionItem value={`ext-${index}`} key={`ext-${index}`}>
-                      <AccordionTrigger className="text-sm hover:no-underline">
-                        <div className="flex items-center gap-2">
-                          <span>{ext.name}</span>
-                          {ext.critical && <Badge variant="destructive" className="text-xs px-1.5 py-0">Critical</Badge>}
-                        </div>
-                      </AccordionTrigger>
-                      <AccordionContent className="text-sm font-code bg-muted/30 p-3 rounded-md whitespace-pre-wrap break-all">
-                        {ext.valueString || 'Could not format extension value.'}
-                      </AccordionContent>
-                    </AccordionItem>
-                  ))}
-                </Accordion>
+              <CardHeader><CardTitle className="text-lg font-headline">General Information</CardTitle></CardHeader>
+              <CardContent className="space-y-2 text-sm">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-1">
+                  <div><strong>Serial Number:</strong> <span className="font-code break-all">{parsedDetails.serialNumber}</span></div>
+                  <div><strong>Signature Algorithm:</strong> {parsedDetails.signatureAlgorithm}</div>
+                  <div><strong>Valid From:</strong> {parsedDetails.validity.notBefore}</div>
+                  <div><strong>Valid Until:</strong> {parsedDetails.validity.notAfter}</div>
+                </div>
               </CardContent>
             </Card>
-          )}
-           <Card>
-            <CardHeader><CardTitle className="text-lg font-headline">Raw Certificate (PEM)</CardTitle></CardHeader>
-            <CardContent>
-                 <Button variant="outline" size="sm" className="mb-2" onClick={() => handleCopyToClipboard(parsedDetails.pem, 'Full Certificate PEM')}>
-                     <Copy className="mr-1 h-3 w-3" /> Copy PEM
-                  </Button>
-                <Textarea value={parsedDetails.pem} readOnly className="font-code text-xs bg-muted/50 max-h-96" rows={10}/>
-            </CardContent>
-           </Card>
-        </div>
-      )}
+
+            {renderAttributesTable("Subject", parsedDetails.subject)}
+            {renderAttributesTable("Issuer", parsedDetails.issuer)}
+
+            <Card>
+              <CardHeader><CardTitle className="text-lg font-headline">Public Key Information</CardTitle></CardHeader>
+              <CardContent className="space-y-2 text-sm">
+                <div><strong>Algorithm:</strong> {parsedDetails.publicKey.algorithm}</div>
+                <div><strong>Details:</strong> {parsedDetails.publicKey.details}</div>
+                {parsedDetails.publicKey.pem && (
+                  <div>
+                    <strong>Public Key (PEM):</strong>
+                    <Button variant="outline" size="sm" className="ml-2" onClick={() => handleCopyToClipboard(parsedDetails.publicKey.pem!, 'Public Key PEM')}>
+                       <Copy className="mr-1 h-3 w-3" /> Copy
+                    </Button>
+                    <Textarea value={parsedDetails.publicKey.pem} readOnly className="font-code text-xs mt-1 bg-muted/50 max-h-40" rows={3}/>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+            
+            <Card>
+              <CardHeader><CardTitle className="text-lg font-headline">Fingerprints</CardTitle></CardHeader>
+              <CardContent className="space-y-1 text-sm">
+                <div><strong>SHA-1:</strong> <span className="font-code break-all">{parsedDetails.fingerprints.sha1}</span></div>
+                <div><strong>SHA-256:</strong> <span className="font-code break-all">{parsedDetails.fingerprints.sha256}</span></div>
+              </CardContent>
+            </Card>
+
+            {parsedDetails.extensions.length > 0 && (
+              <Card>
+                <CardHeader><CardTitle className="text-lg font-headline">Extensions</CardTitle></CardHeader>
+                <CardContent>
+                  <Accordion type="multiple" className="w-full">
+                    {parsedDetails.extensions.map((ext, index) => (
+                      <AccordionItem value={`ext-${index}`} key={`ext-${index}`}>
+                        <AccordionTrigger className="text-sm hover:no-underline">
+                          <div className="flex items-center gap-2">
+                            <span>{ext.name}</span>
+                            {ext.critical && <Badge variant="destructive" className="text-xs px-1.5 py-0">Critical</Badge>}
+                          </div>
+                        </AccordionTrigger>
+                        <AccordionContent className="text-sm font-code bg-muted/30 p-3 rounded-md whitespace-pre-wrap break-all">
+                          {ext.valueString || 'Could not format extension value.'}
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                </CardContent>
+              </Card>
+            )}
+             <Card>
+              <CardHeader><CardTitle className="text-lg font-headline">Raw Certificate (PEM)</CardTitle></CardHeader>
+              <CardContent>
+                   <Button variant="outline" size="sm" className="mb-2" onClick={() => handleCopyToClipboard(parsedDetails.pem, 'Full Certificate PEM')}>
+                       <Copy className="mr-1 h-3 w-3" /> Copy PEM
+                    </Button>
+                  <Textarea value={parsedDetails.pem} readOnly className="font-code text-xs bg-muted/50 max-h-96" rows={10}/>
+              </CardContent>
+             </Card>
+          </>
+        )}
+      </div>
     </div>
   );
 }
+
+    
