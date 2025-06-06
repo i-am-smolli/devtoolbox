@@ -73,6 +73,12 @@ const tools = [
     icon: ShieldCheck,
   },
   {
+    title: 'Random String Generator',
+    description: 'Generate random strings with custom length and character sets.',
+    href: '/dev-tools/random-string-generator',
+    icon: Shuffle,
+  },
+  {
     title: 'Hash Generator',
     description: 'Generate hashes from text using various algorithms.',
     href: '/dev-tools/hash-generator',

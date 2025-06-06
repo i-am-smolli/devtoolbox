@@ -18,6 +18,7 @@ const navItems = [
   { href: '/dev-tools/jwt-decoder', label: 'JWT Decoder', icon: LockKeyhole },
   { href: '/dev-tools/password-strength-meter', label: 'Password Strength', icon: ShieldCheck },
   { href: '/dev-tools/secure-password-generator', label: 'Password Generator', icon: KeyRound },
+  { href: '/dev-tools/random-string-generator', label: 'Random String Gen', icon: Shuffle },
   { href: '/dev-tools/time-converter', label: 'Time Converter', icon: Clock },
   { href: '/dev-tools/url-encoder-decoder', label: 'URL Encoder/Decoder', icon: LinkIcon },
   { href: '/dev-tools/uuid-generator', label: 'UUID Generator', icon: Blocks },
