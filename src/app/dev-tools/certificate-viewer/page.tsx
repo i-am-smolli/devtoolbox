@@ -90,7 +90,7 @@ const formatAttribute = (attr: any): CertificateAttribute => {
   };
 };
 
-const formatPublicKey = (publicKey: forge.pki.PublicKey) => {
+const formatPublicKey = (publicKey: any) => {
   let algorithm = 'Unknown';
   let details = 'N/A';
   if (forge.pki.oids.rsaEncryption === publicKey.type || publicKey.type === OID_MAP['1.2.840.113549.1.1.1']) {
