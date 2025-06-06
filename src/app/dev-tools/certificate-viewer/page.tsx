@@ -116,7 +116,7 @@ const formatExtensionValue = (ext: any): string => {
   if (!ext) return 'N/A';
 
   if (ext.name === 'subjectAltName' && ext.altNames) {
-    return ext.altNames.map(alt => {
+    return ext.altNames.map((alt: any) => {
       if (alt.type === 2) return `DNS:${alt.value}`; // dNSName
       if (alt.type === 7) return `IP:${alt.value}`; // iPAddress
       if (alt.type === 1) return `Email:${alt.value}`; // rfc822Name
