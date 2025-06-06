@@ -188,7 +188,7 @@ export default function CertificateViewerPage() {
     setTimeout(() => { // Simulate async for UX and allow UI update
       try {
         const cert = forge.pki.certificateFromPem(certificateInput) as any;
-
+ 
         const getFingerprint = (mdAlgorithm: forge.md.MessageDigest) => {
           const md = mdAlgorithm.create();
           md.update(forge.asn1.toDer(forge.pki.certificateToAsn1(cert)).getBytes());
