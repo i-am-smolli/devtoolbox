@@ -81,7 +81,7 @@ const OID_MAP: { [key: string]: string } = {
   '2.5.29.32': 'Certificate Policies',
 };
 
-const formatAttribute = (attr: forge.pki.CertificateField): CertificateAttribute => {
+const formatAttribute = (attr: any): CertificateAttribute => {
   return {
     oid: attr.oid || 'N/A',
     name: OID_MAP[attr.oid || ''] || attr.name || attr.type || 'Unknown OID',
