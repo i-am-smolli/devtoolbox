@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { LayoutDashboard, Binary, FileText, Code2, ArrowRight, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound, Fingerprint, BookText, Palette, TerminalSquare, CalendarClock, ClipboardList, Shuffle, Network, Clock, CaseSensitive, Link as LinkIcon, SearchCode, Construction, Minimize2, Blocks, LockKeyhole, Pilcrow, Grid, Sparkles, ShieldCheck, FileKey } from 'lucide-react';
+import { LayoutDashboard, Binary, FileText, Code2, ArrowRight, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound, Fingerprint, BookText, Palette, TerminalSquare, CalendarClock, ClipboardList, Shuffle, Network, Clock, CaseSensitive, Link as LinkIcon, SearchCode, Construction, Minimize2, Blocks, LockKeyhole, Pilcrow, Grid, Sparkles, ShieldCheck, FileKey, QrCode } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Dashboard - Developer Utilities & Tools',
@@ -77,6 +77,12 @@ const tools = [
     description: 'Generate random strings with custom length and character sets.',
     href: '/dev-tools/random-string-generator',
     icon: Shuffle,
+  },
+  {
+    title: 'QR Code Generator',
+    description: 'Generate QR codes for text, URLs, WiFi, SMS, email, and geo locations.',
+    href: '/dev-tools/qr-code-generator',
+    icon: QrCode,
   },
   {
     title: 'Hash Generator',

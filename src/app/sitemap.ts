@@ -19,6 +19,7 @@ const pages: string[] = [
   '/dev-tools/secure-password-generator',
   '/dev-tools/password-strength-meter',
   '/dev-tools/random-string-generator',
+  '/dev-tools/qr-code-generator',
   '/dev-tools/hash-generator',
   '/dev-tools/color-converter',
   '/dev-tools/curl-generator',

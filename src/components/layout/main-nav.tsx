@@ -4,7 +4,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { SidebarMenu, SidebarMenuItem, SidebarMenuButton } from '@/components/ui/sidebar';
-import { LayoutDashboard, Binary, FileText, Code2, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound, Fingerprint, BookText, Palette, TerminalSquare, CalendarClock, ClipboardList, Shuffle, Network, Clock, CaseSensitive, Link as LinkIcon, SearchCode, Construction, Minimize2, Blocks, LockKeyhole, Pilcrow, Grid, Sparkles, ShieldCheck, FileKey } from 'lucide-react';
+import { LayoutDashboard, Binary, FileText, Code2, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound, Fingerprint, BookText, Palette, TerminalSquare, CalendarClock, ClipboardList, Shuffle, Network, Clock, CaseSensitive, Link as LinkIcon, SearchCode, Construction, Minimize2, Blocks, LockKeyhole, Pilcrow, Grid, Sparkles, ShieldCheck, FileKey, QrCode } from 'lucide-react';
 
 const navItems = [
   { href: '/', label: 'Dashboard', icon: LayoutDashboard },
@@ -18,6 +18,7 @@ const navItems = [
   { href: '/dev-tools/jwt-decoder', label: 'JWT Decoder', icon: LockKeyhole },
   { href: '/dev-tools/password-strength-meter', label: 'Password Strength', icon: ShieldCheck },
   { href: '/dev-tools/secure-password-generator', label: 'Password Generator', icon: KeyRound },
+  { href: '/dev-tools/qr-code-generator', label: 'QR Code Generator', icon: QrCode },
   { href: '/dev-tools/random-string-generator', label: 'Random String Gen', icon: Shuffle },
   { href: '/dev-tools/time-converter', label: 'Time Converter', icon: Clock },
   { href: '/dev-tools/url-encoder-decoder', label: 'URL Encoder/Decoder', icon: LinkIcon },
