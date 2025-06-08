@@ -6,7 +6,6 @@ RUN apk update && apk upgrade
 
 COPY . .
 
-
 ENV BUILD_STANDALONE=true
 RUN npm install
 RUN npm run build
