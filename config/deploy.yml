@@ -12,9 +12,7 @@ builder:
 
 # Deploy to these servers.
 servers:
-  web:
-    hosts:
-      - ubuntu@dev.jonathanmiller.icu
+  - ubuntu@dev.jonathanmiller.icu
 
 proxy:
   ssl: true
