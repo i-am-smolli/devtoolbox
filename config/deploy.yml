@@ -12,13 +12,13 @@ builder:
 
 # Deploy to these servers.
 servers:
-  intern:
-    hosts:
-      - 10.1.9.254
-    proxy:
-      ssl: false
-      app_port: 3000
-
+#  intern:
+#    hosts:
+#      - 10.1.9.254
+#    proxy:
+#      ssl: false
+#      app_port: 3000
+#
   web:
     hosts:
       - ubuntu@dev.jonathanmiller.icu
