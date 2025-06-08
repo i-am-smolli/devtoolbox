@@ -12,25 +12,14 @@ builder:
 
 # Deploy to these servers.
 servers:
-#  intern:
-#    hosts:
-#      - 10.1.9.254
-#    proxy:
-#      ssl: false
-#      app_port: 3000
-#
   web:
     hosts:
       - ubuntu@dev.jonathanmiller.icu
-    proxy:
-      ssl: true
-      host: "dev.jonathanmiller.icu"
-      app_port: 3000
 
-#proxy:
-#  ssl: true
-#  host: "dev.jonathanmiller.icu"
-#  app_port: 3000
+proxy:
+  ssl: true
+  host: "dev.jonathanmiller.icu"
+  app_port: 3000
 
 
   # Pass in additional build args needed for your Dockerfile.
