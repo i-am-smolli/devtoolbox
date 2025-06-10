@@ -1,30 +1,37 @@
-
-'use client';
+"use client";
 
 // Removed: import type { Metadata } from 'next';
-import { useState, useEffect, useRef } from 'react';
-import { PageHeader } from '@/components/page-header';
-import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
-import { Textarea } from '@/components/ui/textarea';
-import { Button } from '@/components/ui/button';
+import { useState, useEffect, useRef } from "react";
+import { PageHeader } from "@/components/page-header";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardFooter,
+} from "@/components/ui/card";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Link as LinkIcon, Copy, AlertCircle } from 'lucide-react';
+import { Link as LinkIcon, Copy, AlertCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 // Metadata is now handled by layout.tsx
 
 export default function UrlEncoderDecoderPage() {
-  const [plainText, setPlainText] = useState('');
-  const [encodedText, setEncodedText] = useState('');
+  const [plainText, setPlainText] = useState("");
+  const [encodedText, setEncodedText] = useState("");
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
 
   const plainTextRef = useRef<HTMLTextAreaElement>(null);
   const encodedTextRef = useRef<HTMLTextAreaElement>(null);
 
-  const adjustTextareaHeight = (textareaRef: React.RefObject<HTMLTextAreaElement>) => {
+  const adjustTextareaHeight = (
+    textareaRef: React.RefObject<HTMLTextAreaElement>,
+  ) => {
     if (textareaRef.current) {
-      textareaRef.current.style.height = 'auto';
+      textareaRef.current.style.height = "auto";
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
     }
   };
@@ -35,34 +42,39 @@ export default function UrlEncoderDecoderPage() {
   const handleEncode = () => {
     setError(null);
     if (!plainText.trim()) {
-      setEncodedText('');
-      if(error) setError(null);
+      setEncodedText("");
+      if (error) setError(null);
       return;
     }
     try {
       setEncodedText(encodeURIComponent(plainText));
     } catch (e: any) {
-      setError(`Encoding Error: ${e.message || 'Could not encode text.'}`);
-      setEncodedText('');
+      setError(`Encoding Error: ${e.message || "Could not encode text."}`);
+      setEncodedText("");
     }
   };
 
   const handleDecode = () => {
     setError(null);
     if (!encodedText.trim()) {
-      setPlainText('');
-      if(error) setError(null);
+      setPlainText("");
+      if (error) setError(null);
       return;
     }
     try {
       setPlainText(decodeURIComponent(encodedText));
     } catch (e: any) {
-      setError(`Decoding Error: ${e.message || 'Invalid URL-encoded string or decoding failed.'}`);
-      setPlainText('');
+      setError(
+        `Decoding Error: ${e.message || "Invalid URL-encoded string or decoding failed."}`,
+      );
+      setPlainText("");
     }
   };
 
-  const handleCopyToClipboard = async (text: string, type: 'Plain Text' | 'Encoded URL') => {
+  const handleCopyToClipboard = async (
+    text: string,
+    type: "Plain Text" | "Encoded URL",
+  ) => {
     if (!text) return;
     try {
       await navigator.clipboard.writeText(text);
@@ -106,18 +118,23 @@ export default function UrlEncoderDecoderPage() {
               ref={plainTextRef}
               placeholder="Enter plain string here..."
               value={plainText}
-              onChange={(e) => { setPlainText(e.target.value); if(error) setError(null); }}
+              onChange={(e) => {
+                setPlainText(e.target.value);
+                if (error) setError(null);
+              }}
               className="w-full resize-none border-0 rounded-none focus-visible:ring-0 p-4 font-code text-sm min-h-[150px]"
               aria-label="Plain String Input"
-              style={{ overflowY: 'hidden' }}
+              style={{ overflowY: "hidden" }}
             />
           </CardContent>
           <CardFooter className="p-4 flex flex-col sm:flex-row gap-2 items-stretch">
-            <Button onClick={handleEncode} className="w-full sm:flex-grow">Encode URL</Button>
-            <Button 
-              variant="outline" 
-              size="icon" 
-              onClick={() => handleCopyToClipboard(plainText, 'Plain Text')} 
+            <Button onClick={handleEncode} className="w-full sm:flex-grow">
+              Encode URL
+            </Button>
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => handleCopyToClipboard(plainText, "Plain Text")}
               aria-label="Copy plain string"
               disabled={!plainText}
               className="sm:w-auto"
@@ -137,18 +154,23 @@ export default function UrlEncoderDecoderPage() {
               ref={encodedTextRef}
               placeholder="Enter URL-encoded string here or see encoded output..."
               value={encodedText}
-              onChange={(e) => { setEncodedText(e.target.value); if(error) setError(null); }}
+              onChange={(e) => {
+                setEncodedText(e.target.value);
+                if (error) setError(null);
+              }}
               className="w-full resize-none border-0 rounded-none focus-visible:ring-0 p-4 font-code text-sm min-h-[150px]"
               aria-label="URL-Encoded String Input/Output"
-              style={{ overflowY: 'hidden' }}
+              style={{ overflowY: "hidden" }}
             />
           </CardContent>
           <CardFooter className="p-4 flex flex-col sm:flex-row gap-2 items-stretch">
-            <Button onClick={handleDecode} className="w-full sm:flex-grow">Decode URL</Button>
-            <Button 
-              variant="outline" 
-              size="icon" 
-              onClick={() => handleCopyToClipboard(encodedText, 'Encoded URL')} 
+            <Button onClick={handleDecode} className="w-full sm:flex-grow">
+              Decode URL
+            </Button>
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => handleCopyToClipboard(encodedText, "Encoded URL")}
               aria-label="Copy URL-encoded string"
               disabled={!encodedText}
               className="sm:w-auto"

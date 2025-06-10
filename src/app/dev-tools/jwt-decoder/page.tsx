@@ -1,16 +1,21 @@
-
-'use client';
+"use client";
 
 // Removed: import type { Metadata } from 'next';
-import { useState, useEffect, useRef } from 'react';
-import { PageHeader } from '@/components/page-header';
-import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
-import { Textarea } from '@/components/ui/textarea';
-import { Button } from '@/components/ui/button';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { LockKeyhole, Copy, AlertTriangle, Info } from 'lucide-react';
+import { useState, useEffect, useRef } from "react";
+import { PageHeader } from "@/components/page-header";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardFooter,
+} from "@/components/ui/card";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { LockKeyhole, Copy, AlertTriangle, Info } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 // Metadata is now handled by layout.tsx
@@ -22,9 +27,13 @@ interface DecodedJwtPart {
 }
 
 export default function JwtDecoderPage() {
-  const [jwtInput, setJwtInput] = useState('');
-  const [decodedHeader, setDecodedHeader] = useState<DecodedJwtPart | null>(null);
-  const [decodedPayload, setDecodedPayload] = useState<DecodedJwtPart | null>(null);
+  const [jwtInput, setJwtInput] = useState("");
+  const [decodedHeader, setDecodedHeader] = useState<DecodedJwtPart | null>(
+    null,
+  );
+  const [decodedPayload, setDecodedPayload] = useState<DecodedJwtPart | null>(
+    null,
+  );
   const [parseError, setParseError] = useState<string | null>(null);
   const { toast } = useToast();
   const [isClient, setIsClient] = useState(false);
@@ -37,18 +46,18 @@ export default function JwtDecoderPage() {
 
   useEffect(() => {
     if (textareaRef.current) {
-      textareaRef.current.style.height = 'auto';
+      textareaRef.current.style.height = "auto";
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
     }
   }, [jwtInput]);
 
   const decodePart = (part: string): DecodedJwtPart => {
     try {
-      let base64 = part.replace(/-/g, '+').replace(/_/g, '/');
+      let base64 = part.replace(/-/g, "+").replace(/_/g, "/");
       const padding = base64.length % 4;
-      if (padding === 2) base64 += '==';
-      else if (padding === 3) base64 += '=';
-      
+      if (padding === 2) base64 += "==";
+      else if (padding === 3) base64 += "=";
+
       const binaryString = atob(base64);
       const bytes = new Uint8Array(binaryString.length);
       for (let i = 0; i < binaryString.length; i++) {
@@ -58,7 +67,11 @@ export default function JwtDecoderPage() {
       const jsonData = JSON.parse(utf8DecodedString);
       return { original: part, decoded: jsonData };
     } catch (e: any) {
-      return { original: part, decoded: null, error: e.message || 'Invalid encoding or JSON format' };
+      return {
+        original: part,
+        decoded: null,
+        error: e.message || "Invalid encoding or JSON format",
+      };
     }
   };
 
@@ -70,9 +83,11 @@ export default function JwtDecoderPage() {
       return;
     }
 
-    const parts = jwtInput.split('.');
+    const parts = jwtInput.split(".");
     if (parts.length !== 3) {
-      setParseError('Invalid JWT format: Token must have three parts separated by dots.');
+      setParseError(
+        "Invalid JWT format: Token must have three parts separated by dots.",
+      );
       setDecodedHeader(null);
       setDecodedPayload(null);
       return;
@@ -86,15 +101,20 @@ export default function JwtDecoderPage() {
     setDecodedPayload(payloadResult);
 
     if (headerResult.error || payloadResult.error) {
-        setParseError('Error decoding header or payload. Check individual parts for details.');
+      setParseError(
+        "Error decoding header or payload. Check individual parts for details.",
+      );
     }
-
   }, [jwtInput]);
 
-  const handleCopyToClipboard = async (text: string | object | null, type: string) => {
-    if (text === null || typeof text === 'undefined') return;
-    const textToCopy = typeof text === 'string' ? text : JSON.stringify(text, null, 2);
-    
+  const handleCopyToClipboard = async (
+    text: string | object | null,
+    type: string,
+  ) => {
+    if (text === null || typeof text === "undefined") return;
+    const textToCopy =
+      typeof text === "string" ? text : JSON.stringify(text, null, 2);
+
     try {
       await navigator.clipboard.writeText(textToCopy);
       toast({
@@ -152,7 +172,7 @@ export default function JwtDecoderPage() {
             value={jwtInput}
             onChange={(e) => setJwtInput(e.target.value)}
             className="w-full resize-none border rounded-md focus-visible:ring-1 p-4 font-code text-sm min-h-[100px]"
-            style={{ overflowY: 'hidden' }}
+            style={{ overflowY: "hidden" }}
             aria-label="JWT Input"
           />
         </CardContent>
@@ -172,28 +192,49 @@ export default function JwtDecoderPage() {
             <CardTitle className="font-headline">Decoded Token</CardTitle>
           </CardHeader>
           <CardContent>
-            <Alert variant="default" className="mb-4 border-blue-500 text-blue-700 dark:text-blue-300">
+            <Alert
+              variant="default"
+              className="mb-4 border-blue-500 text-blue-700 dark:text-blue-300"
+            >
               <Info className="h-4 w-4 text-blue-500" />
-              <AlertTitle className="text-blue-600 dark:text-blue-400">Signature Not Verified</AlertTitle>
+              <AlertTitle className="text-blue-600 dark:text-blue-400">
+                Signature Not Verified
+              </AlertTitle>
               <AlertDescription>
-                This tool only decodes the JWT. It does not verify the signature's authenticity.
-                Do not trust the content of a JWT without verifying its signature.
+                This tool only decodes the JWT. It does not verify the
+                signature's authenticity. Do not trust the content of a JWT
+                without verifying its signature.
               </AlertDescription>
             </Alert>
 
             <Tabs defaultValue="header" className="w-full">
               <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="header" disabled={!decodedHeader?.decoded && !decodedHeader?.error}>Header</TabsTrigger>
-                <TabsTrigger value="payload" disabled={!decodedPayload?.decoded && !decodedPayload?.error}>Payload</TabsTrigger>
+                <TabsTrigger
+                  value="header"
+                  disabled={!decodedHeader?.decoded && !decodedHeader?.error}
+                >
+                  Header
+                </TabsTrigger>
+                <TabsTrigger
+                  value="payload"
+                  disabled={!decodedPayload?.decoded && !decodedPayload?.error}
+                >
+                  Payload
+                </TabsTrigger>
               </TabsList>
               <TabsContent value="header" className="mt-4">
                 <div className="space-y-2">
                   {renderDecodedPart(decodedHeader, "Header")}
                   {decodedHeader?.decoded && (
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      onClick={() => handleCopyToClipboard(decodedHeader.decoded, 'Header JSON')}
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() =>
+                        handleCopyToClipboard(
+                          decodedHeader.decoded,
+                          "Header JSON",
+                        )
+                      }
                       className="mt-2"
                     >
                       <Copy className="mr-2 h-4 w-4" /> Copy Header JSON
@@ -202,13 +243,18 @@ export default function JwtDecoderPage() {
                 </div>
               </TabsContent>
               <TabsContent value="payload" className="mt-4">
-                 <div className="space-y-2">
+                <div className="space-y-2">
                   {renderDecodedPart(decodedPayload, "Payload")}
                   {decodedPayload?.decoded && (
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      onClick={() => handleCopyToClipboard(decodedPayload.decoded, 'Payload JSON')}
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() =>
+                        handleCopyToClipboard(
+                          decodedPayload.decoded,
+                          "Payload JSON",
+                        )
+                      }
                       className="mt-2"
                     >
                       <Copy className="mr-2 h-4 w-4" /> Copy Payload JSON
@@ -220,15 +266,20 @@ export default function JwtDecoderPage() {
           </CardContent>
         </Card>
       )}
-       {isClient && !jwtInput.trim() && !parseError && !decodedHeader && !decodedPayload && (
-        <Card>
+      {isClient &&
+        !jwtInput.trim() &&
+        !parseError &&
+        !decodedHeader &&
+        !decodedPayload && (
+          <Card>
             <CardContent className="p-6">
-                <p className="text-muted-foreground">
-                    Paste a JWT in the input area above to see its decoded header and payload.
-                </p>
+              <p className="text-muted-foreground">
+                Paste a JWT in the input area above to see its decoded header
+                and payload.
+              </p>
             </CardContent>
-        </Card>
-      )}
+          </Card>
+        )}
     </div>
   );
 }

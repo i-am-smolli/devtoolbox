@@ -1,15 +1,14 @@
-
-'use client';
+"use client";
 
 // Removed: import type { Metadata } from 'next';
-import { useState, useEffect, useRef } from 'react';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import { PageHeader } from '@/components/page-header';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Textarea } from '@/components/ui/textarea';
-import { FileText } from 'lucide-react';
-import { ScrollArea } from '@/components/ui/scroll-area';
+import { useState, useEffect, useRef } from "react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import { PageHeader } from "@/components/page-header";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Textarea } from "@/components/ui/textarea";
+import { FileText } from "lucide-react";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 // Metadata is now handled by layout.tsx
 
@@ -40,7 +39,6 @@ You can also use \`inline code\`.
 ![Placeholder Image](https://placehold.co/300x200.png)
 `;
 
-
 export default function MarkdownPreviewPage() {
   const [markdownInput, setMarkdownInput] = useState(initialMarkdown);
   const [isClient, setIsClient] = useState(false);
@@ -53,7 +51,7 @@ export default function MarkdownPreviewPage() {
   // Adjust textarea height based on content
   useEffect(() => {
     if (isClient && textareaRef.current) {
-      textareaRef.current.style.height = 'auto'; // Reset height to recalculate
+      textareaRef.current.style.height = "auto"; // Reset height to recalculate
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
     }
   }, [isClient, markdownInput]);
@@ -83,7 +81,7 @@ export default function MarkdownPreviewPage() {
               onChange={handleTextareaChange}
               className="w-full resize-none border-0 rounded-none focus-visible:ring-0 p-4 font-code text-sm"
               aria-label="Markdown Input"
-              style={{ overflowY: 'hidden' }} // Hide scrollbar as height is dynamic
+              style={{ overflowY: "hidden" }} // Hide scrollbar as height is dynamic
             />
           </CardContent>
         </Card>
@@ -91,26 +89,39 @@ export default function MarkdownPreviewPage() {
           <CardHeader>
             <CardTitle className="font-headline">HTML Preview</CardTitle>
           </CardHeader>
-          <CardContent className="flex-grow p-0"> {/* Allow content to grow */}
-            <ScrollArea className="h-full w-full p-4"> {/* ScrollArea takes full height */}
+          <CardContent className="flex-grow p-0">
+            {" "}
+            {/* Allow content to grow */}
+            <ScrollArea className="h-full w-full p-4">
+              {" "}
+              {/* ScrollArea takes full height */}
               {isClient ? (
-                 <div className="markdown-preview-content">
-                    <ReactMarkdown
-                      remarkPlugins={[remarkGfm]}
-                      components={{
-                        img: ({node, ...props}) => {
-                          const altText = props.alt || '';
-                          if (props.src && props.src.startsWith('https://placehold.co/')) {
-                            // eslint-disable-next-line @next/next/no-img-element
-                            return <img {...props} alt={altText} data-ai-hint="abstract placeholder" />;
-                          }
+                <div className="markdown-preview-content">
+                  <ReactMarkdown
+                    remarkPlugins={[remarkGfm]}
+                    components={{
+                      img: ({ node, ...props }) => {
+                        const altText = props.alt || "";
+                        if (
+                          props.src &&
+                          props.src.startsWith("https://placehold.co/")
+                        ) {
                           // eslint-disable-next-line @next/next/no-img-element
-                          return <img {...props} alt={altText} />;
+                          return (
+                            <img
+                              {...props}
+                              alt={altText}
+                              data-ai-hint="abstract placeholder"
+                            />
+                          );
                         }
-                      }}
-                    >
-                      {markdownInput}
-                    </ReactMarkdown>
+                        // eslint-disable-next-line @next/next/no-img-element
+                        return <img {...props} alt={altText} />;
+                      },
+                    }}
+                  >
+                    {markdownInput}
+                  </ReactMarkdown>
                 </div>
               ) : (
                 <p>Loading preview...</p>

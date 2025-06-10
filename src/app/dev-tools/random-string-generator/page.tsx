@@ -1,14 +1,19 @@
+"use client";
 
-'use client';
-
-import { useState, useEffect } from 'react';
-import { PageHeader } from '@/components/page-header';
-import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Shuffle, Copy, AlertCircle, RefreshCw } from 'lucide-react';
+import { useState, useEffect } from "react";
+import { PageHeader } from "@/components/page-header";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardFooter,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Shuffle, Copy, AlertCircle, RefreshCw } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
@@ -16,10 +21,10 @@ const MIN_LENGTH = 1;
 const MAX_LENGTH = 2048;
 const DEFAULT_LENGTH = 16;
 
-const UPPERCASE_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-const LOWERCASE_CHARS = 'abcdefghijklmnopqrstuvwxyz';
-const NUMBER_CHARS = '0123456789';
-const SYMBOL_CHARS = '!@#$%^&*()_+-=[]{}|;:,.<>?';
+const UPPERCASE_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const LOWERCASE_CHARS = "abcdefghijklmnopqrstuvwxyz";
+const NUMBER_CHARS = "0123456789";
+const SYMBOL_CHARS = "!@#$%^&*()_+-=[]{}|;:,.<>?";
 
 export default function RandomStringGeneratorPage() {
   const [length, setLength] = useState<number>(DEFAULT_LENGTH);
@@ -27,7 +32,7 @@ export default function RandomStringGeneratorPage() {
   const [includeLowercase, setIncludeLowercase] = useState(true);
   const [includeNumbers, setIncludeNumbers] = useState(true);
   const [includeSymbols, setIncludeSymbols] = useState(false);
-  const [generatedString, setGeneratedString] = useState('');
+  const [generatedString, setGeneratedString] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
@@ -37,13 +42,13 @@ export default function RandomStringGeneratorPage() {
     setIsClient(true);
     // Generate an initial string on load
     handleGenerateString();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isClient]); // Only run on client mount
 
   const handleGenerateString = () => {
     if (!isClient) return;
     setError(null);
-    setGeneratedString('');
+    setGeneratedString("");
     setIsLoading(true);
 
     if (isNaN(length) || length < MIN_LENGTH || length > MAX_LENGTH) {
@@ -52,19 +57,19 @@ export default function RandomStringGeneratorPage() {
       return;
     }
 
-    let charPool = '';
+    let charPool = "";
     if (includeUppercase) charPool += UPPERCASE_CHARS;
     if (includeLowercase) charPool += LOWERCASE_CHARS;
     if (includeNumbers) charPool += NUMBER_CHARS;
     if (includeSymbols) charPool += SYMBOL_CHARS;
 
-    if (charPool === '') {
-      setError('Please select at least one character type to include.');
+    if (charPool === "") {
+      setError("Please select at least one character type to include.");
       setIsLoading(false);
       return;
     }
 
-    let result = '';
+    let result = "";
     // For better randomness, especially for security-sensitive contexts,
     // window.crypto.getRandomValues would be preferred.
     // For a general utility tool, Math.random is usually sufficient.
@@ -72,11 +77,11 @@ export default function RandomStringGeneratorPage() {
       const randomIndex = Math.floor(Math.random() * charPool.length);
       result += charPool[randomIndex];
     }
-    
+
     // Simulate slight delay for UX
     setTimeout(() => {
-        setGeneratedString(result);
-        setIsLoading(false);
+      setGeneratedString(result);
+      setIsLoading(false);
     }, 100);
   };
 
@@ -111,7 +116,9 @@ export default function RandomStringGeneratorPage() {
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="space-y-2">
-            <Label htmlFor="stringLength">String Length ({MIN_LENGTH}-{MAX_LENGTH})</Label>
+            <Label htmlFor="stringLength">
+              String Length ({MIN_LENGTH}-{MAX_LENGTH})
+            </Label>
             <Input
               id="stringLength"
               type="number"
@@ -127,7 +134,9 @@ export default function RandomStringGeneratorPage() {
           </div>
 
           <div className="space-y-3">
-            <Label className="block font-medium">Include Character Types:</Label>
+            <Label className="block font-medium">
+              Include Character Types:
+            </Label>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">
               <div className="flex items-center space-x-2">
                 <Checkbox
@@ -135,7 +144,9 @@ export default function RandomStringGeneratorPage() {
                   checked={includeUppercase}
                   onCheckedChange={(checked) => setIncludeUppercase(!!checked)}
                 />
-                <Label htmlFor="includeUppercase" className="cursor-pointer">Uppercase (A-Z)</Label>
+                <Label htmlFor="includeUppercase" className="cursor-pointer">
+                  Uppercase (A-Z)
+                </Label>
               </div>
               <div className="flex items-center space-x-2">
                 <Checkbox
@@ -143,7 +154,9 @@ export default function RandomStringGeneratorPage() {
                   checked={includeLowercase}
                   onCheckedChange={(checked) => setIncludeLowercase(!!checked)}
                 />
-                <Label htmlFor="includeLowercase" className="cursor-pointer">Lowercase (a-z)</Label>
+                <Label htmlFor="includeLowercase" className="cursor-pointer">
+                  Lowercase (a-z)
+                </Label>
               </div>
               <div className="flex items-center space-x-2">
                 <Checkbox
@@ -151,7 +164,9 @@ export default function RandomStringGeneratorPage() {
                   checked={includeNumbers}
                   onCheckedChange={(checked) => setIncludeNumbers(!!checked)}
                 />
-                <Label htmlFor="includeNumbers" className="cursor-pointer">Numbers (0-9)</Label>
+                <Label htmlFor="includeNumbers" className="cursor-pointer">
+                  Numbers (0-9)
+                </Label>
               </div>
               <div className="flex items-center space-x-2">
                 <Checkbox
@@ -159,15 +174,20 @@ export default function RandomStringGeneratorPage() {
                   checked={includeSymbols}
                   onCheckedChange={(checked) => setIncludeSymbols(!!checked)}
                 />
-                <Label htmlFor="includeSymbols" className="cursor-pointer">Symbols (!@#$...)</Label>
+                <Label htmlFor="includeSymbols" className="cursor-pointer">
+                  Symbols (!@#$...)
+                </Label>
               </div>
             </div>
           </div>
         </CardContent>
         <CardFooter>
-          <Button onClick={handleGenerateString} disabled={isLoading || !isClient}>
+          <Button
+            onClick={handleGenerateString}
+            disabled={isLoading || !isClient}
+          >
             {isLoading && <RefreshCw className="mr-2 h-4 w-4 animate-spin" />}
-            {isLoading ? 'Generating...' : 'Generate String'}
+            {isLoading ? "Generating..." : "Generate String"}
           </Button>
         </CardFooter>
       </Card>
@@ -195,20 +215,25 @@ export default function RandomStringGeneratorPage() {
             />
           </CardContent>
           <CardFooter>
-            <Button onClick={handleCopyToClipboard} variant="outline" disabled={!generatedString}>
+            <Button
+              onClick={handleCopyToClipboard}
+              variant="outline"
+              disabled={!generatedString}
+            >
               <Copy className="mr-2 h-4 w-4" /> Copy String
             </Button>
           </CardFooter>
         </Card>
       )}
-      
+
       {isClient && !isLoading && !generatedString && !error && (
-         <Card>
-            <CardContent className="p-6">
-                <p className="text-muted-foreground">
-                   Configure options and click "Generate String". An initial string is generated on load.
-                </p>
-            </CardContent>
+        <Card>
+          <CardContent className="p-6">
+            <p className="text-muted-foreground">
+              Configure options and click "Generate String". An initial string
+              is generated on load.
+            </p>
+          </CardContent>
         </Card>
       )}
     </div>

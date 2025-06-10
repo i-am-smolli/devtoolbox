@@ -1,15 +1,14 @@
-
-'use client';
+"use client";
 
 // Removed: import type { Metadata } from 'next';
-import { useState, useEffect, useRef } from 'react';
-import { PageHeader } from '@/components/page-header';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Textarea } from '@/components/ui/textarea';
-import { FolderTree, AlertCircle } from 'lucide-react';
+import { useState, useEffect, useRef } from "react";
+import { PageHeader } from "@/components/page-header";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Textarea } from "@/components/ui/textarea";
+import { FolderTree, AlertCircle } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import JsonExplorerNode from '@/components/json-explorer-node';
-import { ScrollArea } from '@/components/ui/scroll-area';
+import JsonExplorerNode from "@/components/json-explorer-node";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 // Metadata is now handled by layout.tsx
 
@@ -60,7 +59,7 @@ export default function JsonExplorerPage() {
 
   useEffect(() => {
     if (isClient && textareaRef.current) {
-      textareaRef.current.style.height = 'auto'; // Reset height to recalculate
+      textareaRef.current.style.height = "auto"; // Reset height to recalculate
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
     }
   }, [isClient, jsonInput]);
@@ -77,7 +76,7 @@ export default function JsonExplorerPage() {
       setError(null);
     } catch (e: any) {
       setParsedJson(null);
-      setError(e.message || 'Invalid JSON format');
+      setError(e.message || "Invalid JSON format");
     }
   };
 
@@ -109,32 +108,34 @@ export default function JsonExplorerPage() {
               aria-label="JSON Input"
               aria-invalid={!!error}
               aria-describedby={error ? "json-error-message" : undefined}
-              style={{ overflowY: 'hidden' }}
+              style={{ overflowY: "hidden" }}
             />
           </CardContent>
         </Card>
-        
+
         <Card className="flex flex-col">
           <CardHeader>
             <CardTitle className="font-headline">Explorer View</CardTitle>
           </CardHeader>
           <CardContent className="flex-grow p-0">
-             {isClient && error && (
-                <div className="p-4">
-                    <Alert variant="destructive" id="json-error-message" >
-                        <AlertCircle className="h-4 w-4" />
-                        <AlertTitle>Invalid JSON</AlertTitle>
-                        <AlertDescription>{error}</AlertDescription>
-                    </Alert>
-                </div>
+            {isClient && error && (
+              <div className="p-4">
+                <Alert variant="destructive" id="json-error-message">
+                  <AlertCircle className="h-4 w-4" />
+                  <AlertTitle>Invalid JSON</AlertTitle>
+                  <AlertDescription>{error}</AlertDescription>
+                </Alert>
+              </div>
             )}
             <ScrollArea className="h-full w-full p-4">
-                {isClient && parsedJson && !error && (
-                    <JsonExplorerNode data={parsedJson} isRoot />
-                )}
-                {isClient && !parsedJson && !error && (
-                    <p className="text-muted-foreground">Paste JSON in the input area to explore.</p>
-                )}
+              {isClient && parsedJson && !error && (
+                <JsonExplorerNode data={parsedJson} isRoot />
+              )}
+              {isClient && !parsedJson && !error && (
+                <p className="text-muted-foreground">
+                  Paste JSON in the input area to explore.
+                </p>
+              )}
             </ScrollArea>
           </CardContent>
         </Card>

@@ -1,16 +1,21 @@
-
-'use client';
+"use client";
 
 // Removed: import type { Metadata } from 'next';
-import { useState, useEffect, useRef } from 'react';
-import { marked } from 'marked';
-import { PageHeader } from '@/components/page-header';
-import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
-import { Textarea } from '@/components/ui/textarea';
-import { Button } from '@/components/ui/button';
-import { BookText, Copy } from 'lucide-react';
+import { useState, useEffect, useRef } from "react";
+import { marked } from "marked";
+import { PageHeader } from "@/components/page-header";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardFooter,
+} from "@/components/ui/card";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { BookText, Copy } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { ScrollArea } from '@/components/ui/scroll-area';
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 // Metadata is now handled by layout.tsx
 
@@ -43,7 +48,7 @@ You can also use \`inline code\`.
 
 export default function MarkdownToHtmlPage() {
   const [markdownInput, setMarkdownInput] = useState(initialMarkdown);
-  const [htmlOutput, setHtmlOutput] = useState('');
+  const [htmlOutput, setHtmlOutput] = useState("");
   const [isClient, setIsClient] = useState(false);
   const { toast } = useToast();
 
@@ -56,12 +61,14 @@ export default function MarkdownToHtmlPage() {
     if (initialMarkdown) {
       handleConvertToHtml(initialMarkdown);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const adjustTextareaHeight = (textareaRef: React.RefObject<HTMLTextAreaElement>) => {
+  const adjustTextareaHeight = (
+    textareaRef: React.RefObject<HTMLTextAreaElement>,
+  ) => {
     if (textareaRef.current) {
-      textareaRef.current.style.height = 'auto';
+      textareaRef.current.style.height = "auto";
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
     }
   };
@@ -74,13 +81,15 @@ export default function MarkdownToHtmlPage() {
     if (isClient) adjustTextareaHeight(htmlTextareaRef);
   }, [isClient, htmlOutput]);
 
-  const handleMarkdownInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleMarkdownInputChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement>,
+  ) => {
     setMarkdownInput(e.target.value);
   };
 
   const handleConvertToHtml = async (currentMarkdown: string) => {
     if (!currentMarkdown.trim()) {
-      setHtmlOutput('');
+      setHtmlOutput("");
       return;
     }
     try {
@@ -134,16 +143,19 @@ export default function MarkdownToHtmlPage() {
               onChange={handleMarkdownInputChange}
               className="w-full resize-none border-0 rounded-none focus-visible:ring-0 p-4 font-code text-sm min-h-[200px]"
               aria-label="Markdown Input"
-              style={{ overflowY: 'hidden' }}
+              style={{ overflowY: "hidden" }}
             />
           </CardContent>
           <CardFooter className="p-4">
-            <Button onClick={() => handleConvertToHtml(markdownInput)} className="w-full sm:w-auto">
+            <Button
+              onClick={() => handleConvertToHtml(markdownInput)}
+              className="w-full sm:w-auto"
+            >
               Convert to HTML
             </Button>
           </CardFooter>
         </Card>
-        
+
         <Card className="flex flex-col">
           <CardHeader>
             <CardTitle className="font-headline">HTML Output</CardTitle>
@@ -157,12 +169,17 @@ export default function MarkdownToHtmlPage() {
                 readOnly
                 className="w-full resize-none border-0 rounded-none focus-visible:ring-0 p-4 font-code text-sm bg-muted/50 min-h-[200px]"
                 aria-label="HTML Output"
-                style={{ overflowY: 'hidden' }}
+                style={{ overflowY: "hidden" }}
               />
             </ScrollArea>
           </CardContent>
           <CardFooter className="p-4">
-            <Button variant="outline" onClick={handleCopyHtml} disabled={!htmlOutput} className="w-full sm:w-auto">
+            <Button
+              variant="outline"
+              onClick={handleCopyHtml}
+              disabled={!htmlOutput}
+              className="w-full sm:w-auto"
+            >
               <Copy className="mr-2 h-4 w-4" />
               Copy HTML
             </Button>

@@ -1,9 +1,9 @@
-
-import type { Metadata } from 'next';
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: 'Text Case Converter - camelCase, snake_case, etc.',
-  description: 'Convert text between various casing styles like camelCase, snake_case, PascalCase, Title Case, UPPER CASE, lower case, and more. Free online tool.',
+  title: "Text Case Converter - camelCase, snake_case, etc.",
+  description:
+    "Convert text between various casing styles like camelCase, snake_case, PascalCase, Title Case, UPPER CASE, lower case, and more. Free online tool.",
 };
 
 export default function CaseConverterLayout({

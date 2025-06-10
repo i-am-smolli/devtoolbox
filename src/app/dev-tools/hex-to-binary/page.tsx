@@ -1,31 +1,30 @@
+"use client";
 
-'use client';
-
-import { useState } from 'react';
-import { PageHeader } from '@/components/page-header';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
-import { Binary, AlertCircle } from 'lucide-react';
+import { useState } from "react";
+import { PageHeader } from "@/components/page-header";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Binary, AlertCircle } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 export default function HexToBinaryPage() {
-  const [hexInput, setHexInput] = useState('');
-  const [binaryOutput, setBinaryOutput] = useState('');
+  const [hexInput, setHexInput] = useState("");
+  const [binaryOutput, setBinaryOutput] = useState("");
   const [error, setError] = useState<string | null>(null);
 
   const convertHexToBinary = () => {
-    const sanitizedHex = hexInput.replace(/\s/g, ''); // Remove spaces
+    const sanitizedHex = hexInput.replace(/\s/g, ""); // Remove spaces
     if (!sanitizedHex) {
-      setBinaryOutput('');
+      setBinaryOutput("");
       setError(null);
       return;
     }
 
     if (!/^[0-9A-Fa-f]*$/.test(sanitizedHex)) {
-      setError('Invalid hexadecimal characters. Only 0-9 and A-F are allowed.');
-      setBinaryOutput('');
+      setError("Invalid hexadecimal characters. Only 0-9 and A-F are allowed.");
+      setBinaryOutput("");
       return;
     }
 
@@ -33,21 +32,23 @@ export default function HexToBinaryPage() {
       let binaryString = "";
       for (let i = 0; i < sanitizedHex.length; i++) {
         const decimalValue = parseInt(sanitizedHex[i], 16);
-        const binaryChunk = decimalValue.toString(2).padStart(4, '0');
-        binaryString += binaryChunk + ( (i + 1) % 2 === 0 && i < sanitizedHex.length -1 ? ' ' : ''); // Add space every 8 bits (2 hex chars)
+        const binaryChunk = decimalValue.toString(2).padStart(4, "0");
+        binaryString +=
+          binaryChunk +
+          ((i + 1) % 2 === 0 && i < sanitizedHex.length - 1 ? " " : ""); // Add space every 8 bits (2 hex chars)
       }
       setBinaryOutput(binaryString.trim());
       setError(null);
     } catch (e) {
-      setError('An error occurred during conversion.');
-      setBinaryOutput('');
+      setError("An error occurred during conversion.");
+      setBinaryOutput("");
     }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setHexInput(e.target.value);
     // Optionally, auto-convert on type:
-    // convertHexToBinary(); 
+    // convertHexToBinary();
     // For now, we'll use a button.
   };
 
@@ -75,8 +76,10 @@ export default function HexToBinaryPage() {
               aria-describedby={error ? "error-message" : undefined}
             />
           </div>
-          
-          <Button onClick={convertHexToBinary} className="w-full sm:w-auto">Convert to Binary</Button>
+
+          <Button onClick={convertHexToBinary} className="w-full sm:w-auto">
+            Convert to Binary
+          </Button>
 
           {error && (
             <Alert variant="destructive" id="error-message">
@@ -97,7 +100,11 @@ export default function HexToBinaryPage() {
                 className="font-code bg-muted/50"
                 aria-label="Binary output"
               />
-               <Button variant="outline" size="sm" onClick={() => navigator.clipboard.writeText(binaryOutput)}>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => navigator.clipboard.writeText(binaryOutput)}
+              >
                 Copy to Clipboard
               </Button>
             </div>

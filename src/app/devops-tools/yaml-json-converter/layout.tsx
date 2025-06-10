@@ -1,9 +1,9 @@
-
-import type { Metadata } from 'next';
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: 'YAML/JSON Converter',
-  description: 'Convert data seamlessly between YAML and JSON formats. Easy to use for configuration files, data exchange, and more.',
+  title: "YAML/JSON Converter",
+  description:
+    "Convert data seamlessly between YAML and JSON formats. Easy to use for configuration files, data exchange, and more.",
 };
 
 export default function YamlJsonConverterLayout({

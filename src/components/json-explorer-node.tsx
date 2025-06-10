@@ -1,10 +1,14 @@
+"use client";
 
-'use client';
-
-import type { FC } from 'react';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { Badge } from '@/components/ui/badge';
-import { cn } from '@/lib/utils';
+import type { FC } from "react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 
 interface JsonExplorerNodeProps {
   data: any;
@@ -14,31 +18,58 @@ interface JsonExplorerNodeProps {
 }
 
 const getNodeType = (value: any): string => {
-  if (Array.isArray(value)) return 'array';
-  if (value === null) return 'null';
+  if (Array.isArray(value)) return "array";
+  if (value === null) return "null";
   return typeof value;
 };
 
-const JsonExplorerNode: FC<JsonExplorerNodeProps> = ({ data, name, defaultOpen = false, isRoot = false }) => {
+const JsonExplorerNode: FC<JsonExplorerNodeProps> = ({
+  data,
+  name,
+  defaultOpen = false,
+  isRoot = false,
+}) => {
   const type = getNodeType(data);
 
-  if (type === 'object') {
+  if (type === "object") {
     const entries = Object.entries(data);
     const triggerContent = (
       <>
-        {name && <span className="font-semibold mr-1 truncate max-w-48 inline-block">{name}:</span>}
-        <span className="mr-1">{'{'}</span>
-        <Badge variant="secondary" className="mr-1">{entries.length} {entries.length === 1 ? 'key' : 'keys'}</Badge>
-        {'}'}
+        {name && (
+          <span className="font-semibold mr-1 truncate max-w-48 inline-block">
+            {name}:
+          </span>
+        )}
+        <span className="mr-1">{"{"}</span>
+        <Badge variant="secondary" className="mr-1">
+          {entries.length} {entries.length === 1 ? "key" : "keys"}
+        </Badge>
+        {"}"}
       </>
     );
 
     if (entries.length === 0) {
-      return <div className="ml-0.5 py-1 px-2 text-sm text-muted-foreground">{name ? <><span className="font-semibold mr-1 break-words">{name}:</span><span>{"{ }"}</span></> : "{ }"}</div>;
+      return (
+        <div className="ml-0.5 py-1 px-2 text-sm text-muted-foreground">
+          {name ? (
+            <>
+              <span className="font-semibold mr-1 break-words">{name}:</span>
+              <span>{"{ }"}</span>
+            </>
+          ) : (
+            "{ }"
+          )}
+        </div>
+      );
     }
 
     return (
-      <Accordion type="single" collapsible className="w-full" defaultValue={isRoot || defaultOpen ? 'item' : undefined}>
+      <Accordion
+        type="single"
+        collapsible
+        className="w-full"
+        defaultValue={isRoot || defaultOpen ? "item" : undefined}
+      >
         <AccordionItem value="item" className="border-b-0">
           <AccordionTrigger className="hover:no-underline py-1 px-2 rounded hover:bg-muted/50 text-sm font-normal justify-start gap-1">
             {triggerContent}
@@ -54,30 +85,56 @@ const JsonExplorerNode: FC<JsonExplorerNodeProps> = ({ data, name, defaultOpen =
     );
   }
 
-  if (type === 'array') {
+  if (type === "array") {
     const triggerContent = (
       <>
-        {name && <span className="font-semibold mr-1 truncate max-w-48 inline-block">{name}:</span>}
-        <span className="mr-1">{'['}</span>
-        <Badge variant="secondary" className="mr-1">{data.length} {data.length === 1 ? 'item' : 'items'}</Badge>
-        {']'}
+        {name && (
+          <span className="font-semibold mr-1 truncate max-w-48 inline-block">
+            {name}:
+          </span>
+        )}
+        <span className="mr-1">{"["}</span>
+        <Badge variant="secondary" className="mr-1">
+          {data.length} {data.length === 1 ? "item" : "items"}
+        </Badge>
+        {"]"}
       </>
     );
 
     if (data.length === 0) {
-         return <div className="ml-0.5 py-1 px-2 text-sm text-muted-foreground">{name ? <><span className="font-semibold mr-1 break-words">{name}:</span><span>{"[ ]"}</span></> : "[ ]"}</div>;
+      return (
+        <div className="ml-0.5 py-1 px-2 text-sm text-muted-foreground">
+          {name ? (
+            <>
+              <span className="font-semibold mr-1 break-words">{name}:</span>
+              <span>{"[ ]"}</span>
+            </>
+          ) : (
+            "[ ]"
+          )}
+        </div>
+      );
     }
 
     return (
-      <Accordion type="single" collapsible className="w-full" defaultValue={isRoot || defaultOpen ? 'item' : undefined}>
+      <Accordion
+        type="single"
+        collapsible
+        className="w-full"
+        defaultValue={isRoot || defaultOpen ? "item" : undefined}
+      >
         <AccordionItem value="item" className="border-b-0">
           <AccordionTrigger className="hover:no-underline py-1 px-2 rounded hover:bg-muted/50 text-sm font-normal justify-start gap-1">
             {triggerContent}
           </AccordionTrigger>
           <AccordionContent className="pl-4 border-l border-dashed ml-[0.625rem] relative">
-             <div className="absolute left-0 top-0 w-px h-full"></div>
+            <div className="absolute left-0 top-0 w-px h-full"></div>
             {data.map((item: any, index: number) => (
-              <JsonExplorerNode key={index} name={`Index ${index}`} data={item} />
+              <JsonExplorerNode
+                key={index}
+                name={`Index ${index}`}
+                data={item}
+              />
             ))}
           </AccordionContent>
         </AccordionItem>
@@ -86,23 +143,23 @@ const JsonExplorerNode: FC<JsonExplorerNodeProps> = ({ data, name, defaultOpen =
   }
 
   let valueDisplay;
-  let valueClass = 'text-sm'; // Base class, removed break-all
+  let valueClass = "text-sm"; // Base class, removed break-all
   switch (type) {
-    case 'string':
+    case "string":
       valueDisplay = `"${data}"`;
-      valueClass = cn(valueClass, 'text-accent break-words'); // Added break-words for strings
+      valueClass = cn(valueClass, "text-accent break-words"); // Added break-words for strings
       break;
-    case 'number':
+    case "number":
       valueDisplay = String(data);
-      valueClass = cn(valueClass, 'text-primary'); // Numbers usually don't need specific break, but could add break-all if very long ones are common
+      valueClass = cn(valueClass, "text-primary"); // Numbers usually don't need specific break, but could add break-all if very long ones are common
       break;
-    case 'boolean':
-      valueDisplay = data ? 'true' : 'false';
-      valueClass = cn(valueClass, 'text-secondary-foreground font-medium');
+    case "boolean":
+      valueDisplay = data ? "true" : "false";
+      valueClass = cn(valueClass, "text-secondary-foreground font-medium");
       break;
-    case 'null':
-      valueDisplay = 'null';
-      valueClass = cn(valueClass, 'text-muted-foreground italic');
+    case "null":
+      valueDisplay = "null";
+      valueClass = cn(valueClass, "text-muted-foreground italic");
       break;
     default:
       valueDisplay = String(data);
@@ -110,7 +167,9 @@ const JsonExplorerNode: FC<JsonExplorerNodeProps> = ({ data, name, defaultOpen =
 
   return (
     <div className="flex items-start py-1 px-2 text-sm ml-0.5">
-      {name && <span className="font-semibold mr-1 shrink-0 break-words">{name}:</span>}
+      {name && (
+        <span className="font-semibold mr-1 shrink-0 break-words">{name}:</span>
+      )}
       <span className={valueClass}>{valueDisplay}</span>
     </div>
   );

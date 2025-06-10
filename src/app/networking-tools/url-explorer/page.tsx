@@ -1,16 +1,22 @@
+"use client";
 
-'use client';
-
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from "react";
 // Removed: import type { Metadata } from 'next';
-import { PageHeader } from '@/components/page-header';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Textarea } from '@/components/ui/textarea';
+import { PageHeader } from "@/components/page-header";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Textarea } from "@/components/ui/textarea";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { SearchCode, AlertCircle } from 'lucide-react';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { Label } from '@/components/ui/label';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { SearchCode, AlertCircle } from "lucide-react";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Label } from "@/components/ui/label";
 
 // Metadata is now handled by layout.tsx
 
@@ -24,11 +30,14 @@ interface ParsedUrlDetails {
   queryParams: { key: string; value: string }[];
 }
 
-const initialUrl = 'https://www.example.com/path/to/very/very/long/page/name/that/might/overflow/or/cause/issues/with/layout?name=DevToolbox&version=1.0&features=explorer&features=parser&another_long_query_parameter_key=with_an_equally_long_and_descriptive_value_to_test_wrapping_behavior#section-details-that-could-also-be-quite-long-and-test-the-limits-of-the-display-area';
+const initialUrl =
+  "https://www.example.com/path/to/very/very/long/page/name/that/might/overflow/or/cause/issues/with/layout?name=DevToolbox&version=1.0&features=explorer&features=parser&another_long_query_parameter_key=with_an_equally_long_and_descriptive_value_to_test_wrapping_behavior#section-details-that-could-also-be-quite-long-and-test-the-limits-of-the-display-area";
 
 export default function UrlExplorerPage() {
   const [urlInput, setUrlInput] = useState(initialUrl);
-  const [parsedDetails, setParsedDetails] = useState<ParsedUrlDetails | null>(null);
+  const [parsedDetails, setParsedDetails] = useState<ParsedUrlDetails | null>(
+    null,
+  );
   const [error, setError] = useState<string | null>(null);
   const [isClient, setIsClient] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -38,12 +47,12 @@ export default function UrlExplorerPage() {
     if (urlInput) {
       handleParseUrl(urlInput);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Only run on mount with initial URL
 
   useEffect(() => {
     if (isClient && textareaRef.current) {
-      textareaRef.current.style.height = 'auto';
+      textareaRef.current.style.height = "auto";
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
     }
   }, [isClient, urlInput]);
@@ -73,7 +82,10 @@ export default function UrlExplorerPage() {
       setError(null);
     } catch (e: any) {
       setParsedDetails(null);
-      setError(e.message || 'Invalid URL format. Please enter a full URL including protocol (e.g., https://).');
+      setError(
+        e.message ||
+          "Invalid URL format. Please enter a full URL including protocol (e.g., https://).",
+      );
     }
   };
 
@@ -105,7 +117,7 @@ export default function UrlExplorerPage() {
             aria-label="URL Input"
             aria-invalid={!!error}
             aria-describedby={error ? "url-error-message" : undefined}
-            style={{ overflowY: 'hidden' }}
+            style={{ overflowY: "hidden" }}
           />
         </CardContent>
       </Card>
@@ -126,26 +138,30 @@ export default function UrlExplorerPage() {
           <CardContent className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
               {(Object.keys(parsedDetails) as Array<keyof ParsedUrlDetails>)
-                .filter(key => key !== 'queryParams' && key !== 'search') // search is part of queryParams table
-                .map(key => (
-                parsedDetails[key] ? (
-                  <div key={key} className="space-y-1">
-                    <Label className="capitalize text-muted-foreground">{key.replace(/([A-Z])/g, ' $1').trim()}:</Label>
-                    <div
-                      className="flex h-auto min-h-10 w-full items-center rounded-md border border-input bg-muted/50 px-3 py-2 text-base font-code break-all md:text-sm"
-                      aria-label={`${key} value`}
-                    >
-                      {parsedDetails[key] as string}
+                .filter((key) => key !== "queryParams" && key !== "search") // search is part of queryParams table
+                .map((key) =>
+                  parsedDetails[key] ? (
+                    <div key={key} className="space-y-1">
+                      <Label className="capitalize text-muted-foreground">
+                        {key.replace(/([A-Z])/g, " $1").trim()}:
+                      </Label>
+                      <div
+                        className="flex h-auto min-h-10 w-full items-center rounded-md border border-input bg-muted/50 px-3 py-2 text-base font-code break-all md:text-sm"
+                        aria-label={`${key} value`}
+                      >
+                        {parsedDetails[key] as string}
+                      </div>
                     </div>
-                  </div>
-                ) : null
-              ))}
+                  ) : null,
+                )}
             </div>
 
             {parsedDetails.queryParams.length > 0 && (
               <div className="space-y-2 pt-2">
                 <h3 className="text-md font-semibold">Query Parameters</h3>
-                <ScrollArea className="border rounded-md"> {/* Removed max-h-96 */}
+                <ScrollArea className="border rounded-md">
+                  {" "}
+                  {/* Removed max-h-96 */}
                   <Table>
                     <TableHeader>
                       <TableRow>
@@ -156,8 +172,12 @@ export default function UrlExplorerPage() {
                     <TableBody>
                       {parsedDetails.queryParams.map((param, index) => (
                         <TableRow key={`${param.key}-${index}`}>
-                          <TableCell className="font-code break-all">{param.key}</TableCell>
-                          <TableCell className="font-code break-all">{param.value}</TableCell>
+                          <TableCell className="font-code break-all">
+                            {param.key}
+                          </TableCell>
+                          <TableCell className="font-code break-all">
+                            {param.value}
+                          </TableCell>
                         </TableRow>
                       ))}
                     </TableBody>
@@ -165,9 +185,12 @@ export default function UrlExplorerPage() {
                 </ScrollArea>
               </div>
             )}
-             {parsedDetails.queryParams.length === 0 && parsedDetails.search === '' && (
-                <p className="text-muted-foreground text-sm pt-2">No query parameters found.</p>
-             )}
+            {parsedDetails.queryParams.length === 0 &&
+              parsedDetails.search === "" && (
+                <p className="text-muted-foreground text-sm pt-2">
+                  No query parameters found.
+                </p>
+              )}
           </CardContent>
         </Card>
       )}

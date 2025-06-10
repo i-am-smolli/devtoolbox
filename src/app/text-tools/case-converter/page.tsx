@@ -1,13 +1,18 @@
-
-'use client';
+"use client";
 
 // Removed: import type { Metadata } from 'next';
-import { useState, useEffect, useRef } from 'react';
-import { PageHeader } from '@/components/page-header';
-import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
-import { Textarea } from '@/components/ui/textarea';
-import { Button } from '@/components/ui/button';
-import { CaseSensitive, Copy } from 'lucide-react';
+import { useState, useEffect, useRef } from "react";
+import { PageHeader } from "@/components/page-header";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardFooter,
+} from "@/components/ui/card";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { CaseSensitive, Copy } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 // Metadata is now handled by layout.tsx
@@ -16,17 +21,21 @@ import { useToast } from "@/hooks/use-toast";
 const toWords = (str: string): string[] => {
   if (!str) return [];
   str = str
-    .replace(/([A-Z])([A-Z][a-z])/g, '$1 $2') // Handle series of uppercase like `HTTPServer` -> `HTTP Server`
-    .replace(/([a-z\d])([A-Z])/g, '$1 $2')   // Handle camelCase and PascalCase like `camelCase` -> `camel Case`
-    .replace(/[-_]/g, ' ')                 // Replace hyphens and underscores with spaces
-    .replace(/[^a-zA-Z0-9\s]/g, '')        // Remove other special characters
-    .replace(/\s+/g, ' ');                  // Condense multiple spaces to single space
-  return str.trim().toLowerCase().split(' ').filter(word => word.length > 0);
+    .replace(/([A-Z])([A-Z][a-z])/g, "$1 $2") // Handle series of uppercase like `HTTPServer` -> `HTTP Server`
+    .replace(/([a-z\d])([A-Z])/g, "$1 $2") // Handle camelCase and PascalCase like `camelCase` -> `camel Case`
+    .replace(/[-_]/g, " ") // Replace hyphens and underscores with spaces
+    .replace(/[^a-zA-Z0-9\s]/g, "") // Remove other special characters
+    .replace(/\s+/g, " "); // Condense multiple spaces to single space
+  return str
+    .trim()
+    .toLowerCase()
+    .split(" ")
+    .filter((word) => word.length > 0);
 };
 
 const conversionFunctions: Record<string, (str: string) => string> = {
   sentenceCase: (str) => {
-    if (!str.trim()) return '';
+    if (!str.trim()) return "";
     const lower = str.toLowerCase();
     return lower.charAt(0).toUpperCase() + lower.slice(1);
   },
@@ -34,48 +43,48 @@ const conversionFunctions: Record<string, (str: string) => string> = {
   upperCase: (str) => str.toUpperCase(),
   titleCase: (str) => {
     return toWords(str)
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
   },
   camelCase: (str) => {
     const words = toWords(str);
     return words
       .map((word, index) =>
-        index === 0 ? word : word.charAt(0).toUpperCase() + word.slice(1)
+        index === 0 ? word : word.charAt(0).toUpperCase() + word.slice(1),
       )
-      .join('');
+      .join("");
   },
   pascalCase: (str) => {
     return toWords(str)
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-      .join('');
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join("");
   },
   snakeCase: (str) => {
-    return toWords(str).join('_');
+    return toWords(str).join("_");
   },
   kebabCase: (str) => {
-    return toWords(str).join('-');
+    return toWords(str).join("-");
   },
   constantCase: (str) => {
-    return toWords(str).join('_').toUpperCase();
+    return toWords(str).join("_").toUpperCase();
   },
 };
 
 const caseTypes = [
-  { id: 'sentenceCase', label: 'Sentence case' },
-  { id: 'lowerCase', label: 'lower case' },
-  { id: 'upperCase', label: 'UPPER CASE' },
-  { id: 'titleCase', label: 'Title Case' },
-  { id: 'camelCase', label: 'camelCase' },
-  { id: 'pascalCase', label: 'PascalCase' },
-  { id: 'snakeCase', label: 'snake_case' },
-  { id: 'kebabCase', label: 'kebab-case' },
-  { id: 'constantCase', label: 'CONSTANT_CASE' },
+  { id: "sentenceCase", label: "Sentence case" },
+  { id: "lowerCase", label: "lower case" },
+  { id: "upperCase", label: "UPPER CASE" },
+  { id: "titleCase", label: "Title Case" },
+  { id: "camelCase", label: "camelCase" },
+  { id: "pascalCase", label: "PascalCase" },
+  { id: "snakeCase", label: "snake_case" },
+  { id: "kebabCase", label: "kebab-case" },
+  { id: "constantCase", label: "CONSTANT_CASE" },
 ];
 
 export default function CaseConverterPage() {
-  const [inputText, setInputText] = useState('');
-  const [outputText, setOutputText] = useState('');
+  const [inputText, setInputText] = useState("");
+  const [outputText, setOutputText] = useState("");
   const { toast } = useToast();
 
   const inputTextareaRef = useRef<HTMLTextAreaElement>(null);
@@ -83,7 +92,7 @@ export default function CaseConverterPage() {
 
   const adjustTextareaHeight = (ref: React.RefObject<HTMLTextAreaElement>) => {
     if (ref.current) {
-      ref.current.style.height = 'auto';
+      ref.current.style.height = "auto";
       ref.current.style.height = `${ref.current.scrollHeight}px`;
     }
   };
@@ -93,7 +102,7 @@ export default function CaseConverterPage() {
 
   const handleConvert = (caseId: string) => {
     if (!inputText.trim()) {
-      setOutputText('');
+      setOutputText("");
       return;
     }
     const convertFn = conversionFunctions[caseId];
@@ -139,7 +148,7 @@ export default function CaseConverterPage() {
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               className="w-full resize-none border-0 rounded-none focus-visible:ring-0 p-4 font-code text-sm min-h-[150px]"
-              style={{ overflowY: 'hidden' }}
+              style={{ overflowY: "hidden" }}
               aria-label="Input text for case conversion"
             />
           </CardContent>
@@ -156,12 +165,16 @@ export default function CaseConverterPage() {
               readOnly
               placeholder="Converted text will appear here..."
               className="w-full resize-none border-0 rounded-none focus-visible:ring-0 p-4 font-code text-sm bg-muted/50 min-h-[150px]"
-              style={{ overflowY: 'hidden' }}
+              style={{ overflowY: "hidden" }}
               aria-label="Converted output text"
             />
           </CardContent>
           <CardFooter className="p-4">
-            <Button onClick={handleCopyToClipboard} disabled={!outputText} variant="outline">
+            <Button
+              onClick={handleCopyToClipboard}
+              disabled={!outputText}
+              variant="outline"
+            >
               <Copy className="mr-2 h-4 w-4" /> Copy Output
             </Button>
           </CardFooter>

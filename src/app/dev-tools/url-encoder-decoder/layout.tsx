@@ -1,9 +1,9 @@
-
-import type { Metadata } from 'next';
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: 'URL Encoder / Decoder',
-  description: 'Encode strings to be URL-safe (percent-encoding) or decode URL-encoded strings back to their original form.',
+  title: "URL Encoder / Decoder",
+  description:
+    "Encode strings to be URL-safe (percent-encoding) or decode URL-encoded strings back to their original form.",
 };
 
 export default function UrlEncoderDecoderLayout({

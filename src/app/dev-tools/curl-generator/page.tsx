@@ -1,23 +1,48 @@
+"use client";
 
-'use client';
-
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef } from "react";
 // Removed: import type { Metadata } from 'next';
-import { PageHeader } from '@/components/page-header';
-import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { PageHeader } from "@/components/page-header";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardFooter,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { TerminalSquare, Copy, PlusCircle, XCircle, AlertCircle } from 'lucide-react';
+import {
+  TerminalSquare,
+  Copy,
+  PlusCircle,
+  XCircle,
+  AlertCircle,
+} from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 // Metadata is now handled by layout.tsx
 
-const HTTP_METHODS = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'];
-const METHODS_WITH_BODY = ['POST', 'PUT', 'PATCH'];
+const HTTP_METHODS = [
+  "GET",
+  "POST",
+  "PUT",
+  "DELETE",
+  "PATCH",
+  "HEAD",
+  "OPTIONS",
+];
+const METHODS_WITH_BODY = ["POST", "PUT", "PATCH"];
 
 interface Header {
   id: string;
@@ -26,37 +51,39 @@ interface Header {
 }
 
 export default function CurlGeneratorPage() {
-  const [url, setUrl] = useState('');
+  const [url, setUrl] = useState("");
   const [method, setMethod] = useState(HTTP_METHODS[0]);
-  const [requestBody, setRequestBody] = useState('');
+  const [requestBody, setRequestBody] = useState("");
   const [headers, setHeaders] = useState<Header[]>([]);
-  const [curlCommand, setCurlCommand] = useState('');
+  const [curlCommand, setCurlCommand] = useState("");
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
   const requestBodyTextareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     if (requestBodyTextareaRef.current) {
-      requestBodyTextareaRef.current.style.height = 'auto';
+      requestBodyTextareaRef.current.style.height = "auto";
       requestBodyTextareaRef.current.style.height = `${requestBodyTextareaRef.current.scrollHeight}px`;
     }
   }, [requestBody]);
 
   const addHeader = () => {
-    setHeaders([...headers, { id: Date.now().toString(), key: '', value: '' }]);
+    setHeaders([...headers, { id: Date.now().toString(), key: "", value: "" }]);
   };
 
-  const updateHeader = (id: string, field: 'key' | 'value', value: string) => {
-    setHeaders(headers.map(h => h.id === id ? { ...h, [field]: value } : h));
+  const updateHeader = (id: string, field: "key" | "value", value: string) => {
+    setHeaders(
+      headers.map((h) => (h.id === id ? { ...h, [field]: value } : h)),
+    );
   };
 
   const removeHeader = (id: string) => {
-    setHeaders(headers.filter(h => h.id !== id));
+    setHeaders(headers.filter((h) => h.id !== id));
   };
 
   const generateCurlCommand = useCallback(() => {
     if (!url.trim()) {
-      setCurlCommand('');
+      setCurlCommand("");
       setError(null); // Don't show URL error if field is empty, only on actual generation attempt or if it was previously invalid
       return;
     }
@@ -64,18 +91,18 @@ export default function CurlGeneratorPage() {
       new URL(url); // Basic validation
       setError(null);
     } catch (e) {
-      setCurlCommand('');
-      setError('Invalid URL format.');
+      setCurlCommand("");
+      setError("Invalid URL format.");
       return;
     }
 
-    let command = 'curl';
+    let command = "curl";
 
-    if (method !== 'GET') {
+    if (method !== "GET") {
       command += ` -X ${method}`;
     }
 
-    headers.forEach(header => {
+    headers.forEach((header) => {
       if (header.key.trim()) {
         const escapedHeaderKey = header.key.trim().replace(/"/g, '\\"');
         const escapedHeaderValue = header.value.trim().replace(/"/g, '\\"');
@@ -112,7 +139,7 @@ export default function CurlGeneratorPage() {
       });
     }
   };
-  
+
   const showRequestBody = METHODS_WITH_BODY.includes(method);
 
   return (
@@ -146,8 +173,10 @@ export default function CurlGeneratorPage() {
                 <SelectValue placeholder="Select method" />
               </SelectTrigger>
               <SelectContent>
-                {HTTP_METHODS.map(m => (
-                  <SelectItem key={m} value={m}>{m}</SelectItem>
+                {HTTP_METHODS.map((m) => (
+                  <SelectItem key={m} value={m}>
+                    {m}
+                  </SelectItem>
                 ))}
               </SelectContent>
             </Select>
@@ -161,7 +190,9 @@ export default function CurlGeneratorPage() {
                   type="text"
                   placeholder={`Name`}
                   value={header.key}
-                  onChange={(e) => updateHeader(header.id, 'key', e.target.value)}
+                  onChange={(e) =>
+                    updateHeader(header.id, "key", e.target.value)
+                  }
                   className="flex-grow"
                   aria-label={`Header ${index + 1} Name`}
                 />
@@ -169,11 +200,18 @@ export default function CurlGeneratorPage() {
                   type="text"
                   placeholder={`Value`}
                   value={header.value}
-                  onChange={(e) => updateHeader(header.id, 'value', e.target.value)}
+                  onChange={(e) =>
+                    updateHeader(header.id, "value", e.target.value)
+                  }
                   className="flex-grow"
                   aria-label={`Header ${index + 1} Value`}
                 />
-                <Button variant="ghost" size="icon" onClick={() => removeHeader(header.id)} aria-label="Remove header">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => removeHeader(header.id)}
+                  aria-label="Remove header"
+                >
                   <XCircle className="h-5 w-5 text-destructive" />
                 </Button>
               </div>
@@ -182,7 +220,7 @@ export default function CurlGeneratorPage() {
               <PlusCircle className="mr-2 h-4 w-4" /> Add Header
             </Button>
           </div>
-          
+
           {showRequestBody && (
             <div className="space-y-2">
               <Label htmlFor="requestBody">Request Body</Label>
@@ -193,7 +231,7 @@ export default function CurlGeneratorPage() {
                 value={requestBody}
                 onChange={(e) => setRequestBody(e.target.value)}
                 className="font-code min-h-[100px] resize-none"
-                style={{ overflowY: 'hidden' }}
+                style={{ overflowY: "hidden" }}
               />
             </div>
           )}
@@ -211,15 +249,17 @@ export default function CurlGeneratorPage() {
       {curlCommand && !error && (
         <Card>
           <CardHeader>
-            <CardTitle className="font-headline">Generated cURL Command</CardTitle>
+            <CardTitle className="font-headline">
+              Generated cURL Command
+            </CardTitle>
           </CardHeader>
           <CardContent>
-             <Textarea
+            <Textarea
               value={curlCommand}
               readOnly
               className="font-code bg-muted/50 min-h-[100px] max-h-[300px] resize-y"
               rows={3} // Initial small size, will grow with content due to resize-y and min/max height
-             />
+            />
           </CardContent>
           <CardFooter>
             <Button onClick={handleCopyToClipboard} disabled={!curlCommand}>

@@ -70,21 +70,54 @@ body {
 }
 
 /* Basic Markdown Styling */
-.markdown-preview-content h1 { @apply text-3xl font-bold my-6 pb-2 border-b font-headline; }
-.markdown-preview-content h2 { @apply text-2xl font-bold my-5 pb-2 border-b font-headline; }
-.markdown-preview-content h3 { @apply text-xl font-bold my-4 font-headline; }
-.markdown-preview-content h4 { @apply text-lg font-bold my-3 font-headline; }
-.markdown-preview-content p { @apply my-4 leading-relaxed; }
-.markdown-preview-content ul { @apply list-disc list-outside my-4 pl-6 space-y-1; }
-.markdown-preview-content ol { @apply list-decimal list-outside my-4 pl-6 space-y-1; }
-.markdown-preview-content blockquote { @apply border-l-4 border-primary pl-4 italic my-4 text-muted-foreground; }
-.markdown-preview-content pre { @apply bg-muted/50 p-4 rounded-md overflow-x-auto my-4 font-code text-sm; }
-.markdown-preview-content code:not(pre > code) { @apply bg-muted/70 text-accent-foreground px-1.5 py-0.5 rounded font-code text-sm break-words; }
-.markdown-preview-content table { @apply w-full my-4 border-collapse border; }
-.markdown-preview-content th, .markdown-preview-content td { @apply border p-3 text-left; }
-.markdown-preview-content th { @apply bg-muted/50 font-semibold; }
-.markdown-preview-content a { @apply text-primary hover:underline; }
-.markdown-preview-content img { @apply max-w-full h-auto rounded-md my-4; }
-.markdown-preview-content hr { @apply my-6 border-border; }
+.markdown-preview-content h1 {
+  @apply text-3xl font-bold my-6 pb-2 border-b font-headline;
+}
+.markdown-preview-content h2 {
+  @apply text-2xl font-bold my-5 pb-2 border-b font-headline;
+}
+.markdown-preview-content h3 {
+  @apply text-xl font-bold my-4 font-headline;
+}
+.markdown-preview-content h4 {
+  @apply text-lg font-bold my-3 font-headline;
+}
+.markdown-preview-content p {
+  @apply my-4 leading-relaxed;
+}
+.markdown-preview-content ul {
+  @apply list-disc list-outside my-4 pl-6 space-y-1;
+}
+.markdown-preview-content ol {
+  @apply list-decimal list-outside my-4 pl-6 space-y-1;
+}
+.markdown-preview-content blockquote {
+  @apply border-l-4 border-primary pl-4 italic my-4 text-muted-foreground;
+}
+.markdown-preview-content pre {
+  @apply bg-muted/50 p-4 rounded-md overflow-x-auto my-4 font-code text-sm;
+}
+.markdown-preview-content code:not(pre > code) {
+  @apply bg-muted/70 text-accent-foreground px-1.5 py-0.5 rounded font-code text-sm break-words;
+}
+.markdown-preview-content table {
+  @apply w-full my-4 border-collapse border;
+}
+.markdown-preview-content th,
+.markdown-preview-content td {
+  @apply border p-3 text-left;
+}
+.markdown-preview-content th {
+  @apply bg-muted/50 font-semibold;
+}
+.markdown-preview-content a {
+  @apply text-primary hover:underline;
+}
+.markdown-preview-content img {
+  @apply max-w-full h-auto rounded-md my-4;
+}
+.markdown-preview-content hr {
+  @apply my-6 border-border;
+}
 
 /* diff2html specific overrides removed */
