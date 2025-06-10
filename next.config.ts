@@ -1,4 +1,4 @@
-import type {NextConfig} from 'next';
+import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
@@ -11,10 +11,10 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'placehold.co',
-        port: '',
-        pathname: '/**',
+        protocol: "https",
+        hostname: "placehold.co",
+        port: "",
+        pathname: "/**",
       },
     ],
   },
@@ -22,6 +22,6 @@ const nextConfig: NextConfig = {
 
 module.exports = {
   output: process.env.BUILD_STANDALONE === "true" ? "standalone" : undefined,
-}
+};
 
 export default nextConfig;
