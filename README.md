@@ -1,3 +1,4 @@
+
 # DevToolbox - Essential Developer Utilities
 
 DevToolbox is a comprehensive suite of free online developer tools designed to streamline common tasks and boost productivity. It's built with modern web technologies, offering a fast, responsive, and user-friendly experience.
@@ -8,11 +9,16 @@ The DevToolbox provides a wide array of utilities, including:
 
 **Development Tools (`/dev-tools`):**
 *   **Base64 Encoder / Decoder:** Encode text to Base64 or decode Base64 strings back to text.
+*   **Certificate Viewer:** Paste a PEM-encoded X.509 certificate to view its details, including subject, issuer, validity, extensions, and more.
 *   **Color Converter:** Convert colors seamlessly between HEX, RGB, and HSL formats.
 *   **cURL Command Generator:** Easily construct cURL commands with a guided interface.
 *   **Hash Generator:** Generate cryptographic hashes (SHA-1, SHA-256, SHA-384, SHA-512) from text.
 *   **Hex to Binary Converter:** Convert hexadecimal values to their binary representation.
+*   **Icon Browser:** Browse, search, and find Lucide React icons for your project.
 *   **JWT Decoder:** Decode JSON Web Tokens (JWTs) to inspect their header and payload (signature is not verified).
+*   **Password Strength Meter:** Analyze the strength of your password and get suggestions for improvement.
+*   **QR Code Generator:** Generate custom QR codes for various data types including text, URLs, WiFi credentials, SMS, email, and geographic locations.
+*   **Random String Generator:** Generate random strings with customizable length and character sets.
 *   **Secure Password Generator:** Create strong, random, and secure passwords.
 *   **Time Converter:** Convert timestamps between various formats (Unix, ISO 8601, Date, Time, HTTP, SQL).
 *   **URL Encoder / Decoder:** Encode strings to be URL-safe (percent-encoding) or decode URL-encoded strings.
@@ -142,3 +148,4 @@ Contributions are welcome! If you have ideas for new tools, improvements, or bug
 ## License
 
 This project is licensed under the [MIT License](LICENSE.md) (Assuming MIT - if not, please specify or create a LICENSE.md file).
+
