@@ -211,7 +211,7 @@ export default function QrCodeGeneratorPage() {
           </CardHeader>
           <CardContent>
             <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as QrDataType)} className="w-full">
-              <TabsList className="grid w-full grid-cols-3 mb-4">
+              <TabsList className="grid w-full grid-cols-6 mb-4">
                 <TabsTrigger value="text">Text</TabsTrigger>
                 <TabsTrigger value="url">URL</TabsTrigger>
                 <TabsTrigger value="wifi">WiFi</TabsTrigger>
