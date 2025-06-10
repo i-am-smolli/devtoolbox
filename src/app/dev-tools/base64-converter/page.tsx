@@ -125,7 +125,7 @@ export default function Base64ConverterPage() {
             />
           </CardContent>
           <CardFooter className="p-4 flex flex-col sm:flex-row gap-2 items-stretch">
-            <Button onClick={handleEncode} className="w-full sm:flex-grow">Encode to Base64</Button>
+            <Button onClick={handleEncode} className="w-full sm:w-auto">Encode to Base64</Button>
             <Button
               variant="outline"
               size="icon"
@@ -156,7 +156,7 @@ export default function Base64ConverterPage() {
             />
           </CardContent>
           <CardFooter className="p-4 flex flex-col sm:flex-row gap-2 items-stretch">
-            <Button onClick={handleDecode} className="w-full sm:flex-grow">Decode from Base64</Button>
+            <Button onClick={handleDecode} className="w-full sm:w-auto">Decode from Base64</Button>
             <Button
               variant="outline"
               size="icon"
