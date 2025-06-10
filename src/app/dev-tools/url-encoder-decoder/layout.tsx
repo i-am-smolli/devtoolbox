@@ -2,7 +2,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'URL Encoder / Decoder - Online Tool',
+  title: 'URL Encoder / Decoder',
   description: 'Encode strings to be URL-safe (percent-encoding) or decode URL-encoded strings back to their original form.',
 };
 

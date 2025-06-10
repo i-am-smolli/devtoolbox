@@ -2,7 +2,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Markdown Previewer - Real-time Online Tool',
+  title: 'Markdown Previewer',
   description: 'Write Markdown text and see the rendered HTML in real-time. Supports GitHub Flavored Markdown (GFM). Perfect for content creators and developers.',
 };
 

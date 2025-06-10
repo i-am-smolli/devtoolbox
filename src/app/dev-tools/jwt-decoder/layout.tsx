@@ -2,7 +2,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'JWT Decoder - Online Tool',
+  title: 'JWT Decoder',
   description: 'Decode JSON Web Tokens (JWT) to inspect their header and payload. Signature is NOT verified. Useful for debugging and understanding JWT structure.',
 };
 

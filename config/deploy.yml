@@ -12,10 +12,12 @@ builder:
 
 # Deploy to these servers.
 servers:
-  - ubuntu@dev.jonathanmiller.icu
+  - dev.jonathanmiller.icu
 
 proxy:
   ssl: true
   host: dev.jonathanmiller.icu
   app_port: 3000
 
+ssh:
+  user: ubuntu

@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { LayoutDashboard, Binary, FileText, Code2, ArrowRight, FolderTree, ArrowRightLeft, FileCode, FileLock2, KeyRound, Fingerprint, BookText, Palette, TerminalSquare, CalendarClock, ClipboardList, Shuffle, Network, Clock, CaseSensitive, Link as LinkIcon, SearchCode, Construction, Minimize2, Blocks, LockKeyhole, Pilcrow, Grid, Sparkles, ShieldCheck, FileKey, QrCode } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Dashboard - Developer Utilities & Tools',
+  title: 'DevToolbox - Developer Utilities & Tools',
   description: 'Welcome to DevToolbox! Explore a wide range of essential online utilities for developers, including converters, generators, and analyzers.',
 };
 
