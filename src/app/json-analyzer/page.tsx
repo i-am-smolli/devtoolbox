@@ -12,20 +12,8 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 
 // Metadata is now handled by layout.tsx
 
-const initialJson = `{
-  "name": "DevToolbox",
-  "version": "1.0.0",
-  "features": [
-    "Hex to Binary",
-    "Markdown Preview",
-    "JSON Analyzer"
-  ],
-  "settings": {
-    "darkMode": true,
-    "fontSize": 14
-  },
-  "author": null
-}`;
+const initialJson =
+  '{ "name": "DevToolbox", "version": "1.0.0", "features": [ "Hex to Binary", "Markdown Preview", "JSON Analyzer" ], "settings": { "darkMode": true, "fontSize": 14 }, "author": "iamsmolli" }';
 
 export default function JsonAnalyzerPage() {
   const [jsonInput, setJsonInput] = useState(initialJson);
