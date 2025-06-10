@@ -3,10 +3,8 @@
 import { useState, useEffect, useMemo, useRef } from "react";
 import {
   icons as lucideIconCollection,
-  Search,
   Copy,
   Sparkles,
-  Grid,
   MousePointerSquareDashed,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
@@ -18,7 +16,6 @@ import {
   CardHeader,
   CardTitle,
   CardDescription,
-  CardFooter,
 } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { PageHeader } from "@/components/page-header";
@@ -74,7 +71,7 @@ export default function IconBrowserPage() {
         title: `${type} Copied!`,
         description: `The ${type.toLowerCase()} has been copied to your clipboard.`,
       });
-    } catch (err) {
+    } catch {
       toast({
         title: "Copy Failed",
         description: `Could not copy ${type.toLowerCase()} to clipboard.`,

@@ -82,7 +82,7 @@ export default function QrCodeGeneratorPage() {
         try {
           new URL(formData.url); // Validate URL
           setQrValue(formData.url);
-        } catch (e) {
+        } catch {
           setError("Invalid URL format.");
           setQrValue("");
         }

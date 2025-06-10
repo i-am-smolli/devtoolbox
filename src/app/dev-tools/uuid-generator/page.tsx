@@ -67,8 +67,15 @@ export default function UuidGeneratorPage() {
         uuidsArray.push(window.crypto.randomUUID());
       }
       setGeneratedUuids(uuidsArray.join("\n"));
-    } catch (e: any) {
-      setError(`Error generating UUIDs: ${e.message || "Unknown error"}`);
+    } catch (e: unknown) {
+      const errorMessage =
+        e &&
+        typeof e === "object" &&
+        "message" in e &&
+        typeof (e as { message?: unknown }).message === "string"
+          ? (e as { message: string }).message
+          : "Unknown error";
+      setError(`Error generating UUIDs: ${errorMessage}`);
     } finally {
       setIsLoading(false);
     }
@@ -83,7 +90,7 @@ export default function UuidGeneratorPage() {
         description:
           "The generated UUID(s) have been copied to your clipboard.",
       });
-    } catch (err) {
+    } catch {
       toast({
         title: "Copy Failed",
         description: "Could not copy UUIDs to clipboard.",

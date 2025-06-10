@@ -17,10 +17,31 @@ interface JsonExplorerNodeProps {
   isRoot?: boolean;
 }
 
-const getNodeType = (value: any): string => {
+const getNodeType = (
+  value: unknown,
+):
+  | "object"
+  | "array"
+  | "string"
+  | "number"
+  | "boolean"
+  | "null"
+  | "undefined"
+  | "function"
+  | "symbol"
+  | "bigint" => {
   if (Array.isArray(value)) return "array";
   if (value === null) return "null";
-  return typeof value;
+  return typeof value as
+    | "object"
+    | "array"
+    | "string"
+    | "number"
+    | "boolean"
+    | "undefined"
+    | "function"
+    | "symbol"
+    | "bigint";
 };
 
 const JsonExplorerNode: FC<JsonExplorerNodeProps> = ({

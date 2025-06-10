@@ -39,7 +39,7 @@ export default function HexToBinaryPage() {
       }
       setBinaryOutput(binaryString.trim());
       setError(null);
-    } catch (e) {
+    } catch {
       setError("An error occurred during conversion.");
       setBinaryOutput("");
     }

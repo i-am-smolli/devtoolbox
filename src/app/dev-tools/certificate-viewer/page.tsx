@@ -26,7 +26,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { FileKey, AlertCircle, Copy, RefreshCw } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import forge from "node-forge";
@@ -43,7 +42,7 @@ interface ParsedExtension {
   id: string;
   name: string;
   critical: boolean;
-  value: any; // Can be complex, will be formatted
+  value: string; // Can be complex, will be formatted
   valueString?: string;
 }
 
@@ -98,90 +97,168 @@ const OID_MAP: { [key: string]: string } = {
   "2.5.29.32": "Certificate Policies",
 };
 
-const formatAttribute = (attr: any): CertificateAttribute => {
+type CertificateField = {
+  oid?: string;
+  name?: string;
+  type?: string;
+  shortName?: string;
+  value?: unknown;
+};
+
+const formatAttribute = (attr: CertificateField): CertificateAttribute => {
   return {
     oid: attr.oid || "N/A",
     name: OID_MAP[attr.oid || ""] || attr.name || attr.type || "Unknown OID",
     shortName: attr.shortName,
-    value: String(attr.value),
+    value: String(attr.value ?? ""),
   };
 };
 
-const formatPublicKey = (publicKey: any) => {
+type RsaPublicKey = {
+  n: { bitLength: () => number };
+  e: forge.jsbn.BigInteger;
+  type: string;
+};
+
+type EcPublicKey = {
+  curve: { toString: () => string };
+  type: string;
+};
+
+type SupportedPublicKey = RsaPublicKey | EcPublicKey;
+
+const formatPublicKey = (publicKey: SupportedPublicKey) => {
   let algorithm = "Unknown";
   let details = "N/A";
+
+  // RSA
   if (
-    forge.pki.oids.rsaEncryption === publicKey.type ||
-    publicKey.type === OID_MAP["1.2.840.113549.1.1.1"]
+    (publicKey as RsaPublicKey).n &&
+    ((publicKey as RsaPublicKey).type === forge.pki.oids.rsaEncryption ||
+      (publicKey as RsaPublicKey).type === OID_MAP["1.2.840.113549.1.1.1"])
   ) {
     algorithm = "RSA";
-    details = `${publicKey.n.bitLength()} bits`;
-  } else if (
-    forge.pki.oids.ecPublicKey === publicKey.type ||
-    publicKey.type === OID_MAP["1.2.840.10045.2.1"]
+    details = `${(publicKey as RsaPublicKey).n.bitLength()} bits`;
+  }
+  // EC
+  else if (
+    (publicKey as EcPublicKey).curve &&
+    ((publicKey as EcPublicKey).type === forge.pki.oids.ecPublicKey ||
+      (publicKey as EcPublicKey).type === OID_MAP["1.2.840.10045.2.1"])
   ) {
     algorithm = "Elliptic Curve";
-    // Attempt to get curve name, might need more specific parsing or OID mapping for curve
-    details = `Curve: ${forge.pki.oids[publicKey.curve?.toString() || ""] || "Unknown"}`;
+    const curveOid = (publicKey as EcPublicKey).curve?.toString() || "";
+    details = `Curve: ${forge.pki.oids[curveOid] || "Unknown"}`;
   }
 
-  let pem;
+  let pem: string | undefined;
   try {
-    pem = forge.pki.publicKeyToPem(publicKey);
-  } catch (e) {
+    pem = forge.pki.publicKeyToPem(publicKey as unknown as forge.pki.PublicKey);
+  } catch {
     pem = "Could not convert public key to PEM.";
   }
 
   return { algorithm, details, pem };
 };
 
-const formatExtensionValue = (ext: any): string => {
+const formatExtensionValue = (ext: unknown): string => {
   if (!ext) return "N/A";
 
-  if (ext.name === "subjectAltName" && ext.altNames) {
-    return ext.altNames
-      .map((alt: any) => {
-        if (alt.type === 2) return `DNS:${alt.value}`; // dNSName
-        if (alt.type === 7) return `IP:${alt.value}`; // iPAddress
-        if (alt.type === 1) return `Email:${alt.value}`; // rfc822Name
-        if (alt.type === 6) return `URI:${alt.value}`; // uniformResourceIdentifier
-        return `Type ${alt.type}: ${alt.value}`;
-      })
-      .join(", ");
-  }
-  if (ext.name === "keyUsage") {
-    const usages = [];
-    if (ext.digitalSignature) usages.push("Digital Signature");
-    if (ext.nonRepudiation) usages.push("Non-Repudiation");
-    if (ext.keyEncipherment) usages.push("Key Encipherment");
-    if (ext.dataEncipherment) usages.push("Data Encipherment");
-    if (ext.keyAgreement) usages.push("Key Agreement");
-    if (ext.keyCertSign) usages.push("Certificate Sign");
-    if (ext.cRLSign) usages.push("CRL Sign");
-    if (ext.encipherOnly) usages.push("Encipher Only");
-    if (ext.decipherOnly) usages.push("Decipher Only");
-    return usages.join(", ");
-  }
-  if (ext.name === "extKeyUsage") {
-    return Object.entries(ext)
-      .filter(([key, value]) => value === true && forge.pki.oids[key])
-      .map(([key]) => forge.pki.oids[key])
-      .join(", ");
-  }
-  if (ext.name === "basicConstraints") {
-    return `CA: ${ext.cA ? "True" : "False"}${ext.pathLenConstraint !== undefined ? `, Path Length: ${ext.pathLenConstraint}` : ""}`;
+  if (
+    typeof ext === "object" &&
+    ext !== null &&
+    "name" in ext &&
+    typeof (ext as { name?: unknown }).name === "string"
+  ) {
+    const extension = ext as ForgeExtension;
+    if (
+      extension.name === "subjectAltName" &&
+      Array.isArray(extension.altNames)
+    ) {
+      return extension.altNames
+        .map((alt) => {
+          if (alt.type === 2) return `DNS:${alt.value}`; // dNSName
+          if (alt.type === 7) return `IP:${alt.value}`; // iPAddress
+          if (alt.type === 1) return `Email:${alt.value}`; // rfc822Name
+          if (alt.type === 6) return `URI:${alt.value}`; // uniformResourceIdentifier
+          return `Type ${alt.type}: ${alt.value}`;
+        })
+        .join(", ");
+    }
+    if (extension.name === "keyUsage") {
+      const usages: string[] = [];
+      if (extension.digitalSignature) usages.push("Digital Signature");
+      if (extension.nonRepudiation) usages.push("Non-Repudiation");
+      if (extension.keyEncipherment) usages.push("Key Encipherment");
+      if (extension.dataEncipherment) usages.push("Data Encipherment");
+      if (extension.keyAgreement) usages.push("Key Agreement");
+      if (extension.keyCertSign) usages.push("Certificate Sign");
+      if (extension.cRLSign) usages.push("CRL Sign");
+      if (extension.encipherOnly) usages.push("Encipher Only");
+      if (extension.decipherOnly) usages.push("Decipher Only");
+      return usages.join(", ");
+    }
+    if (extension.name === "extKeyUsage") {
+      return Object.entries(extension)
+        .filter(([key, value]) => value === true && forge.pki.oids[key])
+        .map(([key]) => forge.pki.oids[key])
+        .join(", ");
+    }
+    if (extension.name === "basicConstraints") {
+      return `CA: ${extension.cA ? "True" : "False"}${
+        extension.pathLenConstraint !== undefined
+          ? `, Path Length: ${extension.pathLenConstraint}`
+          : ""
+      }`;
+    }
   }
 
   // Fallback for other extensions
-  if (typeof ext.value === "string" && ext.value.startsWith("0x")) {
+  if (
+    typeof ext === "object" &&
+    ext !== null &&
+    "value" in ext &&
+    typeof (ext as { value?: unknown }).value === "string" &&
+    (ext as { value: string }).value.startsWith("0x")
+  ) {
     // Hex string
-    return forge.util.hexToBytes(ext.value.substring(2)); // Try to convert to readable if possible
+    return forge.util.hexToBytes((ext as { value: string }).value.substring(2)); // Try to convert to readable if possible
   }
-  return typeof ext.value === "object"
-    ? JSON.stringify(ext.value)
-    : String(ext.value);
+  if (
+    typeof ext === "object" &&
+    ext !== null &&
+    "value" in ext &&
+    typeof (ext as { value?: unknown }).value === "object"
+  ) {
+    return JSON.stringify((ext as { value: unknown }).value);
+  }
+  if (typeof ext === "object" && ext !== null && "value" in ext) {
+    return String((ext as { value?: unknown }).value);
+  }
+  return String(ext);
 };
-
+type ForgeExtension = {
+  id?: string;
+  name?: string;
+  critical?: boolean;
+  value?: unknown;
+  altNames?: Array<{
+    type: number;
+    value: string;
+  }>;
+  digitalSignature?: boolean;
+  nonRepudiation?: boolean;
+  keyEncipherment?: boolean;
+  dataEncipherment?: boolean;
+  keyAgreement?: boolean;
+  keyCertSign?: boolean;
+  cRLSign?: boolean;
+  encipherOnly?: boolean;
+  decipherOnly?: boolean;
+  cA?: boolean;
+  pathLenConstraint?: number;
+  [key: string]: unknown;
+};
 export default function CertificateViewerPage() {
   const [certificateInput, setCertificateInput] = useState("");
   const [parsedDetails, setParsedDetails] =
@@ -216,7 +293,9 @@ export default function CertificateViewerPage() {
     setTimeout(() => {
       // Simulate async for UX and allow UI update
       try {
-        const cert = forge.pki.certificateFromPem(certificateInput) as any;
+        const cert = forge.pki.certificateFromPem(
+          certificateInput,
+        ) as forge.pki.Certificate;
 
         const getFingerprint = (mdAlgorithm: {
           create: () => forge.md.MessageDigest;
@@ -250,12 +329,12 @@ export default function CertificateViewerPage() {
           signatureAlgorithm:
             OID_MAP[cert.signatureOid as string] || cert.signatureOid || "N/A",
           publicKey: formatPublicKey(
-            cert.publicKey,
-          ) as ParsedCertificateDetails["publicKey"],
-          extensions: (cert.extensions as any[]).map(
-            (ext: any): ParsedExtension => {
+            cert.publicKey as unknown as SupportedPublicKey,
+          ),
+          extensions: (cert.extensions as ForgeExtension[]).map(
+            (ext: ForgeExtension): ParsedExtension => {
               const name: string =
-                OID_MAP[ext.id as string] ||
+                OID_MAP[ext.id ?? ""] ||
                 ext.name ||
                 ext.id ||
                 "Unknown Extension";
@@ -263,7 +342,7 @@ export default function CertificateViewerPage() {
                 id: ext.id || "N/A",
                 name: name,
                 critical: ext.critical || false,
-                value: ext.value,
+                value: ext.value as string,
                 valueString: formatExtensionValue(ext),
               };
             },
@@ -275,11 +354,14 @@ export default function CertificateViewerPage() {
           pem: certificateInput,
         };
         setParsedDetails(details);
-      } catch (e: any) {
+      } catch (e: unknown) {
         setError(
-          `Parsing Error: ${e.message || "Invalid certificate format or content."}`,
+          `Parsing Error: ${
+            typeof e === "object" && e !== null && "message" in e
+              ? (e as { message?: string }).message
+              : "Invalid certificate format or content."
+          }`,
         );
-        console.error("Certificate parsing error:", e);
       } finally {
         setIsLoading(false);
       }
@@ -294,7 +376,7 @@ export default function CertificateViewerPage() {
         title: `${type} Copied!`,
         description: `The ${type.toLowerCase()} has been copied.`,
       });
-    } catch (err) {
+    } catch {
       toast({
         title: "Copy Failed",
         description: `Could not copy ${type.toLowerCase()}.`,

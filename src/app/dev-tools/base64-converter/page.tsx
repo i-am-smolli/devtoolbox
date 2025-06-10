@@ -53,8 +53,12 @@ export default function Base64ConverterPage() {
         binaryString += String.fromCharCode(byte);
       });
       setBase64Text(btoa(binaryString));
-    } catch (e: any) {
-      setError(`Encoding Error: ${e.message || "Could not encode text."}`);
+    } catch (e: unknown) {
+      const message =
+        typeof e === "object" && e !== null && "message" in e
+          ? (e as { message?: string }).message
+          : undefined;
+      setError(`Encoding Error: ${message || "Could not encode text."}`);
       setBase64Text("");
     }
   };
@@ -75,9 +79,13 @@ export default function Base64ConverterPage() {
       }
       const decoder = new TextDecoder(); // Defaults to 'utf-8'
       setPlainText(decoder.decode(bytes));
-    } catch (e: any) {
+    } catch (e: unknown) {
+      const message =
+        typeof e === "object" && e !== null && "message" in e
+          ? (e as { message?: string }).message
+          : undefined;
       setError(
-        `Decoding Error: ${e.message || "Invalid Base64 string or decoding failed."}`,
+        `Decoding Error: ${message || "Invalid Base64 string or decoding failed."}`,
       );
       setPlainText("");
     }
@@ -94,7 +102,7 @@ export default function Base64ConverterPage() {
         title: `${type} Copied!`,
         description: `The ${type.toLowerCase()} has been copied to your clipboard.`,
       });
-    } catch (err) {
+    } catch {
       toast({
         title: "Copy Failed",
         description: `Could not copy ${type.toLowerCase()} to clipboard.`,

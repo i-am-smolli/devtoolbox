@@ -119,7 +119,7 @@ export default function CaseConverterPage() {
         title: "Output Copied!",
         description: "The converted text has been copied to your clipboard.",
       });
-    } catch (err) {
+    } catch {
       toast({
         title: "Copy Failed",
         description: "Could not copy text.",

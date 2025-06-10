@@ -174,7 +174,6 @@ export default function ColorConverterPage() {
       setS(String(Math.round(initialHsl.s * 100)));
       setL(String(Math.round(initialHsl.l * 100)));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [updatePreview]);
 
   useEffect(() => {
@@ -250,7 +249,6 @@ export default function ColorConverterPage() {
       updatePreview(rgbResult.r, rgbResult.g, rgbResult.b);
       setHex(rgbToHex(rgbResult.r, rgbResult.g, rgbResult.b));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hex, r, g, b, h, s, l, activeInput, isClient, updatePreview]);
 
   return (

@@ -12,11 +12,18 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 
 // Metadata is now handled by layout.tsx
 
-const initialJson =
-  '{ "name": "DevToolbox", "version": "1.0.0", "features": [ "Hex to Binary", "Markdown Preview", "JSON Analyzer" ], "settings": { "darkMode": true, "fontSize": 14 }, "author": "iamsmolli" }';
+const initialJson = {
+  name: "DevToolbox",
+  version: "1.0.0",
+  features: ["Hex to Binary", "Markdown Preview", "JSON Analyzer"],
+  settings: { darkMode: true, fontSize: 14 },
+  author: "iamsmolli",
+};
 
 export default function JsonAnalyzerPage() {
-  const [jsonInput, setJsonInput] = useState(initialJson);
+  const [jsonInput, setJsonInput] = useState<string>(
+    JSON.stringify(initialJson, null, 2),
+  );
   const [formattedJson, setFormattedJson] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [isValid, setIsValid] = useState<boolean | null>(null);
@@ -25,9 +32,8 @@ export default function JsonAnalyzerPage() {
   useEffect(() => {
     setIsClient(true);
     if (initialJson) {
-      handleAnalyze(initialJson);
+      handleAnalyze(JSON.stringify(initialJson, null, 2));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleAnalyze = (currentInput: string) => {
@@ -42,9 +48,13 @@ export default function JsonAnalyzerPage() {
       setFormattedJson(JSON.stringify(parsed, null, 2));
       setError(null);
       setIsValid(true);
-    } catch (e: any) {
+    } catch (e: unknown) {
       setFormattedJson("");
-      setError(e.message);
+      setError(
+        e && typeof e === "object" && "message" in e
+          ? String((e as { message: unknown }).message)
+          : "An unknown error occurred",
+      );
       setIsValid(false);
     }
   };

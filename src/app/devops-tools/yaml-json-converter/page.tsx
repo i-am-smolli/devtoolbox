@@ -74,9 +74,13 @@ export default function YamlJsonConverterPage() {
       }
       setJsonInput(JSON.stringify(jsonData, null, 2));
       setError(null);
-    } catch (e: any) {
-      setJsonInput("");
-      setError(`YAML to JSON Error: ${e.message || "Invalid YAML format"}`);
+    } catch (e: unknown) {
+      setYamlInput("");
+      const message =
+        typeof e === "object" && e !== null && "message" in e
+          ? String((e as { message?: unknown }).message)
+          : "Invalid JSON format";
+      setError(`JSON to YAML Error: ${message}`);
     }
   };
 
@@ -90,9 +94,13 @@ export default function YamlJsonConverterPage() {
       const jsonData = JSON.parse(jsonInput);
       setYamlInput(yaml.dump(jsonData));
       setError(null);
-    } catch (e: any) {
+    } catch (e: unknown) {
       setYamlInput("");
-      setError(`JSON to YAML Error: ${e.message || "Invalid JSON format"}`);
+      const message =
+        typeof e === "object" && e !== null && "message" in e
+          ? String((e as { message?: unknown }).message)
+          : "Invalid JSON format";
+      setError(`JSON to YAML Error: ${message}`);
     }
   };
 
@@ -104,7 +112,7 @@ export default function YamlJsonConverterPage() {
         title: "Copied to Clipboard",
         description: `${type} content has been copied.`,
       });
-    } catch (err) {
+    } catch {
       toast({
         title: "Copy Failed",
         description: `Could not copy ${type} content to clipboard.`,

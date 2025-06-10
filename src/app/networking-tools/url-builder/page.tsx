@@ -29,7 +29,6 @@ import {
   AlertCircle,
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { Separator } from "@/components/ui/separator";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 // Metadata is now handled by layout.tsx
@@ -136,8 +135,12 @@ export default function UrlBuilderPage() {
         // For relative URLs or paths, new URL might be too strict.
         // Allow generation but skip new URL() validation if no protocol.
       }
-    } catch (e: any) {
-      setError(`Generated URL may be invalid: ${e.message}`);
+    } catch (e: unknown) {
+      const errorMessage =
+        typeof e === "object" && e !== null && "message" in e
+          ? String((e as { message: unknown }).message)
+          : "Unknown error";
+      setError(`Generated URL may be invalid: ${errorMessage}`);
       setGeneratedUrl(url); // Still set the URL for user to see
       return;
     }
@@ -173,7 +176,7 @@ export default function UrlBuilderPage() {
         title: "URL Copied!",
         description: "The generated URL has been copied to your clipboard.",
       });
-    } catch (err) {
+    } catch {
       toast({
         title: "Copy Failed",
         description: "Could not copy the URL.",
@@ -261,7 +264,7 @@ export default function UrlBuilderPage() {
               No query parameters added.
             </p>
           )}
-          {queryParams.map((param, index) => (
+          {queryParams.map((param) => (
             <div key={param.id} className="flex items-end space-x-2">
               <div className="flex-grow space-y-1">
                 <Label htmlFor={`queryKey-${param.id}`} className="text-xs">

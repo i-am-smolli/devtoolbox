@@ -3,13 +3,7 @@
 // Removed: import type { Metadata } from 'next';
 import { useState, useEffect } from "react";
 import { PageHeader } from "@/components/page-header";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardFooter,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -83,7 +77,7 @@ export default function SecurePasswordGeneratorPage() {
         description:
           "The generated password has been copied to your clipboard.",
       });
-    } catch (err) {
+    } catch {
       toast({
         title: "Copy Failed",
         description: "Could not copy password to clipboard.",

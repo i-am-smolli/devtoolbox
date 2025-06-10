@@ -3,13 +3,7 @@
 // Removed: import type { Metadata } from 'next';
 import { useState, useEffect, useCallback } from "react";
 import { PageHeader } from "@/components/page-header";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardFooter,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -186,7 +180,6 @@ export default function CidrCalculatorPage() {
       // Auto-calculate on initial load or if cidrInput changes programmatically
       handleCalculateCidr();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isClient]); // Removed handleCalculateCidr from deps to avoid re-calc on its own change
 
   const handleGenerateSubnets = useCallback(() => {

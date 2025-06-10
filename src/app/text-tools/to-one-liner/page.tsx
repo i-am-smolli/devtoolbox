@@ -58,10 +58,10 @@ export default function ToOneLinerPage() {
         title: "Output Copied!",
         description: "The single-line text has been copied to your clipboard.",
       });
-    } catch (err) {
+    } catch {
       toast({
         title: "Copy Failed",
-        description: "Could not copy text.",
+        description: "Could not copy text. Error:",
         variant: "destructive",
       });
     }

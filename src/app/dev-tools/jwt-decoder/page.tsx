@@ -3,13 +3,7 @@
 // Removed: import type { Metadata } from 'next';
 import { useState, useEffect, useRef } from "react";
 import { PageHeader } from "@/components/page-header";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardFooter,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -22,7 +16,7 @@ import { useToast } from "@/hooks/use-toast";
 
 interface DecodedJwtPart {
   original: string;
-  decoded: Record<string, any> | null;
+  decoded: Record<string, unknown> | null;
   error?: string;
 }
 
@@ -66,11 +60,14 @@ export default function JwtDecoderPage() {
       const utf8DecodedString = new TextDecoder().decode(bytes);
       const jsonData = JSON.parse(utf8DecodedString);
       return { original: part, decoded: jsonData };
-    } catch (e: any) {
+    } catch (e: unknown) {
       return {
         original: part,
         decoded: null,
-        error: e.message || "Invalid encoding or JSON format",
+        error:
+          typeof e === "object" && e !== null && "message" in e
+            ? String((e as { message: unknown }).message)
+            : "Invalid encoding or JSON format",
       };
     }
   };
@@ -121,7 +118,7 @@ export default function JwtDecoderPage() {
         title: `${type} Copied!`,
         description: `The ${type.toLowerCase()} has been copied to your clipboard.`,
       });
-    } catch (err) {
+    } catch {
       toast({
         title: "Copy Failed",
         description: `Could not copy ${type.toLowerCase()} to clipboard.`,

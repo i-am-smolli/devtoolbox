@@ -47,7 +47,7 @@ const initialJson = `{
 
 export default function JsonExplorerPage() {
   const [jsonInput, setJsonInput] = useState(initialJson);
-  const [parsedJson, setParsedJson] = useState<any>(null);
+  const [parsedJson, setParsedJson] = useState<unknown>(null);
   const [error, setError] = useState<string | null>(null);
   const [isClient, setIsClient] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -74,9 +74,18 @@ export default function JsonExplorerPage() {
       const parsed = JSON.parse(currentInput);
       setParsedJson(parsed);
       setError(null);
-    } catch (e: any) {
+    } catch (e: unknown) {
       setParsedJson(null);
-      setError(e.message || "Invalid JSON format");
+      if (
+        e &&
+        typeof e === "object" &&
+        "message" in e &&
+        typeof (e as { message?: unknown }).message === "string"
+      ) {
+        setError((e as { message: string }).message);
+      } else {
+        setError("Invalid JSON format");
+      }
     }
   };
 
@@ -128,9 +137,15 @@ export default function JsonExplorerPage() {
               </div>
             )}
             <ScrollArea className="h-full w-full p-4">
-              {isClient && parsedJson && !error && (
-                <JsonExplorerNode data={parsedJson} isRoot />
-              )}
+              {isClient &&
+              parsedJson &&
+              !error &&
+              (typeof parsedJson === "object" || Array.isArray(parsedJson)) ? (
+                <JsonExplorerNode
+                  data={parsedJson as Record<string, unknown> | unknown[]}
+                  isRoot
+                />
+              ) : null}
               {isClient && !parsedJson && !error && (
                 <p className="text-muted-foreground">
                   Paste JSON in the input area to explore.

@@ -61,7 +61,6 @@ export default function MarkdownToHtmlPage() {
     if (initialMarkdown) {
       handleConvertToHtml(initialMarkdown);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const adjustTextareaHeight = (
@@ -95,8 +94,7 @@ export default function MarkdownToHtmlPage() {
     try {
       const rawHtml = await marked.parse(currentMarkdown);
       setHtmlOutput(rawHtml);
-    } catch (error) {
-      console.error("Error converting Markdown to HTML:", error);
+    } catch {
       setHtmlOutput("Error converting Markdown to HTML.");
       toast({
         title: "Conversion Error",
@@ -114,7 +112,7 @@ export default function MarkdownToHtmlPage() {
         title: "HTML Copied!",
         description: "The generated HTML has been copied to your clipboard.",
       });
-    } catch (err) {
+    } catch {
       toast({
         title: "Copy Failed",
         description: "Could not copy HTML to clipboard.",

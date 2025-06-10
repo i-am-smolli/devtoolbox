@@ -42,7 +42,6 @@ export default function RandomStringGeneratorPage() {
     setIsClient(true);
     // Generate an initial string on load
     handleGenerateString();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isClient]); // Only run on client mount
 
   const handleGenerateString = () => {
@@ -93,7 +92,7 @@ export default function RandomStringGeneratorPage() {
         title: "String Copied!",
         description: "The random string has been copied to your clipboard.",
       });
-    } catch (err) {
+    } catch {
       toast({
         title: "Copy Failed",
         description: "Could not copy string.",

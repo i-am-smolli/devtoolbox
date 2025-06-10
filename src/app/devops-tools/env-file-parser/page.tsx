@@ -66,6 +66,7 @@ export default function EnvFileParserPage() {
 
         // Strip surrounding quotes (single or double)
         if (
+          // eslint-disable-next-line quotes
           (value.startsWith('"') && value.endsWith('"')) ||
           (value.startsWith("'") && value.endsWith("'"))
         ) {
@@ -110,7 +111,7 @@ export default function EnvFileParserPage() {
         title: "Copied to Clipboard",
         description: `Value for "${keyName}" has been copied.`,
       });
-    } catch (err) {
+    } catch {
       toast({
         title: "Copy Failed",
         description: `Could not copy value for "${keyName}".`,

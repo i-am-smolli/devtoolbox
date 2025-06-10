@@ -47,7 +47,6 @@ export default function UrlExplorerPage() {
     if (urlInput) {
       handleParseUrl(urlInput);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Only run on mount with initial URL
 
   useEffect(() => {
@@ -80,11 +79,12 @@ export default function UrlExplorerPage() {
         queryParams,
       });
       setError(null);
-    } catch (e: any) {
+    } catch (e: unknown) {
       setParsedDetails(null);
       setError(
-        e.message ||
-          "Invalid URL format. Please enter a full URL including protocol (e.g., https://).",
+        typeof e === "object" && e !== null && "message" in e
+          ? String((e as { message: unknown }).message)
+          : "Invalid URL format. Please enter a full URL including protocol (e.g., https://).",
       );
     }
   };

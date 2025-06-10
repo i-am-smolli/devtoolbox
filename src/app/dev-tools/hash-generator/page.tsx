@@ -84,10 +84,12 @@ export default function HashGeneratorPage() {
         data,
       );
       setHashedOutput(bufferToHex(hashBuffer));
-    } catch (e: any) {
-      setError(
-        `Hashing error (${selectedAlgorithm}): ${e.message || "Unknown error"}`,
-      );
+    } catch (e: unknown) {
+      let errorMessage = "Unknown error";
+      if (e instanceof Error && typeof e.message === "string") {
+        errorMessage = e.message;
+      }
+      setError(`Hashing error (${selectedAlgorithm}): ${errorMessage}`);
     }
 
     setIsLoading(false);
@@ -101,7 +103,7 @@ export default function HashGeneratorPage() {
         title: "Hash Copied!",
         description: "The generated hash has been copied to your clipboard.",
       });
-    } catch (err) {
+    } catch {
       toast({
         title: "Copy Failed",
         description: "Could not copy hash to clipboard.",

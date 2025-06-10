@@ -100,13 +100,12 @@ export default function MarkdownPreviewPage() {
                   <ReactMarkdown
                     remarkPlugins={[remarkGfm]}
                     components={{
-                      img: ({ node, ...props }) => {
+                      img: (props) => {
                         const altText = props.alt || "";
                         if (
                           props.src &&
                           props.src.startsWith("https://placehold.co/")
                         ) {
-                          // eslint-disable-next-line @next/next/no-img-element
                           return (
                             <img
                               {...props}
@@ -115,7 +114,6 @@ export default function MarkdownPreviewPage() {
                             />
                           );
                         }
-                        // eslint-disable-next-line @next/next/no-img-element
                         return <img {...props} alt={altText} />;
                       },
                     }}

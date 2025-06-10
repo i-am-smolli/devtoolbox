@@ -171,15 +171,23 @@ export default function CronParserPage() {
         }),
       );
       setParsedParts(newParsedParts);
-    } catch (e: any) {
-      setError(e.message || "An unknown error occurred during parsing.");
+    } catch (e: unknown) {
+      if (
+        e &&
+        typeof e === "object" &&
+        "message" in e &&
+        typeof (e as { message?: unknown }).message === "string"
+      ) {
+        setError((e as { message: string }).message);
+      } else {
+        setError("An unknown error occurred during parsing.");
+      }
     }
   };
 
   // Initial parse for default value
   useState(() => {
     if (cronInput) handleParseCron();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   });
 
   return (

@@ -48,8 +48,12 @@ export default function UrlEncoderDecoderPage() {
     }
     try {
       setEncodedText(encodeURIComponent(plainText));
-    } catch (e: any) {
-      setError(`Encoding Error: ${e.message || "Could not encode text."}`);
+    } catch (e: unknown) {
+      const message =
+        e && typeof e === "object" && "message" in e
+          ? (e as { message?: string }).message
+          : undefined;
+      setError(`Encoding Error: ${message || "Could not encode text."}`);
       setEncodedText("");
     }
   };
@@ -63,9 +67,13 @@ export default function UrlEncoderDecoderPage() {
     }
     try {
       setPlainText(decodeURIComponent(encodedText));
-    } catch (e: any) {
+    } catch (e: unknown) {
+      const message =
+        e && typeof e === "object" && "message" in e
+          ? (e as { message?: string }).message
+          : undefined;
       setError(
-        `Decoding Error: ${e.message || "Invalid URL-encoded string or decoding failed."}`,
+        `Decoding Error: ${message || "Invalid URL-encoded string or decoding failed."}`,
       );
       setPlainText("");
     }
@@ -82,7 +90,7 @@ export default function UrlEncoderDecoderPage() {
         title: `${type} Copied!`,
         description: `The ${type.toLowerCase()} has been copied to your clipboard.`,
       });
-    } catch (err) {
+    } catch {
       toast({
         title: "Copy Failed",
         description: `Could not copy ${type.toLowerCase()} to clipboard.`,

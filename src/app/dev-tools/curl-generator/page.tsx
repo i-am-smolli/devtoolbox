@@ -90,7 +90,7 @@ export default function CurlGeneratorPage() {
     try {
       new URL(url); // Basic validation
       setError(null);
-    } catch (e) {
+    } catch {
       setCurlCommand("");
       setError("Invalid URL format.");
       return;
@@ -104,8 +104,10 @@ export default function CurlGeneratorPage() {
 
     headers.forEach((header) => {
       if (header.key.trim()) {
-        const escapedHeaderKey = header.key.trim().replace(/"/g, "\\\"");
-        const escapedHeaderValue = header.value.trim().replace(/"/g, "\\\"");
+        // eslint-disable-next-line quotes
+        const escapedHeaderKey = header.key.trim().replace(/"/g, '\\"');
+        // eslint-disable-next-line quotes
+        const escapedHeaderValue = header.value.trim().replace(/"/g, '\\"');
         command += ` -H "${escapedHeaderKey}: ${escapedHeaderValue}"`;
       }
     });
@@ -115,7 +117,8 @@ export default function CurlGeneratorPage() {
       command += ` -d '${escapedBody}'`;
     }
 
-    command += ` "${url.trim().replace(/"/g, "\\\"")}"`; // Escape double quotes in URL
+    // eslint-disable-next-line quotes
+    command += ` "${url.trim().replace(/"/g, '\\"')}"`; // Escape double quotes in URL
     setCurlCommand(command);
   }, [url, method, headers, requestBody]);
 
@@ -131,7 +134,7 @@ export default function CurlGeneratorPage() {
         title: "cURL Command Copied!",
         description: "The generated command has been copied to your clipboard.",
       });
-    } catch (err) {
+    } catch {
       toast({
         title: "Copy Failed",
         description: "Could not copy command.",

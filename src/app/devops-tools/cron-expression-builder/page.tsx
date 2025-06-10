@@ -120,7 +120,7 @@ export default function CronExpressionBuilderPage() {
         description:
           "The generated expression has been copied to your clipboard.",
       });
-    } catch (err) {
+    } catch {
       toast({
         title: "Copy Failed",
         description: "Could not copy expression.",
