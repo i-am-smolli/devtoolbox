@@ -13,7 +13,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { MainNav } from "./main-nav";
 import { Button } from "@/components/ui/button";
-import { Github, Settings } from "lucide-react";
+import { Github } from "lucide-react";
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
   return (

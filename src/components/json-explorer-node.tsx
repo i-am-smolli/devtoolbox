@@ -11,7 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
 interface JsonExplorerNodeProps {
-  data: any;
+  data: unknown;
   name?: string;
   defaultOpen?: boolean;
   isRoot?: boolean;
@@ -32,7 +32,7 @@ const JsonExplorerNode: FC<JsonExplorerNodeProps> = ({
   const type = getNodeType(data);
 
   if (type === "object") {
-    const entries = Object.entries(data);
+    const entries = Object.entries(data as Record<string, unknown>);
     const triggerContent = (
       <>
         {name && (
@@ -83,9 +83,8 @@ const JsonExplorerNode: FC<JsonExplorerNodeProps> = ({
         </AccordionItem>
       </Accordion>
     );
-  }
-
-  if (type === "array") {
+  } else if (type === "array") {
+    const arr = data as unknown[];
     const triggerContent = (
       <>
         {name && (
@@ -95,13 +94,12 @@ const JsonExplorerNode: FC<JsonExplorerNodeProps> = ({
         )}
         <span className="mr-1">{"["}</span>
         <Badge variant="secondary" className="mr-1">
-          {data.length} {data.length === 1 ? "item" : "items"}
+          {arr.length} {arr.length === 1 ? "item" : "items"}
         </Badge>
         {"]"}
       </>
     );
-
-    if (data.length === 0) {
+    if (arr.length === 0) {
       return (
         <div className="ml-0.5 py-1 px-2 text-sm text-muted-foreground">
           {name ? (
@@ -129,7 +127,7 @@ const JsonExplorerNode: FC<JsonExplorerNodeProps> = ({
           </AccordionTrigger>
           <AccordionContent className="pl-4 border-l border-dashed ml-[0.625rem] relative">
             <div className="absolute left-0 top-0 w-px h-full"></div>
-            {data.map((item: any, index: number) => (
+            {arr.map((item, index) => (
               <JsonExplorerNode
                 key={index}
                 name={`Index ${index}`}

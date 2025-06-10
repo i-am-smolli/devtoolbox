@@ -104,8 +104,8 @@ export default function CurlGeneratorPage() {
 
     headers.forEach((header) => {
       if (header.key.trim()) {
-        const escapedHeaderKey = header.key.trim().replace(/"/g, '\\"');
-        const escapedHeaderValue = header.value.trim().replace(/"/g, '\\"');
+        const escapedHeaderKey = header.key.trim().replace(/"/g, "\\\"");
+        const escapedHeaderValue = header.value.trim().replace(/"/g, "\\\"");
         command += ` -H "${escapedHeaderKey}: ${escapedHeaderValue}"`;
       }
     });
@@ -115,7 +115,7 @@ export default function CurlGeneratorPage() {
       command += ` -d '${escapedBody}'`;
     }
 
-    command += ` "${url.trim().replace(/"/g, '\\"')}"`; // Escape double quotes in URL
+    command += ` "${url.trim().replace(/"/g, "\\\"")}"`; // Escape double quotes in URL
     setCurlCommand(command);
   }, [url, method, headers, requestBody]);
 
@@ -188,7 +188,7 @@ export default function CurlGeneratorPage() {
               <div key={header.id} className="flex items-center space-x-2">
                 <Input
                   type="text"
-                  placeholder={`Name`}
+                  placeholder={"Name"}
                   value={header.key}
                   onChange={(e) =>
                     updateHeader(header.id, "key", e.target.value)
@@ -198,7 +198,7 @@ export default function CurlGeneratorPage() {
                 />
                 <Input
                   type="text"
-                  placeholder={`Value`}
+                  placeholder={"Value"}
                   value={header.value}
                   onChange={(e) =>
                     updateHeader(header.id, "value", e.target.value)

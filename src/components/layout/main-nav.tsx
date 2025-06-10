@@ -35,7 +35,6 @@ import {
   LockKeyhole,
   Pilcrow,
   Grid,
-  Sparkles,
   ShieldCheck,
   FileKey,
   QrCode,
