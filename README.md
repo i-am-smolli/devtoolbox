@@ -153,6 +153,12 @@ A brief overview of the key directories:
 
 Contributions are welcome! If you have ideas for new tools, improvements, or bug fixes, please feel free to open an issue or submit a pull request. (This section can be expanded with more specific guidelines if needed).
 
+
+## Deploy using Kamal
+
+export KAMAL_REGISTRY_PASSWORD='dckr_pat_MvIqTvWJaXXXXXJkVQJCdklKXXX'
+export KAMAL_SSH_USER='luftpumpe'
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE.md) (Assuming MIT - if not, please specify or create a LICENSE.md file).
