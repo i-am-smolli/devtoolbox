@@ -1,41 +1,41 @@
-# DevToolbox - Essential Developer Utilities
+# 🔧 DevToolbox - Your All-in-One Developer Utility Hub
 
-DevToolbox is a comprehensive suite of free online developer tools designed to streamline common tasks and boost productivity. It's built with modern web technologies, offering a fast, responsive, and user-friendly experience.
+DevToolbox is a comprehensive, free, and open-source collection of essential developer utilities. Designed to streamline common tasks and boost productivity, it offers a fast, responsive, and user-friendly experience right in your browser.
 
 ## Inspiration
 
-I commonly use tools like certificate viewer, JSON explorer and text converter for my daily job. There are a ton of great websites online, like https://www.devtoolbox.co/ -> https://github.com/YourAverageTechBro/DevToolboxWeb . I always was a bit spectial when I used such tools, because I was not sure if my data was secure or not. Also many of them seem not do be actively developed or maintained any more.
+As a network engineer, I frequently rely on online tools for tasks like viewing certificates, exploring JSON structures, and converting text formats. While many excellent websites exist, I've often felt a degree of uncertainty about the security of my data when using third-party services. Additionally, some tools I've used appear to be less actively maintained.
 
-So I was vibe coding (firebase-studio) in my spare time the other day and had the idea to make my own toolbox. And here it is.
+This inspired the idea to build a personal toolbox – a collection of utilities where I have full control over the data and the development process. DevToolbox is the result of this endeavor, built with transparency and user confidence in mind.
 
 ### Limiting belives
 
-As mentioned, this project is mostly (99.5%) generated using AI. Im pretty sure there are some bugs. But Im just a humble network engineer, not a highly skilled TypeScript, Next.JS and shadcn ui developer.
+It's worth noting that a significant portion of this project (approximately 99.5%) was generated using AI-assisted coding (specifically, via Firebase-Studio). While this accelerated development, there may be some initial bugs or areas for improvement. As a humble network engineer transitioning into development, I appreciate any feedback and contributions to refine the project.
 
 
-## Features (Available Tools)
+## ✨ Core Features & Available Tools
 
-The DevToolbox provides a wide array of utilities, including:
+DevToolbox offers a diverse range of tools categorized for easy navigation:
 
-**Development Tools (`/dev-tools`):**
+### Development Tools (`/dev-tools`)
 
-- **Base64 Encoder / Decoder:** Encode text to Base64 or decode Base64 strings back to text.
-- **Certificate Viewer:** Paste a PEM-encoded X.509 certificate to view its details, including subject, issuer, validity, extensions, and more.
-- **Color Converter:** Convert colors seamlessly between HEX, RGB, and HSL formats.
-- **cURL Command Generator:** Easily construct cURL commands with a guided interface.
-- **Hash Generator:** Generate cryptographic hashes (SHA-1, SHA-256, SHA-384, SHA-512) from text.
-- **Hex to Binary Converter:** Convert hexadecimal values to their binary representation.
-- **Icon Browser:** Browse, search, and find Lucide React icons for your project.
-- **JWT Decoder:** Decode JSON Web Tokens (JWTs) to inspect their header and payload (signature is not verified).
-- **Password Strength Meter:** Analyze the strength of your password and get suggestions for improvement.
-- **QR Code Generator:** Generate custom QR codes for various data types including text, URLs, WiFi credentials, SMS, email, and geographic locations.
-- **Random String Generator:** Generate random strings with customizable length and character sets.
-- **Secure Password Generator:** Create strong, random, and secure passwords.
-- **Time Converter:** Convert timestamps between various formats (Unix, ISO 8601, Date, Time, HTTP, SQL).
-- **URL Encoder / Decoder:** Encode strings to be URL-safe (percent-encoding) or decode URL-encoded strings.
-- **UUID Generator:** Generate one or more Version 4 UUIDs.
+-   **Base64 Encoder / Decoder:** Encode text to Base64 or decode Base64 strings.
+-   **Certificate Viewer:** Inspect PEM-encoded X.509 certificate details.
+-   **Color Converter:** Convert seamlessly between HEX, RGB, and HSL formats.
+-   **cURL Command Generator:** Easily construct cURL commands with a guided interface.
+-   **Hash Generator:** Generate SHA hashes (SHA-1, SHA-256, SHA-384, SHA-512).
+-   **Hex to Binary Converter:** Convert hexadecimal values to binary.
+-   **Icon Browser:** Browse and search Lucide React icons.
+-   **JWT Decoder:** Decode JWTs to inspect header and payload (signature not verified).
+-   **Password Strength Meter:** Analyze password strength and get suggestions.
+-   **QR Code Generator:** Generate QR codes for various data types.
+-   **Random String Generator:** Generate customizable random strings.
+-   **Secure Password Generator:** Create strong, random passwords.
+-   **Time Converter:** Convert timestamps between various formats.
+-   **URL Encoder / Decoder:** Encode or decode URL-safe strings.
+-   **UUID Generator:** Generate Version 4 UUIDs.
 
-**Text Processing Tools (`/text-tools`):**
+### Text Processing Tools (`/text-tools`)
 
 - **Markdown Previewer:** Write Markdown text and see the rendered HTML in real-time.
 - **Markdown to HTML Converter:** Convert Markdown text into raw HTML code.
@@ -44,8 +44,9 @@ The DevToolbox provides a wide array of utilities, including:
 - **Lorem Ipsum Generator:** Generate placeholder text in various styles (standard, DevOps, Startup).
 
 **JSON Utilities:**
-
 - **JSON Analyzer (`/json-analyzer`):** Validate, format, and inspect your JSON data.
+- **JSON Diff (`/json-diff`):** Compare two JSON objects and visualize the differences.
+- **JSON to Type Converter (`/json-to-type`):** Convert JSON structures into TypeScript or Go type definitions.
 - **JSON Explorer (`/json-explorer`):** Interactively navigate and explore complex JSON data structures in a collapsible tree view.
 
 **DevOps Tools (`/devops-tools`):**
@@ -57,16 +58,16 @@ The DevToolbox provides a wide array of utilities, including:
 - **YAML/JSON Converter:** Convert data seamlessly between YAML and JSON formats.
 
 **Networking Tools (`/networking-tools`):**
-
 - **CIDR Calculator & Subnet Visualizer:** Calculate network details from CIDR notation and visualize subnets.
 - **URL Builder:** Construct well-formed URLs by specifying individual components.
 - **URL Explorer:** Break down a URL into its constituent parts (protocol, hostname, path, query parameters, hash).
 
-## Technology Stack
+## 🛠️ Technology Stack
 
 This project is built using a modern, efficient, and developer-friendly tech stack:
 
 - **Next.js:** A React framework for building server-side rendered and statically generated web applications.
+- **React:** A JavaScript library for building user interfaces.
 - **React:** A JavaScript library for building user interfaces.
 - **TypeScript:** A superset of JavaScript that adds static typing.
 - **ShadCN UI:** A collection of beautifully designed, accessible, and customizable UI components.
@@ -75,7 +76,7 @@ This project is built using a modern, efficient, and developer-friendly tech sta
 - **Lucide React:** A library of simply beautiful open-source icons.
 
 ## Getting Started
-
+## 🚀 Getting Started
 Follow these instructions to get a local copy of the project up and running.
 
 ### Prerequisites
