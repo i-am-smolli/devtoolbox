@@ -1,4 +1,5 @@
 # 🔧 DevToolbox - Your All-in-One Developer Utility Hub
+![License: MIT + Commons Clause](https://img.shields.io/badge/License-MIT--Commons%20Clause-orange.svg)
 
 DevToolbox is a comprehensive, free, and open-source collection of essential developer utilities. Designed to streamline common tasks and boost productivity, it offers a fast, responsive, and user-friendly experience right in your browser.
 
@@ -75,7 +76,6 @@ This project is built using a modern, efficient, and developer-friendly tech sta
 - **Genkit (for AI features):** A toolkit for building AI-powered features (though primarily used for backend AI, it's part of the stack).
 - **Lucide React:** A library of simply beautiful open-source icons.
 
-## Getting Started
 ## 🚀 Getting Started
 Follow these instructions to get a local copy of the project up and running.
 
@@ -160,13 +160,12 @@ A brief overview of the key directories:
 
 ## Contributing
 
-Contributions are welcome! If you have ideas for new tools, improvements, or bug fixes, please feel free to open an issue or submit a pull request. (This section can be expanded with more specific guidelines if needed).
-
-
-
-
-## Todo
+Contributions are welcome! If you have ideas for new tools, improvements, or bug fixes, please feel free to open an issue or submit a pull request. 
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE.md) (Assuming MIT - if not, please specify or create a LICENSE.md file).
+
+This project is licensed under the [MIT License with Commons Clause](LICENSE.md) – non-commercial use only.
+
+You are free to use, modify, and self-host this software for personal or internal (non-commercial) purposes.  
+Commercial use – including selling, sublicensing, or offering the software as a paid service – is strictly prohibited without prior written permission from the author.
