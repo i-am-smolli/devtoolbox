@@ -12,6 +12,7 @@ So I was vibe coding (firebase-studio) in my spare time the other day and had th
 
 As mentioned, this project is mostly (99.5%) generated using AI. Im pretty sure there are some bugs. But Im just a humble network engineer, not a highly skilled TypeScript, Next.JS and shadcn ui developer.
 
+
 ## Features (Available Tools)
 
 The DevToolbox provides a wide array of utilities, including:
@@ -131,18 +132,15 @@ npm start
 
 This will serve the optimized version of your application, typically on `http://localhost:3000` (or the port configured for Next.js production starts).
 
-### Genkit Development (for AI features)
+## Deploy using Kamal
 
-If you are working on AI features powered by Genkit:
+Kamal will push pull to your own Docker Repository. It builds the container, uploads it and your server will pull it.
 
-- To start the Genkit development flow runner:
-  ```bash
-  npm run genkit:dev
-  ```
-- To start the Genkit development flow runner with file watching:
-  ```bash
-  npm run genkit:watch
-  ```
+Copy ```.example-env``` to ```.env``` and change it values 
+
+```kamal setup``` for inital setup of the container
+or 
+```kamal deploy``` if you are updating 
 
 ## Project Structure
 
@@ -164,13 +162,7 @@ A brief overview of the key directories:
 Contributions are welcome! If you have ideas for new tools, improvements, or bug fixes, please feel free to open an issue or submit a pull request. (This section can be expanded with more specific guidelines if needed).
 
 
-## Deploy using Kamal
 
-Copy ```.example-env``` to ```.env``` and change it values 
-
-```kamal setup``` for inital setup of the container
-or 
-```kamal deploy``` if you are updating 
 
 ## Todo
 

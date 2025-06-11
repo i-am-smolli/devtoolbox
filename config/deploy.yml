@@ -1,7 +1,7 @@
-service: devtoolbox
-image: iamsmolli87/iamsmolli
-
 <% require "dotenv"; Dotenv.load(".env") %>
+
+service: devtoolbox
+image: <%= ENV["KAMAL_REGISTRY_IMAGE"] %>
 
 registry:
   username: <%= ENV["KAMAL_REGISTRY_USERNAME"] %>
