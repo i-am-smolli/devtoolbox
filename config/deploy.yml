@@ -1,8 +1,10 @@
 service: devtoolbox
 image: iamsmolli87/iamsmolli
 
+<% require "dotenv"; Dotenv.load(".env") %>
+
 registry:
-  username: iamsmolli87
+  username: <%= ENV["KAMAL_REGISTRY_USERNAME"] %>
   password:
     - KAMAL_REGISTRY_PASSWORD
 
@@ -11,12 +13,12 @@ builder:
 
 # Deploy to these servers.
 servers:
-  - dev.jonathanmiller.icu
+  - <%= ENV["KAMAL_SERVER"] %>
 
 proxy:
   ssl: true
-  host: dev.jonathanmiller.icu
+  host: <%= ENV["KAMAL_SSL_NAME"] %>
   app_port: 3000
 
 ssh:
-  user: ubuntu
+  user: <%= ENV["KAMAL_SSH_USER"] %>

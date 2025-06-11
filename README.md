@@ -2,6 +2,16 @@
 
 DevToolbox is a comprehensive suite of free online developer tools designed to streamline common tasks and boost productivity. It's built with modern web technologies, offering a fast, responsive, and user-friendly experience.
 
+## Inspiration
+
+I commonly use tools like certificate viewer, JSON explorer and text converter for my daily job. There are a ton of great websites online, like https://www.devtoolbox.co/ -> https://github.com/YourAverageTechBro/DevToolboxWeb . I always was a bit spectial when I used such tools, because I was not sure if my data was secure or not. Also many of them seem not do be actively developed or maintained any more.
+
+So I was vibe coding (firebase-studio) in my spare time the other day and had the idea to make my own toolbox. And here it is.
+
+### Limiting belives
+
+As mentioned, this project is mostly (99.5%) generated using AI. Im pretty sure there are some bugs. But Im just a humble network engineer, not a highly skilled TypeScript, Next.JS and shadcn ui developer.
+
 ## Features (Available Tools)
 
 The DevToolbox provides a wide array of utilities, including:
@@ -156,8 +166,13 @@ Contributions are welcome! If you have ideas for new tools, improvements, or bug
 
 ## Deploy using Kamal
 
-export KAMAL_REGISTRY_PASSWORD='dckr_pat_MvIqTvWJaXXXXXJkVQJCdklKXXX'
-export KAMAL_SSH_USER='luftpumpe'
+Copy ```.example-env``` to ```.env``` and change it values 
+
+```kamal setup``` for inital setup of the container
+or 
+```kamal deploy``` if you are updating 
+
+## Todo
 
 ## License
 
