@@ -1,4 +1,5 @@
 # 🔧 DevToolbox - Your All-in-One Developer Utility Hub
+
 ![License: MIT + Commons Clause](https://img.shields.io/badge/License-MIT--Commons%20Clause-orange.svg)
 
 DevToolbox is a comprehensive, free, and open-source collection of essential developer utilities. Designed to streamline common tasks and boost productivity, it offers a fast, responsive, and user-friendly experience right in your browser.
@@ -13,28 +14,27 @@ This inspired the idea to build a personal toolbox – a collection of utilities
 
 It's worth noting that a significant portion of this project (approximately 99.5%) was generated using AI-assisted coding (specifically, via Firebase-Studio). While this accelerated development, there may be some initial bugs or areas for improvement. As a humble network engineer transitioning into development, I appreciate any feedback and contributions to refine the project.
 
-
 ## ✨ Core Features & Available Tools
 
 DevToolbox offers a diverse range of tools categorized for easy navigation:
 
 ### Development Tools (`/dev-tools`)
 
--   **Base64 Encoder / Decoder:** Encode text to Base64 or decode Base64 strings.
--   **Certificate Viewer:** Inspect PEM-encoded X.509 certificate details.
--   **Color Converter:** Convert seamlessly between HEX, RGB, and HSL formats.
--   **cURL Command Generator:** Easily construct cURL commands with a guided interface.
--   **Hash Generator:** Generate SHA hashes (SHA-1, SHA-256, SHA-384, SHA-512).
--   **Hex to Binary Converter:** Convert hexadecimal values to binary.
--   **Icon Browser:** Browse and search Lucide React icons.
--   **JWT Decoder:** Decode JWTs to inspect header and payload (signature not verified).
--   **Password Strength Meter:** Analyze password strength and get suggestions.
--   **QR Code Generator:** Generate QR codes for various data types.
--   **Random String Generator:** Generate customizable random strings.
--   **Secure Password Generator:** Create strong, random passwords.
--   **Time Converter:** Convert timestamps between various formats.
--   **URL Encoder / Decoder:** Encode or decode URL-safe strings.
--   **UUID Generator:** Generate Version 4 UUIDs.
+- **Base64 Encoder / Decoder:** Encode text to Base64 or decode Base64 strings.
+- **Certificate Viewer:** Inspect PEM-encoded X.509 certificate details.
+- **Color Converter:** Convert seamlessly between HEX, RGB, and HSL formats.
+- **cURL Command Generator:** Easily construct cURL commands with a guided interface.
+- **Hash Generator:** Generate SHA hashes (SHA-1, SHA-256, SHA-384, SHA-512).
+- **Hex to Binary Converter:** Convert hexadecimal values to binary.
+- **Icon Browser:** Browse and search Lucide React icons.
+- **JWT Decoder:** Decode JWTs to inspect header and payload (signature not verified).
+- **Password Strength Meter:** Analyze password strength and get suggestions.
+- **QR Code Generator:** Generate QR codes for various data types.
+- **Random String Generator:** Generate customizable random strings.
+- **Secure Password Generator:** Create strong, random passwords.
+- **Time Converter:** Convert timestamps between various formats.
+- **URL Encoder / Decoder:** Encode or decode URL-safe strings.
+- **UUID Generator:** Generate Version 4 UUIDs.
 
 ### Text Processing Tools (`/text-tools`)
 
@@ -45,6 +45,7 @@ DevToolbox offers a diverse range of tools categorized for easy navigation:
 - **Lorem Ipsum Generator:** Generate placeholder text in various styles (standard, DevOps, Startup).
 
 **JSON Utilities:**
+
 - **JSON Analyzer (`/json-analyzer`):** Validate, format, and inspect your JSON data.
 - **JSON Diff (`/json-diff`):** Compare two JSON objects and visualize the differences.
 - **JSON to Type Converter (`/json-to-type`):** Convert JSON structures into TypeScript or Go type definitions.
@@ -59,6 +60,7 @@ DevToolbox offers a diverse range of tools categorized for easy navigation:
 - **YAML/JSON Converter:** Convert data seamlessly between YAML and JSON formats.
 
 **Networking Tools (`/networking-tools`):**
+
 - **CIDR Calculator & Subnet Visualizer:** Calculate network details from CIDR notation and visualize subnets.
 - **URL Builder:** Construct well-formed URLs by specifying individual components.
 - **URL Explorer:** Break down a URL into its constituent parts (protocol, hostname, path, query parameters, hash).
@@ -77,6 +79,7 @@ This project is built using a modern, efficient, and developer-friendly tech sta
 - **Lucide React:** A library of simply beautiful open-source icons.
 
 ## 🚀 Getting Started
+
 Follow these instructions to get a local copy of the project up and running.
 
 ### Prerequisites
@@ -137,11 +140,11 @@ This will serve the optimized version of your application, typically on `http://
 
 Kamal will push pull to your own Docker Repository. It builds the container, uploads it and your server will pull it.
 
-Copy ```.example-env``` to ```.env``` and change it values 
+Copy `.example-env` to `.env` and change it values
 
-```kamal setup``` for inital setup of the container
-or 
-```kamal deploy``` if you are updating 
+`kamal setup` for inital setup of the container
+or
+`kamal deploy` if you are updating
 
 ## Project Structure
 
@@ -160,10 +163,9 @@ A brief overview of the key directories:
 
 ## Contributing
 
-Contributions are welcome! If you have ideas for new tools, improvements, or bug fixes, please feel free to open an issue or submit a pull request. 
+Contributions are welcome! If you have ideas for new tools, improvements, or bug fixes, please feel free to open an issue or submit a pull request.
 
 ## License
-
 
 This project is licensed under the [MIT License with Commons Clause](LICENSE.md) – non-commercial use only.
 
