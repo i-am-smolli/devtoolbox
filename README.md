@@ -1,8 +1,9 @@
-# 🔧 DevToolbox - Your All-in-One Developer Utility Hub
-
+# 🔧 DevToolbox - All-in-One Developer Utility Hub
 ![License: MIT + Commons Clause](https://img.shields.io/badge/License-MIT--Commons%20Clause-orange.svg)
 
 DevToolbox is a comprehensive, free, and open-source collection of essential developer utilities. Designed to streamline common tasks and boost productivity, it offers a fast, responsive, and user-friendly experience right in your browser.
+
+**Live at: [devtoolbox.icu](https://devtoolbox.icu)**
 
 ## Inspiration
 
@@ -12,7 +13,7 @@ This inspired the idea to build a personal toolbox – a collection of utilities
 
 ### Limiting belives
 
-It's worth noting that a significant portion of this project (approximately 99.5%) was generated using AI-assisted coding (specifically, via Firebase-Studio). While this accelerated development, there may be some initial bugs or areas for improvement. As a humble network engineer transitioning into development, I appreciate any feedback and contributions to refine the project.
+It's worth noting that a significant portion of this project (approximately 99.5%) was generated using AI-assisted coding (Vibe-Coding) using Firebase-Studio. While this accelerated development, there may be some initial bugs or areas for improvement. As a humble network engineer transitioning into development, I appreciate any feedback and contributions to refine the project.
 
 ## ✨ Core Features & Available Tools
 
@@ -158,7 +159,6 @@ A brief overview of the key directories:
   - `src/components/layout/`: Layout-specific components like the sidebar and main navigation.
 - `src/lib/`: Utility functions and libraries.
 - `src/hooks/`: Custom React hooks.
-- `src/ai/`: Genkit related code for AI features.
 - `public/`: Static assets that are served directly.
 
 ## Contributing
