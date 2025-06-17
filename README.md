@@ -1,4 +1,5 @@
 # 🔧 DevToolbox - All-in-One Developer Utility Hub
+
 ![License: MIT + Commons Clause](https://img.shields.io/badge/License-MIT--Commons%20Clause-orange.svg)
 
 DevToolbox is a comprehensive, free, and open-source collection of essential developer utilities. Designed to streamline common tasks and boost productivity, it offers a fast, responsive, and user-friendly experience right in your browser.
