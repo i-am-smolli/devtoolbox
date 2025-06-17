@@ -56,7 +56,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
               asChild
             >
               <Link
-                href="https://github.com/firebase/firebase-tools"
+                href="https://github.com/i-am-smolli/devtoolbox"
                 target="_blank"
                 rel="noopener noreferrer"
               >
