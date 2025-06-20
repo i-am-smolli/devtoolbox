@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  reactStrictMode: true,
   images: {
     remotePatterns: [
       {
@@ -50,15 +51,38 @@ module.exports = {
           },
           {
             key: "Permissions-Policy",
-            value: "geolocation=(), microphone=(), camera=()", // Customize based on your needs
+            value: "geolocation=(), microphone=(), camera=()",
           },
           {
             key: "Cross-Origin-Embedder-Policy",
-            value: "require-corp", // Be cautious with this, it might break some third-party embeds
+            value: "require-corp",
           },
           {
             key: "Cross-Origin-Opener-Policy",
-            value: "same-origin", // Can affect interactions with popup windows
+            value: "same-origin",
+          },
+        ],
+      },
+      {
+        // I'm not happy about this, but it's necessary for the markdown preview to work correctly. Maybe someone smarter than me can figure out a better way.
+        source: "/markdown-preview",
+        headers: [
+          {
+            key: "Access-Control-Allow-Origin",
+            value: "*",
+          },
+          {
+            key: "Cross-Origin-Embedder-Policy",
+            value: "unsafe-none",
+          },
+          {
+            key: "Cross-Origin-Resource-Policy",
+            value: "cross-origin",
+          },
+          {
+            key: "Content-Security-Policy",
+            value:
+              "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline' fonts.googleapis.com fonts.gstatic.com; img-src 'self' * data:; font-src 'self' fonts.googleapis.com fonts.gstatic.com; connect-src 'self';",
           },
         ],
       },

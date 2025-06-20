@@ -1,6 +1,7 @@
 # 🔧 DevToolbox - All-in-One Developer Utility Hub
 
-![License: MIT + Commons Clause](https://img.shields.io/badge/License-MIT--Commons%20Clause-orange.svg)
+[![License: MIT + Commons Clause](https://img.shields.io/badge/License-MIT--Commons%20Clause-orange.svg)](https://github.com/i-am-smolli/devtoolbox/blob/master/LICENSE.md)
+[![CI](https://github.com/i-am-smolli/devtoolbox/actions/workflows/ci-pipeline.yml/badge.svg?branch=master)](https://github.com/i-am-smolli/devtoolbox/actions/workflows/ci-pipeline.yml)
 
 DevToolbox is a comprehensive, free, and open-source collection of essential developer utilities. Designed to streamline common tasks and boost productivity, it offers a fast, responsive, and user-friendly experience right in your browser.
 
