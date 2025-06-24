@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 
 // IMPORTANT: Replace with your actual production domain or set a SITE_URL environment variable
-const BASE_URL = process.env.SITE_URL || "https://your-production-domain.com";
+const BASE_URL = process.env.SITE_URL || "https://devtoolbox.icu";
 
 // List of all your tool pages and the homepage
 // This list should be kept in sync with your actual available tool pages
