@@ -12,5 +12,4 @@ config
 docs
 .prettierrc.json
 eslint.config.mjs
-package-lock.json
 README.md
