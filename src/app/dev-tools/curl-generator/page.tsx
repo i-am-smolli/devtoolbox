@@ -196,7 +196,7 @@ export default function CurlGeneratorPage() {
                   onChange={(e) =>
                     updateHeader(header.id, "key", e.target.value)
                   }
-                  className="flex-grow"
+                  className="grow"
                   aria-label={`Header ${index + 1} Name`}
                 />
                 <Input
@@ -206,7 +206,7 @@ export default function CurlGeneratorPage() {
                   onChange={(e) =>
                     updateHeader(header.id, "value", e.target.value)
                   }
-                  className="flex-grow"
+                  className="grow"
                   aria-label={`Header ${index + 1} Value`}
                 />
                 <Button

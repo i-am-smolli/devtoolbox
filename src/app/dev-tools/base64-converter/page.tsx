@@ -135,7 +135,7 @@ export default function Base64ConverterPage() {
           <CardHeader>
             <CardTitle className="font-headline">Plain Text</CardTitle>
           </CardHeader>
-          <CardContent className="flex-grow p-0">
+          <CardContent className="grow p-0">
             <Textarea
               ref={plainTextRef}
               placeholder="Enter plain text here..."
@@ -170,7 +170,7 @@ export default function Base64ConverterPage() {
           <CardHeader>
             <CardTitle className="font-headline">Base64</CardTitle>
           </CardHeader>
-          <CardContent className="flex-grow p-0">
+          <CardContent className="grow p-0">
             <Textarea
               ref={base64TextRef}
               placeholder="Enter Base64 text here or see encoded output..."

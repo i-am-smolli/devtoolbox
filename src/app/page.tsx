@@ -275,7 +275,7 @@ export default function DashboardPage() {
                 </div>
                 <CardDescription>{tool.description}</CardDescription>
               </CardHeader>
-              <CardContent className="flex-grow">
+              <CardContent className="grow">
                 {/* Additional content or image placeholder can go here */}
               </CardContent>
               <CardFooter>

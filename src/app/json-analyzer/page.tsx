@@ -72,7 +72,7 @@ export default function JsonAnalyzerPage() {
   };
 
   return (
-    <div className="flex flex-col h-[calc(100vh-var(--header-height,4rem)-2*theme(spacing.6))]">
+    <div className="flex flex-col h-[calc(100vh-var(--header-height,4rem)-2*(--spacing(6)))]">
       <PageHeader
         title="JSON Analyzer"
         description="Validate, format, and inspect your JSON data."
@@ -118,12 +118,12 @@ export default function JsonAnalyzerPage() {
         )}
       </div>
 
-      <div className="grid md:grid-cols-2 gap-6 flex-grow min-h-0">
+      <div className="grid md:grid-cols-2 gap-6 grow min-h-0">
         <Card className="flex flex-col min-h-0">
           <CardHeader>
             <CardTitle className="font-headline">JSON Input</CardTitle>
           </CardHeader>
-          <CardContent className="flex-grow p-0">
+          <CardContent className="grow p-0">
             <Textarea
               placeholder="Paste your JSON here..."
               value={jsonInput}
@@ -142,13 +142,13 @@ export default function JsonAnalyzerPage() {
           </CardContent>
         </Card>
 
-        <Card className="flex flex-col flex-grow min-h-0">
+        <Card className="flex flex-col grow min-h-0">
           <CardHeader>
             <CardTitle className="font-headline">
               Formatted Output / Details
             </CardTitle>
           </CardHeader>
-          <CardContent className="flex-grow p-0">
+          <CardContent className="grow p-0">
             <ScrollArea className="h-full w-full p-4">
               {isClient && formattedJson && isValid === true && (
                 <pre className="text-sm font-code bg-muted/50 p-4 rounded-md overflow-x-auto whitespace-pre-wrap break-all">

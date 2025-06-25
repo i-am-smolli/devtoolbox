@@ -142,7 +142,7 @@ export default function YamlJsonConverterPage() {
           <CardHeader>
             <CardTitle className="font-headline">YAML</CardTitle>
           </CardHeader>
-          <CardContent className="flex-grow p-0">
+          <CardContent className="grow p-0">
             <Textarea
               ref={yamlTextareaRef}
               placeholder="Enter YAML here..."
@@ -173,7 +173,7 @@ export default function YamlJsonConverterPage() {
           <CardHeader>
             <CardTitle className="font-headline">JSON</CardTitle>
           </CardHeader>
-          <CardContent className="flex-grow p-0">
+          <CardContent className="grow p-0">
             <Textarea
               ref={jsonTextareaRef}
               placeholder="Enter JSON here..."
