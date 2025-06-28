@@ -1,7 +1,7 @@
 /* Import diff2html styles */
 /* @import 'diff2html/bundles/css/diff2html.min.css'; */ /* Removed as Text Diff tool is removed */
 
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @plugin 'tailwindcss-animate';
 
