@@ -23,7 +23,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { QrCode as QrCodeIcon, Download, AlertCircle } from "lucide-react";
-import QRCode from "qrcode.react";
+import { QRCodeCanvas } from "qrcode.react";
 import { useToast } from "@/hooks/use-toast";
 
 type QrDataType = "text" | "url" | "wifi" | "sms" | "email" | "geo";
@@ -354,11 +354,10 @@ export default function QrCodeGeneratorPage() {
                 ref={qrCodeRef}
                 className="p-4 bg-white rounded-md inline-block border"
               >
-                <QRCode
+                <QRCodeCanvas
                   value={qrValue}
                   size={qrSize}
                   level={qrErrorLevel}
-                  renderAs="canvas"
                 />
               </div>
             )}
