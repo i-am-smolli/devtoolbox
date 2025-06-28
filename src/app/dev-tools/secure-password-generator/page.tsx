@@ -184,7 +184,7 @@ export default function SecurePasswordGeneratorPage() {
                   type="text"
                   value={generatedPassword}
                   readOnly
-                  className="font-code bg-muted/50 flex-grow"
+                  className="font-code bg-muted/50 grow"
                   aria-label="Generated password"
                 />
                 <Button

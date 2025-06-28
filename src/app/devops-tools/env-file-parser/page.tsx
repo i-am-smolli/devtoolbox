@@ -133,7 +133,7 @@ export default function EnvFileParserPage() {
           <CardHeader>
             <CardTitle className="font-headline">.env Input</CardTitle>
           </CardHeader>
-          <CardContent className="flex-grow p-0">
+          <CardContent className="grow p-0">
             <Textarea
               ref={textareaRef}
               placeholder="Paste your .env file content here..."
@@ -150,7 +150,7 @@ export default function EnvFileParserPage() {
           <CardHeader>
             <CardTitle className="font-headline">Parsed Variables</CardTitle>
           </CardHeader>
-          <CardContent className="flex-grow p-0">
+          <CardContent className="grow p-0">
             <ScrollArea className="h-full w-full p-4 min-h-[200px]">
               {error && (
                 <Alert variant="destructive" className="mb-4">

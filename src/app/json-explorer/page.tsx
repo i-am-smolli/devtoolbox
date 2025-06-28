@@ -126,7 +126,7 @@ export default function JsonExplorerPage() {
           <CardHeader>
             <CardTitle className="font-headline">Explorer View</CardTitle>
           </CardHeader>
-          <CardContent className="flex-grow p-0">
+          <CardContent className="grow p-0">
             {isClient && error && (
               <div className="p-4">
                 <Alert variant="destructive" id="json-error-message">

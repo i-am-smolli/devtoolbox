@@ -82,7 +82,7 @@ export default function ToOneLinerPage() {
           <CardHeader>
             <CardTitle className="font-headline">Input Text</CardTitle>
           </CardHeader>
-          <CardContent className="flex-grow p-0">
+          <CardContent className="grow p-0">
             <Textarea
               ref={inputTextareaRef}
               placeholder="Paste your multi-line text here..."
@@ -106,7 +106,7 @@ export default function ToOneLinerPage() {
           <CardHeader>
             <CardTitle className="font-headline">Output (One Line)</CardTitle>
           </CardHeader>
-          <CardContent className="flex-grow p-0">
+          <CardContent className="grow p-0">
             <Textarea
               ref={outputTextareaRef}
               value={outputText}

@@ -45,7 +45,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
               </h1>
             </Link>
           </SidebarHeader>
-          <SidebarContent className="flex-grow p-2">
+          <SidebarContent className="grow p-2">
             <MainNav />
           </SidebarContent>
           <SidebarFooter className="p-4 mt-auto">
@@ -67,7 +67,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           </SidebarFooter>
         </Sidebar>
         <SidebarInset className="flex-1 flex flex-col overflow-hidden">
-          <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background/95 backdrop-blur-sm px-6">
+          <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background/95 backdrop-blur-xs px-6">
             <div className="md:hidden">
               <SidebarTrigger aria-label="Toggle sidebar" />
             </div>

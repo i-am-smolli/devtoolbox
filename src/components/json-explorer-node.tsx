@@ -95,7 +95,7 @@ const JsonExplorerNode: FC<JsonExplorerNodeProps> = ({
           <AccordionTrigger className="hover:no-underline py-1 px-2 rounded hover:bg-muted/50 text-sm font-normal justify-start gap-1">
             {triggerContent}
           </AccordionTrigger>
-          <AccordionContent className="pl-4 border-l border-dashed ml-[0.625rem] relative">
+          <AccordionContent className="pl-4 border-l border-dashed ml-2.5 relative">
             <div className="absolute left-0 top-0 w-px h-full"></div>
             {entries.map(([key, value]) => (
               <JsonExplorerNode key={key} name={key} data={value} />
@@ -146,7 +146,7 @@ const JsonExplorerNode: FC<JsonExplorerNodeProps> = ({
           <AccordionTrigger className="hover:no-underline py-1 px-2 rounded hover:bg-muted/50 text-sm font-normal justify-start gap-1">
             {triggerContent}
           </AccordionTrigger>
-          <AccordionContent className="pl-4 border-l border-dashed ml-[0.625rem] relative">
+          <AccordionContent className="pl-4 border-l border-dashed ml-2.5 relative">
             <div className="absolute left-0 top-0 w-px h-full"></div>
             {arr.map((item, index) => (
               <JsonExplorerNode

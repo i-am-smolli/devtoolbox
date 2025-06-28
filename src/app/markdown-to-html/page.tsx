@@ -133,7 +133,7 @@ export default function MarkdownToHtmlPage() {
           <CardHeader>
             <CardTitle className="font-headline">Markdown Input</CardTitle>
           </CardHeader>
-          <CardContent className="flex-grow p-0">
+          <CardContent className="grow p-0">
             <Textarea
               ref={markdownTextareaRef}
               placeholder="Type your Markdown here..."
@@ -158,7 +158,7 @@ export default function MarkdownToHtmlPage() {
           <CardHeader>
             <CardTitle className="font-headline">HTML Output</CardTitle>
           </CardHeader>
-          <CardContent className="flex-grow p-0">
+          <CardContent className="grow p-0">
             <ScrollArea className="h-full w-full">
               <Textarea
                 ref={htmlTextareaRef}

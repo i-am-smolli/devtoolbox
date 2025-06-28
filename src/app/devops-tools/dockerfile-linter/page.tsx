@@ -152,7 +152,7 @@ export default function DockerfileLinterPage() {
           <CardHeader>
             <CardTitle className="font-headline">Dockerfile Input</CardTitle>
           </CardHeader>
-          <CardContent className="flex-grow p-0">
+          <CardContent className="grow p-0">
             <Textarea
               ref={textareaRef}
               placeholder="Paste your Dockerfile content here..."
@@ -179,7 +179,7 @@ export default function DockerfileLinterPage() {
           <CardHeader>
             <CardTitle className="font-headline">Linting Results</CardTitle>
           </CardHeader>
-          <CardContent className="flex-grow p-0">
+          <CardContent className="grow p-0">
             <ScrollArea className="h-full w-full p-4 min-h-[200px]">
               {isLoading && (
                 <div className="flex items-center justify-center h-full">

@@ -89,7 +89,7 @@ export default function MarkdownPreviewPage() {
           <CardHeader>
             <CardTitle className="font-headline">HTML Preview</CardTitle>
           </CardHeader>
-          <CardContent className="flex-grow p-0">
+          <CardContent className="grow p-0">
             {" "}
             {/* Allow content to grow */}
             <ScrollArea className="h-full w-full p-4">

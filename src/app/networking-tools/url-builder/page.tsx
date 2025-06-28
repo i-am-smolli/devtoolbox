@@ -266,7 +266,7 @@ export default function UrlBuilderPage() {
           )}
           {queryParams.map((param) => (
             <div key={param.id} className="flex items-end space-x-2">
-              <div className="flex-grow space-y-1">
+              <div className="grow space-y-1">
                 <Label htmlFor={`queryKey-${param.id}`} className="text-xs">
                   Key
                 </Label>
@@ -279,7 +279,7 @@ export default function UrlBuilderPage() {
                   }
                 />
               </div>
-              <div className="flex-grow space-y-1">
+              <div className="grow space-y-1">
                 <Label htmlFor={`queryValue-${param.id}`} className="text-xs">
                   Value
                 </Label>

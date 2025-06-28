@@ -245,7 +245,7 @@ export default function CidrCalculatorPage() {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex flex-col sm:flex-row items-start sm:items-end gap-2">
-            <div className="flex-grow w-full sm:w-auto">
+            <div className="grow w-full sm:w-auto">
               <Label htmlFor="cidrInput">CIDR Address</Label>
               <Input
                 id="cidrInput"
@@ -342,7 +342,7 @@ export default function CidrCalculatorPage() {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex flex-col sm:flex-row items-start sm:items-end gap-2">
-            <div className="flex-grow w-full sm:w-1/2">
+            <div className="grow w-full sm:w-1/2">
               <Label htmlFor="subnettingBaseCidr">Base Network CIDR</Label>
               <Input
                 id="subnettingBaseCidr"
@@ -353,7 +353,7 @@ export default function CidrCalculatorPage() {
                 className="font-code"
               />
             </div>
-            <div className="flex-grow w-full sm:w-1/4">
+            <div className="grow w-full sm:w-1/4">
               <Label htmlFor="newPrefixLength">New Prefix Length</Label>
               <Input
                 id="newPrefixLength"

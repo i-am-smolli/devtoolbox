@@ -188,7 +188,7 @@ export default function HashGeneratorPage() {
                   type="text"
                   value={hashedOutput}
                   readOnly
-                  className="font-code bg-muted/50 flex-grow"
+                  className="font-code bg-muted/50 grow"
                   aria-label="Generated hash"
                 />
                 <Button

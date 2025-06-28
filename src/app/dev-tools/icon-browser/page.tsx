@@ -93,7 +93,7 @@ export default function IconBrowserPage() {
     return (
       <button
         onClick={onClick}
-        className={`flex flex-col items-center justify-center p-3 border rounded-lg hover:bg-accent hover:text-accent-foreground transition-colors focus:outline-none focus:ring-2 focus:ring-ring ${isSelected ? "ring-2 ring-primary bg-primary/10" : ""}`}
+        className={`flex flex-col items-center justify-center p-3 border rounded-lg hover:bg-accent hover:text-accent-foreground transition-colors focus:outline-hidden focus:ring-2 focus:ring-ring ${isSelected ? "ring-2 ring-primary bg-primary/10" : ""}`}
         aria-label={`Select icon ${icon.name}`}
         title={icon.name}
       >
@@ -122,7 +122,7 @@ export default function IconBrowserPage() {
         icon={Sparkles}
       />
 
-      <div className="grid md:grid-cols-3 gap-6 flex-grow min-h-0">
+      <div className="grid md:grid-cols-3 gap-6 grow min-h-0">
         <Card className="md:col-span-2 flex flex-col min-h-0">
           <CardHeader className="p-4">
             <Input
@@ -134,7 +134,7 @@ export default function IconBrowserPage() {
               aria-label="Search icons"
             />
           </CardHeader>
-          <CardContent className="flex-grow p-4 pt-0 overflow-hidden">
+          <CardContent className="grow p-4 pt-0 overflow-hidden">
             {isClient && filteredIcons.length === 0 && searchTerm.trim() && (
               <div className="text-center text-muted-foreground py-10">
                 No icons found for "{searchTerm}".
@@ -179,7 +179,7 @@ export default function IconBrowserPage() {
               Selected Icon
             </CardTitle>
           </CardHeader>
-          <CardContent className="flex-grow flex flex-col items-center justify-center p-4 text-center space-y-3">
+          <CardContent className="grow flex flex-col items-center justify-center p-4 text-center space-y-3">
             {isClient && selectedIcon ? (
               <>
                 <selectedIcon.component

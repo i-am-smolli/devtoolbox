@@ -141,7 +141,7 @@ export default function CaseConverterPage() {
           <CardHeader>
             <CardTitle className="font-headline">Input Text</CardTitle>
           </CardHeader>
-          <CardContent className="flex-grow p-0">
+          <CardContent className="grow p-0">
             <Textarea
               ref={inputTextareaRef}
               placeholder="Enter your text here..."
@@ -158,7 +158,7 @@ export default function CaseConverterPage() {
           <CardHeader>
             <CardTitle className="font-headline">Output Text</CardTitle>
           </CardHeader>
-          <CardContent className="flex-grow p-0">
+          <CardContent className="grow p-0">
             <Textarea
               ref={outputTextareaRef}
               value={outputText}

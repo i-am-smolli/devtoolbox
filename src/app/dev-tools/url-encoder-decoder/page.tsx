@@ -121,7 +121,7 @@ export default function UrlEncoderDecoderPage() {
           <CardHeader>
             <CardTitle className="font-headline">Plain String</CardTitle>
           </CardHeader>
-          <CardContent className="flex-grow p-0">
+          <CardContent className="grow p-0">
             <Textarea
               ref={plainTextRef}
               placeholder="Enter plain string here..."
@@ -136,7 +136,7 @@ export default function UrlEncoderDecoderPage() {
             />
           </CardContent>
           <CardFooter className="p-4 flex flex-col sm:flex-row gap-2 items-stretch">
-            <Button onClick={handleEncode} className="w-full sm:flex-grow">
+            <Button onClick={handleEncode} className="w-full sm:grow">
               Encode URL
             </Button>
             <Button
@@ -157,7 +157,7 @@ export default function UrlEncoderDecoderPage() {
           <CardHeader>
             <CardTitle className="font-headline">URL-Encoded String</CardTitle>
           </CardHeader>
-          <CardContent className="flex-grow p-0">
+          <CardContent className="grow p-0">
             <Textarea
               ref={encodedTextRef}
               placeholder="Enter URL-encoded string here or see encoded output..."
@@ -172,7 +172,7 @@ export default function UrlEncoderDecoderPage() {
             />
           </CardContent>
           <CardFooter className="p-4 flex flex-col sm:flex-row gap-2 items-stretch">
-            <Button onClick={handleDecode} className="w-full sm:flex-grow">
+            <Button onClick={handleDecode} className="w-full sm:grow">
               Decode URL
             </Button>
             <Button
