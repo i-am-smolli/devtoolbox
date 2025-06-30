@@ -13,3 +13,7 @@ docs
 .prettierrc.json
 eslint.config.mjs
 README.md
+.DS_Store
+.example-env
+.github
+.idx
