@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { AppLayout } from "@/components/layout/app-layout";
 import { Toaster } from "@/components/ui/toaster";
+import { Inter, Source_Code_Pro } from "next/font/google";
 
 export const metadata: Metadata = {
   title: {
@@ -27,29 +28,27 @@ export const metadata: Metadata = {
   ],
 };
 
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+const sourceCodePro = Source_Code_Pro({
+  subsets: ["latin"],
+  variable: "--font-source-code-pro",
+  display: "swap",
+});
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className={`${inter.variable} ${sourceCodePro.variable}`}>
       <head>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="any" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter&display=swap"
-          rel="stylesheet"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap"
-          rel="stylesheet"
-        />
       </head>
       <body className="font-body antialiased">
         <AppLayout>{children}</AppLayout>

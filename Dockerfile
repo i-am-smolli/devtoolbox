@@ -41,6 +41,7 @@ RUN adduser --system --uid 1001 user
 COPY /docker/harden.sh ./docker/harden.sh
 COPY --from=builder --chown=user:user /app/.next/standalone ./
 COPY --from=builder --chown=user:user /app/.next/static ./.next/static
+COPY --from=builder --chown=user:user /app/public ./public 
 
 USER root
 RUN chmod +x docker/harden.sh
