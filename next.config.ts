@@ -43,7 +43,7 @@ module.exports = {
           {
             key: "Content-Security-Policy",
             value:
-              "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline' fonts.googleapis.com fonts.gstatic.com; img-src 'self' data:; font-src 'self' fonts.googleapis.com fonts.gstatic.com; connect-src 'self';",
+              "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self';",
           },
           {
             key: "X-Permitted-Cross-Domain-Policies",
@@ -82,7 +82,7 @@ module.exports = {
           {
             key: "Content-Security-Policy",
             value:
-              "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline' fonts.googleapis.com fonts.gstatic.com; img-src 'self' * data:; font-src 'self' fonts.googleapis.com fonts.gstatic.com; connect-src 'self';",
+              "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' * data:; font-src 'self'; connect-src 'self';",
           },
         ],
       },
