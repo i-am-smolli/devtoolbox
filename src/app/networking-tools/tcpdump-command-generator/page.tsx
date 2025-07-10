@@ -22,7 +22,14 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { RadioTower, Copy, AlertCircle, Info, XCircle, PlusCircle } from "lucide-react";
+import {
+  RadioTower,
+  Copy,
+  AlertCircle,
+  Info,
+  XCircle,
+  PlusCircle,
+} from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const FILTER_TYPES = [
@@ -34,18 +41,18 @@ const FILTER_TYPES = [
 
 interface FilterClause {
   id: string;
-  type: 'host' | 'port' | 'net' | 'proto';
-  direction: 'any' | 'src' | 'dst';
+  type: "host" | "port" | "net" | "proto";
+  direction: "any" | "src" | "dst";
   value: string;
-  conjunction: 'and' | 'or';
+  conjunction: "and" | "or";
 }
 
 const createNewFilter = (): FilterClause => ({
-    id: `filter-${Date.now()}-${Math.random()}`,
-    type: "host",
-    direction: "any",
-    value: "",
-    conjunction: "and",
+  id: `filter-${Date.now()}-${Math.random()}`,
+  type: "host",
+  direction: "any",
+  value: "",
+  conjunction: "and",
 });
 
 export default function TcpdumpCommandGeneratorPage() {
@@ -70,9 +77,9 @@ export default function TcpdumpCommandGeneratorPage() {
   const removeFilter = (id: string) => {
     setFilters(filters.filter((f) => f.id !== id));
   };
-  
+
   const updateFilter = (id: string, newValues: Partial<FilterClause>) => {
-    setFilters(filters.map(f => f.id === id ? { ...f, ...newValues } : f));
+    setFilters(filters.map((f) => (f.id === id ? { ...f, ...newValues } : f)));
   };
 
   const buildTcpdumpCommand = useCallback(() => {
@@ -113,33 +120,34 @@ export default function TcpdumpCommandGeneratorPage() {
     if (verboseLevel && verboseLevel !== "default") {
       commandParts.push(`-${verboseLevel}`);
     }
-    
+
     if (noPromiscuous) commandParts.push("-p");
 
     const filterExpressionParts: string[] = [];
     filters.forEach((filter, index) => {
-        if(!filter.value.trim()){
-            return; // Skip empty filters
-        }
-        
-        let clause = "";
-        
-        if (filter.type === 'proto') {
-            clause = filter.value.trim().toLowerCase();
-        } else {
-            const directionStr = filter.direction !== 'any' ? `${filter.direction} ` : '';
-            clause = `${directionStr}${filter.type} ${filter.value.trim()}`;
-        }
-        
-        filterExpressionParts.push(clause);
+      if (!filter.value.trim()) {
+        return; // Skip empty filters
+      }
 
-        if (index < filters.length - 1) {
-          // Check if next filter is not empty
-          const nextFilter = filters[index + 1];
-          if (nextFilter && nextFilter.value.trim()) {
-            filterExpressionParts.push(filter.conjunction);
-          }
+      let clause = "";
+
+      if (filter.type === "proto") {
+        clause = filter.value.trim().toLowerCase();
+      } else {
+        const directionStr =
+          filter.direction !== "any" ? `${filter.direction} ` : "";
+        clause = `${directionStr}${filter.type} ${filter.value.trim()}`;
+      }
+
+      filterExpressionParts.push(clause);
+
+      if (index < filters.length - 1) {
+        // Check if next filter is not empty
+        const nextFilter = filters[index + 1];
+        if (nextFilter && nextFilter.value.trim()) {
+          filterExpressionParts.push(filter.conjunction);
         }
+      }
     });
 
     if (filterExpressionParts.length > 0) {
@@ -289,79 +297,123 @@ export default function TcpdumpCommandGeneratorPage() {
 
       <Card>
         <CardHeader>
-            <div className="flex justify-between items-center">
-                <CardTitle className="font-headline">Filter Expression</CardTitle>
-                <Button variant="outline" size="sm" onClick={addFilter}>
-                    <PlusCircle className="mr-2 h-4 w-4" /> Add Filter
-                </Button>
-            </div>
+          <div className="flex justify-between items-center">
+            <CardTitle className="font-headline">Filter Expression</CardTitle>
+            <Button variant="outline" size="sm" onClick={addFilter}>
+              <PlusCircle className="mr-2 h-4 w-4" /> Add Filter
+            </Button>
+          </div>
         </CardHeader>
         <CardContent className="space-y-4">
-            {filters.length === 0 && (
-                <p className="text-sm text-muted-foreground text-center py-4">
-                    No filters added. Click "Add Filter" to begin.
-                </p>
-            )}
-            {filters.map((filter, index) => (
-              <div key={filter.id} className="p-3 border rounded-md space-y-3 bg-muted/30">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 items-end">
-                    <div className="space-y-1">
-                        <Label htmlFor={`filterType-${filter.id}`}>Type</Label>
-                        <Select value={filter.type} onValueChange={(v) => updateFilter(filter.id, { type: v as FilterClause['type'] })}>
-                            <SelectTrigger id={`filterType-${filter.id}`}><SelectValue/></SelectTrigger>
-                            <SelectContent>
-                                {FILTER_TYPES.map((t) => <SelectItem key={t.value} value={t.value}>{t.label}</SelectItem>)}
-                            </SelectContent>
-                        </Select>
-                    </div>
-                     <div className="space-y-1">
-                        <Label htmlFor={`filterDir-${filter.id}`}>Direction</Label>
-                        <Select value={filter.direction} onValueChange={(v) => updateFilter(filter.id, { direction: v as FilterClause['direction'] })} disabled={filter.type === 'proto'}>
-                            <SelectTrigger id={`filterDir-${filter.id}`}><SelectValue/></SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="any">Any</SelectItem>
-                                <SelectItem value="src">Source</SelectItem>
-                                <SelectItem value="dst">Destination</SelectItem>
-                            </SelectContent>
-                        </Select>
-                    </div>
-                    <div className="space-y-1 lg:col-span-2">
-                        <Label htmlFor={`filterValue-${filter.id}`}>Value</Label>
-                        <Input
-                            id={`filterValue-${filter.id}`}
-                            placeholder={
-                                filter.type === 'host' ? "e.g., 8.8.8.8" :
-                                filter.type === 'port' ? "e.g., 443" :
-                                filter.type === 'net' ? "e.g., 192.168.1.0/24" :
-                                "e.g., tcp, udp"
-                            }
-                            value={filter.value}
-                            onChange={(e) => updateFilter(filter.id, { value: e.target.value })}
-                        />
-                    </div>
+          {filters.length === 0 && (
+            <p className="text-sm text-muted-foreground text-center py-4">
+              No filters added. Click "Add Filter" to begin.
+            </p>
+          )}
+          {filters.map((filter, index) => (
+            <div
+              key={filter.id}
+              className="p-3 border rounded-md space-y-3 bg-muted/30"
+            >
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 items-end">
+                <div className="space-y-1">
+                  <Label htmlFor={`filterType-${filter.id}`}>Type</Label>
+                  <Select
+                    value={filter.type}
+                    onValueChange={(v) =>
+                      updateFilter(filter.id, {
+                        type: v as FilterClause["type"],
+                      })
+                    }
+                  >
+                    <SelectTrigger id={`filterType-${filter.id}`}>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {FILTER_TYPES.map((t) => (
+                        <SelectItem key={t.value} value={t.value}>
+                          {t.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div>
-                 {index < filters.length - 1 && (
-                    <div className="flex items-center gap-4">
-                       <div className="flex-grow border-t border-dashed"></div>
-                       <Select value={filter.conjunction} onValueChange={(v) => updateFilter(filter.id, { conjunction: v as FilterClause['conjunction'] })}>
-                            <SelectTrigger className="w-28 h-8">
-                                <SelectValue />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="and">AND</SelectItem>
-                                <SelectItem value="or">OR</SelectItem>
-                            </SelectContent>
-                        </Select>
-                        <div className="flex-grow border-t border-dashed"></div>
-                    </div>
-                )}
-                 <div className="flex justify-end">
-                    <Button variant="ghost" size="icon" className="text-destructive hover:bg-destructive/10" onClick={() => removeFilter(filter.id)} aria-label="Remove filter">
-                        <XCircle className="h-5 w-5"/>
-                    </Button>
+                <div className="space-y-1">
+                  <Label htmlFor={`filterDir-${filter.id}`}>Direction</Label>
+                  <Select
+                    value={filter.direction}
+                    onValueChange={(v) =>
+                      updateFilter(filter.id, {
+                        direction: v as FilterClause["direction"],
+                      })
+                    }
+                    disabled={filter.type === "proto"}
+                  >
+                    <SelectTrigger id={`filterDir-${filter.id}`}>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="any">Any</SelectItem>
+                      <SelectItem value="src">Source</SelectItem>
+                      <SelectItem value="dst">Destination</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-1 lg:col-span-2">
+                  <Label htmlFor={`filterValue-${filter.id}`}>Value</Label>
+                  <Input
+                    id={`filterValue-${filter.id}`}
+                    placeholder={
+                      filter.type === "host"
+                        ? "e.g., 8.8.8.8"
+                        : filter.type === "port"
+                          ? "e.g., 443"
+                          : filter.type === "net"
+                            ? "e.g., 192.168.1.0/24"
+                            : "e.g., tcp, udp"
+                    }
+                    value={filter.value}
+                    onChange={(e) =>
+                      updateFilter(filter.id, { value: e.target.value })
+                    }
+                  />
                 </div>
               </div>
-            ))}
+              {index < filters.length - 1 && (
+                <div className="flex items-center gap-4">
+                  <div className="flex-grow border-t border-dashed"></div>
+                  <Select
+                    value={filter.conjunction}
+                    onValueChange={(v) =>
+                      updateFilter(filter.id, {
+                        conjunction: v as FilterClause["conjunction"],
+                      })
+                    }
+                  >
+                    <SelectTrigger className="w-28 h-8">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="and">AND</SelectItem>
+                      <SelectItem value="or">OR</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <div className="flex-grow border-t border-dashed"></div>
+                </div>
+              )}
+              <div className="flex justify-end">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="text-destructive hover:bg-destructive/10"
+                  onClick={() => removeFilter(filter.id)}
+                  aria-label="Remove filter"
+                >
+                  <XCircle className="h-5 w-5" />
+                </Button>
+              </div>
+            </div>
+          ))}
         </CardContent>
       </Card>
 
@@ -409,5 +461,3 @@ export default function TcpdumpCommandGeneratorPage() {
     </div>
   );
 }
-
-    
