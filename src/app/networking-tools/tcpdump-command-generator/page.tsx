@@ -22,17 +22,31 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { RadioTower, Copy, AlertCircle, Info } from "lucide-react";
+import { RadioTower, Copy, AlertCircle, Info, XCircle, PlusCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
-const FILTER_PRESETS = [
-  { value: "none", label: "No Filter (Listen to all)" },
+const FILTER_TYPES = [
   { value: "host", label: "Host" },
   { value: "port", label: "Port" },
   { value: "net", label: "Network (CIDR)" },
+  { value: "proto", label: "Protocol" },
 ];
 
-const PROTOCOL_TYPES = ["any", "tcp", "udp", "icmp"];
+interface FilterClause {
+  id: string;
+  type: 'host' | 'port' | 'net' | 'proto';
+  direction: 'any' | 'src' | 'dst';
+  value: string;
+  conjunction: 'and' | 'or';
+}
+
+const createNewFilter = (): FilterClause => ({
+    id: `filter-${Date.now()}-${Math.random()}`,
+    type: "host",
+    direction: "any",
+    value: "",
+    conjunction: "and",
+});
 
 export default function TcpdumpCommandGeneratorPage() {
   const [interfaceName, setInterfaceName] = useState<string>("any");
@@ -40,17 +54,26 @@ export default function TcpdumpCommandGeneratorPage() {
   const [snapLen, setSnapLen] = useState<string>("0");
   const [timestampFormat, setTimestampFormat] = useState<string>("default");
   const [verboseLevel, setVerboseLevel] = useState<string>("default");
-  const [dontResolve, setDontResolve] = useState<boolean>(false);
+  const [dontResolve, setDontResolve] = useState<boolean>(true);
   const [noPromiscuous, setNoPromiscuous] = useState<boolean>(false);
-
-  const [filterType, setFilterType] = useState<string>("none");
-  const [filterValue, setFilterValue] = useState<string>("");
-  const [protocol, setProtocol] = useState<string>("any");
+  const [filters, setFilters] = useState<FilterClause[]>([]);
 
   const [generatedCommand, setGeneratedCommand] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
 
   const { toast } = useToast();
+
+  const addFilter = () => {
+    setFilters([...filters, createNewFilter()]);
+  };
+
+  const removeFilter = (id: string) => {
+    setFilters(filters.filter((f) => f.id !== id));
+  };
+  
+  const updateFilter = (id: string, newValues: Partial<FilterClause>) => {
+    setFilters(filters.map(f => f.id === id ? { ...f, ...newValues } : f));
+  };
 
   const buildTcpdumpCommand = useCallback(() => {
     setError(null);
@@ -63,6 +86,7 @@ export default function TcpdumpCommandGeneratorPage() {
     const commandParts: string[] = ["tcpdump"];
 
     commandParts.push(`-i ${interfaceName.trim()}`);
+    if (dontResolve) commandParts.push("-n");
 
     if (packetCount.trim()) {
       const count = parseInt(packetCount, 10);
@@ -89,24 +113,37 @@ export default function TcpdumpCommandGeneratorPage() {
     if (verboseLevel && verboseLevel !== "default") {
       commandParts.push(`-${verboseLevel}`);
     }
-
-    if (dontResolve) commandParts.push("-n");
+    
     if (noPromiscuous) commandParts.push("-p");
 
-    const filterExpression: string[] = [];
+    const filterExpressionParts: string[] = [];
+    filters.forEach((filter, index) => {
+        if(!filter.value.trim()){
+            return; // Skip empty filters
+        }
+        
+        let clause = "";
+        
+        if (filter.type === 'proto') {
+            clause = filter.value.trim().toLowerCase();
+        } else {
+            const directionStr = filter.direction !== 'any' ? `${filter.direction} ` : '';
+            clause = `${directionStr}${filter.type} ${filter.value.trim()}`;
+        }
+        
+        filterExpressionParts.push(clause);
 
-    if (protocol && protocol !== "any") {
-      filterExpression.push(protocol);
-    }
+        if (index < filters.length - 1) {
+          // Check if next filter is not empty
+          const nextFilter = filters[index + 1];
+          if (nextFilter && nextFilter.value.trim()) {
+            filterExpressionParts.push(filter.conjunction);
+          }
+        }
+    });
 
-    if (filterType !== "none" && filterValue.trim()) {
-      filterExpression.push(`${filterType} ${filterValue.trim()}`);
-    } else if (filterType !== "none" && !filterValue.trim()) {
-      setError(`Value for filter type '${filterType}' cannot be empty.`);
-    }
-
-    if (filterExpression.length > 0) {
-      commandParts.push(`'${filterExpression.join(" and ")}'`);
+    if (filterExpressionParts.length > 0) {
+      commandParts.push(`'${filterExpressionParts.join(" ")}'`);
     }
 
     setGeneratedCommand(commandParts.join(" "));
@@ -118,9 +155,7 @@ export default function TcpdumpCommandGeneratorPage() {
     verboseLevel,
     dontResolve,
     noPromiscuous,
-    filterType,
-    filterValue,
-    protocol,
+    filters,
   ]);
 
   useEffect(() => {
@@ -254,63 +289,79 @@ export default function TcpdumpCommandGeneratorPage() {
 
       <Card>
         <CardHeader>
-          <CardTitle className="font-headline">Filter Expression</CardTitle>
+            <div className="flex justify-between items-center">
+                <CardTitle className="font-headline">Filter Expression</CardTitle>
+                <Button variant="outline" size="sm" onClick={addFilter}>
+                    <PlusCircle className="mr-2 h-4 w-4" /> Add Filter
+                </Button>
+            </div>
         </CardHeader>
-        <CardContent className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="space-y-1">
-            <Label htmlFor="filterType">Filter Type</Label>
-            <Select
-              value={filterType}
-              onValueChange={(v) => {
-                setFilterType(v);
-                setFilterValue("");
-              }}
-            >
-              <SelectTrigger id="filterType">
-                <SelectValue placeholder="Select filter type" />
-              </SelectTrigger>
-              <SelectContent>
-                {FILTER_PRESETS.map((preset) => (
-                  <SelectItem key={preset.value} value={preset.value}>
-                    {preset.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-          <div className="space-y-1">
-            <Label htmlFor="filterValue">Filter Value</Label>
-            <Input
-              id="filterValue"
-              placeholder={
-                filterType === "host"
-                  ? "e.g., 8.8.8.8"
-                  : filterType === "port"
-                    ? "e.g., 443"
-                    : filterType === "net"
-                      ? "e.g., 192.168.1.0/24"
-                      : "Value for filter"
-              }
-              value={filterValue}
-              onChange={(e) => setFilterValue(e.target.value)}
-              disabled={filterType === "none"}
-            />
-          </div>
-          <div className="space-y-1">
-            <Label htmlFor="protocol">Protocol</Label>
-            <Select value={protocol} onValueChange={setProtocol}>
-              <SelectTrigger id="protocol">
-                <SelectValue placeholder="Any protocol" />
-              </SelectTrigger>
-              <SelectContent>
-                {PROTOCOL_TYPES.map((p) => (
-                  <SelectItem key={p} value={p}>
-                    {p === "any" ? "Any" : p.toUpperCase()}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
+        <CardContent className="space-y-4">
+            {filters.length === 0 && (
+                <p className="text-sm text-muted-foreground text-center py-4">
+                    No filters added. Click "Add Filter" to begin.
+                </p>
+            )}
+            {filters.map((filter, index) => (
+              <div key={filter.id} className="p-3 border rounded-md space-y-3 bg-muted/30">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 items-end">
+                    <div className="space-y-1">
+                        <Label htmlFor={`filterType-${filter.id}`}>Type</Label>
+                        <Select value={filter.type} onValueChange={(v) => updateFilter(filter.id, { type: v as FilterClause['type'] })}>
+                            <SelectTrigger id={`filterType-${filter.id}`}><SelectValue/></SelectTrigger>
+                            <SelectContent>
+                                {FILTER_TYPES.map((t) => <SelectItem key={t.value} value={t.value}>{t.label}</SelectItem>)}
+                            </SelectContent>
+                        </Select>
+                    </div>
+                     <div className="space-y-1">
+                        <Label htmlFor={`filterDir-${filter.id}`}>Direction</Label>
+                        <Select value={filter.direction} onValueChange={(v) => updateFilter(filter.id, { direction: v as FilterClause['direction'] })} disabled={filter.type === 'proto'}>
+                            <SelectTrigger id={`filterDir-${filter.id}`}><SelectValue/></SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="any">Any</SelectItem>
+                                <SelectItem value="src">Source</SelectItem>
+                                <SelectItem value="dst">Destination</SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </div>
+                    <div className="space-y-1 lg:col-span-2">
+                        <Label htmlFor={`filterValue-${filter.id}`}>Value</Label>
+                        <Input
+                            id={`filterValue-${filter.id}`}
+                            placeholder={
+                                filter.type === 'host' ? "e.g., 8.8.8.8" :
+                                filter.type === 'port' ? "e.g., 443" :
+                                filter.type === 'net' ? "e.g., 192.168.1.0/24" :
+                                "e.g., tcp, udp"
+                            }
+                            value={filter.value}
+                            onChange={(e) => updateFilter(filter.id, { value: e.target.value })}
+                        />
+                    </div>
+                </div>
+                 {index < filters.length - 1 && (
+                    <div className="flex items-center gap-4">
+                       <div className="flex-grow border-t border-dashed"></div>
+                       <Select value={filter.conjunction} onValueChange={(v) => updateFilter(filter.id, { conjunction: v as FilterClause['conjunction'] })}>
+                            <SelectTrigger className="w-28 h-8">
+                                <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="and">AND</SelectItem>
+                                <SelectItem value="or">OR</SelectItem>
+                            </SelectContent>
+                        </Select>
+                        <div className="flex-grow border-t border-dashed"></div>
+                    </div>
+                )}
+                 <div className="flex justify-end">
+                    <Button variant="ghost" size="icon" className="text-destructive hover:bg-destructive/10" onClick={() => removeFilter(filter.id)} aria-label="Remove filter">
+                        <XCircle className="h-5 w-5"/>
+                    </Button>
+                </div>
+              </div>
+            ))}
         </CardContent>
       </Card>
 
@@ -358,3 +409,5 @@ export default function TcpdumpCommandGeneratorPage() {
     </div>
   );
 }
+
+    
