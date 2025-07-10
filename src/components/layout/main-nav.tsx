@@ -39,6 +39,7 @@ import {
   FileKey,
   QrCode,
   ScanSearch,
+  RadioTower,
 } from "lucide-react";
 
 const navItems = [
@@ -136,6 +137,11 @@ const navItems = [
     href: "/networking-tools/nmap-command-generator",
     label: "Nmap Command Gen",
     icon: ScanSearch,
+  },
+  {
+    href: "/networking-tools/tcpdump-command-generator",
+    label: "tcpdump Command Gen",
+    icon: RadioTower,
   },
   {
     href: "/networking-tools/url-explorer",

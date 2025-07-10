@@ -28,6 +28,7 @@ const pages: string[] = [
   "/dev-tools/certificate-viewer",
   "/networking-tools/cidr-calculator",
   "/networking-tools/nmap-command-generator",
+  "/networking-tools/tcpdump-command-generator",
   "/dev-tools/time-converter",
   "/text-tools/case-converter",
   "/text-tools/to-one-liner",
@@ -38,7 +39,6 @@ const pages: string[] = [
   "/dev-tools/jwt-decoder",
   "/text-tools/lorem-ipsum-generator",
   "/dev-tools/icon-browser",
-  // Note: The /text-tools/text-diff page is a placeholder for a removed tool and is intentionally not included.
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

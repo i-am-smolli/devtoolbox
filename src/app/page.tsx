@@ -43,6 +43,7 @@ import {
   FileKey,
   QrCode,
   ScanSearch,
+  RadioTower,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -182,6 +183,12 @@ const tools = [
     description: "Construct Nmap commands for network scanning.",
     href: "/networking-tools/nmap-command-generator",
     icon: ScanSearch,
+  },
+  {
+    title: "tcpdump Command Generator",
+    description: "Construct tcpdump commands for network packet analysis.",
+    href: "/networking-tools/tcpdump-command-generator",
+    icon: RadioTower,
   },
   {
     title: "Time Converter",
