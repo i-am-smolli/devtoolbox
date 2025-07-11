@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { useState, useEffect } from "react";
 import { PageHeader } from "@/components/page-header";
 import {
@@ -229,7 +230,7 @@ export default function RandomStringGeneratorPage() {
         <Card>
           <CardContent className="p-6">
             <p className="text-muted-foreground">
-              Configure options and click "Generate String". An initial string
+              Configure options and click &quot;Generate String&quot;. An initial string
               is generated on load.
             </p>
           </CardContent>

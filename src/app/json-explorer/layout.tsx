@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import React from "react";
 
 export const metadata: Metadata = {
   title: "JSON Explorer - Navigate & View JSON Tree",

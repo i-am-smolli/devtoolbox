@@ -1,6 +1,6 @@
 "use client";
 
-// Removed: import type { Metadata } from 'next';
+import React from "react";
 import { useState, useEffect, useCallback, useRef } from "react";
 import { PageHeader } from "@/components/page-header";
 import {
@@ -311,7 +311,7 @@ export default function UrlBuilderPage() {
         </CardHeader>
         <CardContent>
           <div className="space-y-1">
-            <Label htmlFor="hash">Hash (without '#')</Label>
+            <Label htmlFor="hash">Hash (without &apos;#&apos;)</Label>
             <Input
               id="hash"
               placeholder="section-name"

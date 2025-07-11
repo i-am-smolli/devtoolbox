@@ -1,6 +1,6 @@
 "use client";
 
-// Removed: import type { Metadata } from 'next';
+import React from "react";
 import { useState, useEffect, useRef } from "react";
 import { PageHeader } from "@/components/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -199,7 +199,7 @@ export default function JwtDecoderPage() {
               </AlertTitle>
               <AlertDescription>
                 This tool only decodes the JWT. It does not verify the
-                signature's authenticity. Do not trust the content of a JWT
+                signature&#39;s authenticity. Do not trust the content of a JWT
                 without verifying its signature.
               </AlertDescription>
             </Alert>

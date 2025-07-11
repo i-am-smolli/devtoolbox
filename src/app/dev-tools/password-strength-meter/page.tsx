@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { useState, useEffect } from "react";
 import { PageHeader } from "@/components/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -332,7 +333,7 @@ const calculatePasswordStrength = (
     finalDisplaySuggestions.some((s) => s.includes("very strong strength"))
   ) {
     finalDisplaySuggestions = finalDisplaySuggestions.filter(
-      (s) => !s.includes("longer (\d+\+ characters) for greater strength"),
+      (s) => !s.includes("longer (+ characters) for greater strength"),
     );
   }
   finalDisplaySuggestions = [...new Set(finalDisplaySuggestions)]; // Deduplicate again after filtering

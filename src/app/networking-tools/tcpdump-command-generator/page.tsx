@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { useState, useEffect, useCallback } from "react";
 import { PageHeader } from "@/components/page-header";
 import {
@@ -279,7 +280,7 @@ export default function TcpdumpCommandGeneratorPage() {
               onCheckedChange={(checked) => setDontResolve(!!checked)}
             />
             <Label htmlFor="dontResolve" className="cursor-pointer">
-              Don't resolve names (-n)
+              Don&#39;t resolve names (-n)
             </Label>
           </div>
           <div className="flex items-center space-x-2 pt-6">
@@ -307,7 +308,7 @@ export default function TcpdumpCommandGeneratorPage() {
         <CardContent className="space-y-4">
           {filters.length === 0 && (
             <p className="text-sm text-muted-foreground text-center py-4">
-              No filters added. Click "Add Filter" to begin.
+              No filters added. Click &quot;Add Filter&quot; to begin.
             </p>
           )}
           {filters.map((filter, index) => (

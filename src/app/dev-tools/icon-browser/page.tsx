@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { useState, useEffect, useMemo, useRef } from "react";
 import {
   icons as lucideIconCollection,
@@ -137,7 +138,7 @@ export default function IconBrowserPage() {
           <CardContent className="grow p-4 pt-0 overflow-hidden">
             {isClient && filteredIcons.length === 0 && searchTerm.trim() && (
               <div className="text-center text-muted-foreground py-10">
-                No icons found for "{searchTerm}".
+                No icons found for &quot;{searchTerm}&quot;.
               </div>
             )}
             {isClient &&
