@@ -73,6 +73,6 @@
     "prettier": "^3.5.3",
     "tailwindcss": "^4.1.10",
     "typescript": "^5",
-    "typescript-eslint": "^8.35.0"
+    "typescript-eslint": "^8.36.0"
   }
 }
