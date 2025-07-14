@@ -1,7 +1,7 @@
 "use client";
 
+import React from "react";
 import { useState, useEffect, useRef } from "react";
-// Removed: import type { Metadata } from 'next';
 import { PageHeader } from "@/components/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";

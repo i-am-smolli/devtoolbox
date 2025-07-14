@@ -1,6 +1,6 @@
 "use client";
 
-// Metadata is handled by layout.tsx for this client component
+import React from "react";
 import { useState, useEffect, useRef } from "react";
 import { PageHeader } from "@/components/page-header";
 import {

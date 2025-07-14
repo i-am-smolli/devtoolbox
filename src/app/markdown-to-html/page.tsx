@@ -1,6 +1,6 @@
 "use client";
 
-// Removed: import type { Metadata } from 'next';
+import React from "react";
 import { useState, useEffect, useRef } from "react";
 import { marked } from "marked";
 import { PageHeader } from "@/components/page-header";

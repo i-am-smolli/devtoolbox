@@ -1,6 +1,6 @@
 "use client";
 
-// Removed: import type { Metadata } from 'next';
+import React from "react";
 import { useState, useEffect, useRef } from "react";
 import { PageHeader } from "@/components/page-header";
 import {
@@ -259,8 +259,8 @@ export default function DockerfileLinterPage() {
               )}
               {!isLoading && isValid === null && !dockerfileContent.trim() && (
                 <p className="text-muted-foreground">
-                  Paste your Dockerfile content and click "Lint Dockerfile" to
-                  see the results.
+                  Paste your Dockerfile content and click &quot;Lint
+                  Dockerfile&quot; to see the results.
                 </p>
               )}
             </ScrollArea>

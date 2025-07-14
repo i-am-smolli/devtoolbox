@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { useState, useEffect, useCallback } from "react";
 import { PageHeader } from "@/components/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -44,8 +45,8 @@ function rgbToHsl(
   const max = Math.max(r, g, b),
     min = Math.min(r, g, b);
   let h = 0,
-    s: number,
-    l = (max + min) / 2;
+    s: number;
+  const l = (max + min) / 2;
 
   if (max === min) {
     h = s = 0; // achromatic

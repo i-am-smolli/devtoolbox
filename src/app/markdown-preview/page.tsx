@@ -1,6 +1,6 @@
 "use client";
 
-// Removed: import type { Metadata } from 'next';
+import React from "react";
 import { useState, useEffect, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -100,21 +100,23 @@ export default function MarkdownPreviewPage() {
                   <ReactMarkdown
                     remarkPlugins={[remarkGfm]}
                     components={{
-                      img: (props) => {
-                        const altText = props.alt || "";
-                        if (
-                          props.src &&
-                          props.src.startsWith("https://placehold.co/")
-                        ) {
+                      img: ({
+                        src,
+                        alt,
+                        ...rest
+                      }: React.ImgHTMLAttributes<HTMLImageElement>) => {
+                        const altText = alt || "";
+                        if (src && src.startsWith("https://placehold.co/")) {
                           return (
                             <img
-                              {...props}
+                              src={src}
                               alt={altText}
                               data-ai-hint="abstract placeholder"
+                              {...rest}
                             />
                           );
                         }
-                        return <img {...props} alt={altText} />;
+                        return <img src={src} alt={altText} {...rest} />;
                       },
                     }}
                   >

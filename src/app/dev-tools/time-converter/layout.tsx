@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import React from "react";
 
 export const metadata: Metadata = {
   title: "Time Converter - Unix, ISO 8601, Date, Time",

@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { useState, useEffect, useCallback, useRef } from "react";
 import { PageHeader } from "@/components/page-header";
 import {
@@ -105,7 +106,7 @@ export default function QrCodeGeneratorPage() {
         }
         setQrValue(`SMSTO:${formData.smsPhone}:${formData.smsMessage}`);
         break;
-      case "email":
+      case "email": {
         if (!formData.emailTo.trim()) {
           setError("Email Recipient cannot be empty.");
           setQrValue("");
@@ -119,6 +120,7 @@ export default function QrCodeGeneratorPage() {
           `mailto:${formData.emailTo}${emailParams.toString() ? "?" + emailParams.toString() : ""}`,
         );
         break;
+      }
       case "geo":
         if (!formData.geoLatitude.trim() || !formData.geoLongitude.trim()) {
           setError("Latitude and Longitude cannot be empty.");

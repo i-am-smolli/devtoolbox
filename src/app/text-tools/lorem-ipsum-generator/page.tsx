@@ -1,6 +1,6 @@
 "use client";
 
-// Removed: import type { Metadata } from 'next';
+import React from "react";
 import { useState, useEffect, useRef } from "react";
 import { PageHeader } from "@/components/page-header";
 import {
@@ -452,8 +452,8 @@ export default function LoremIpsumGeneratorPage() {
         <Card>
           <CardContent className="p-6">
             <p className="text-muted-foreground">
-              Configure options and click "Generate Text" to create placeholder
-              content.
+              Configure options and click &quot;Generate Text&quot; to create
+              placeholder content.
             </p>
           </CardContent>
         </Card>

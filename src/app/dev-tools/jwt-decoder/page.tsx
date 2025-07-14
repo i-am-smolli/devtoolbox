@@ -1,6 +1,6 @@
 "use client";
 
-// Removed: import type { Metadata } from 'next';
+import React from "react";
 import { useState, useEffect, useRef } from "react";
 import { PageHeader } from "@/components/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -191,15 +191,15 @@ export default function JwtDecoderPage() {
           <CardContent>
             <Alert
               variant="default"
-              className="mb-4 border-blue-500 text-blue-700 dark:text-blue-300"
+              className="mb-4 border-yellow-600 text-yellow-600 dark:text-yellow-600"
             >
-              <Info className="h-4 w-4 text-blue-500" />
-              <AlertTitle className="text-blue-600 dark:text-blue-400">
+              <Info className="h-4 w-4 text-yellow-600" color="#d08700" />
+              <AlertTitle className="text-yellow-600 dark:text-yellow-600">
                 Signature Not Verified
               </AlertTitle>
               <AlertDescription>
                 This tool only decodes the JWT. It does not verify the
-                signature's authenticity. Do not trust the content of a JWT
+                signature&#39;s authenticity. Do not trust the content of a JWT
                 without verifying its signature.
               </AlertDescription>
             </Alert>

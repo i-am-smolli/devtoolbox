@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-// Removed: import type { Metadata } from 'next';
+import React from "react";
 import { PageHeader } from "@/components/page-header";
 import {
   Card,
@@ -104,9 +104,8 @@ export default function CurlGeneratorPage() {
 
     headers.forEach((header) => {
       if (header.key.trim()) {
-        // eslint-disable-next-line quotes
         const escapedHeaderKey = header.key.trim().replace(/"/g, '\\"');
-        // eslint-disable-next-line quotes
+
         const escapedHeaderValue = header.value.trim().replace(/"/g, '\\"');
         command += ` -H "${escapedHeaderKey}: ${escapedHeaderValue}"`;
       }
@@ -117,7 +116,6 @@ export default function CurlGeneratorPage() {
       command += ` -d '${escapedBody}'`;
     }
 
-    // eslint-disable-next-line quotes
     command += ` "${url.trim().replace(/"/g, '\\"')}"`; // Escape double quotes in URL
     setCurlCommand(command);
   }, [url, method, headers, requestBody]);
