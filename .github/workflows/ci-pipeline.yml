@@ -23,6 +23,9 @@ jobs:
       - name: Run Prettier
         run: npx prettier --check .
 
+      - name: Run eslint
+        run: npx eslint .
+
       - name: Run Linter
         run: npm run lint
 
