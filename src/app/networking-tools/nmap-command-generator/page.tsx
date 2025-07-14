@@ -52,6 +52,7 @@ export default function NmapCommandGeneratorPage() {
   const [verbose, setVerbose] = useState<boolean>(false);
   const [enableSC, setEnableSC] = useState<boolean>(false);
   const [enableA, setEnableA] = useState<boolean>(false);
+  const [enablePn, setEnablePN] = useState<boolean>(false);
   const [generatedCommand, setGeneratedCommand] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
 
@@ -77,6 +78,7 @@ export default function NmapCommandGeneratorPage() {
       if (enableSV) commandParts.push("-sV");
       if (enableO) commandParts.push("-O");
       if (enableSC) commandParts.push("-sC");
+      if (enablePn) commandParts.push("-Pn");
     }
 
     if (timingTemplate) commandParts.push(`-${timingTemplate}`); // Nmap uses -T4, not --T4
@@ -99,6 +101,7 @@ export default function NmapCommandGeneratorPage() {
     verbose,
     enableSC,
     enableA,
+    enablePn,
   ]);
 
   useEffect(() => {
@@ -231,6 +234,17 @@ export default function NmapCommandGeneratorPage() {
               Default Scripts (-sC)
             </Label>
           </div>
+          <div className="flex items-center space-x-2">
+            <Checkbox
+              id="enablePN"
+              checked={enablePn && !enableA}
+              onCheckedChange={(checked) => setEnablePN(!!checked)}
+              disabled={enableA}
+            />
+            <Label htmlFor="enablePN" className="cursor-pointer">
+              No Ping Check (-Pn)
+            </Label>
+          </div>
         </CardContent>
       </Card>
 
@@ -324,10 +338,10 @@ export default function NmapCommandGeneratorPage() {
           </Button>
           <Alert
             variant="default"
-            className="mt-2 sm:mt-0 border-blue-500 text-blue-700 dark:text-blue-300 text-xs max-w-md"
+            className="mt-2 sm:mt-0 border-yellow-600 text-yellow-600 dark:text-yellow-600 text-xs max-w-md"
           >
-            <Info className="h-4 w-4 text-blue-500" />
-            <AlertTitle className="text-sm text-blue-600 dark:text-blue-400">
+            <Info className="h-4 w-4 text-yellow-600" color="#d08700" />
+            <AlertTitle className="text-sm text-yellow-600 dark:text-yellow-600">
               Privilege Note
             </AlertTitle>
             <AlertDescription>
