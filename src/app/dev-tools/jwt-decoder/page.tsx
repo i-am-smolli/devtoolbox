@@ -191,10 +191,10 @@ export default function JwtDecoderPage() {
           <CardContent>
             <Alert
               variant="default"
-              className="mb-4 border-blue-500 text-blue-700 dark:text-blue-300"
+              className="mb-4 border-yellow-600 text-yellow-600 dark:text-yellow-600"
             >
-              <Info className="h-4 w-4 text-blue-500" />
-              <AlertTitle className="text-blue-600 dark:text-blue-400">
+              <Info className="h-4 w-4 text-yellow-600" color="#d08700" />
+              <AlertTitle className="text-yellow-600 dark:text-yellow-600">
                 Signature Not Verified
               </AlertTitle>
               <AlertDescription>

@@ -452,8 +452,8 @@ export default function LoremIpsumGeneratorPage() {
         <Card>
           <CardContent className="p-6">
             <p className="text-muted-foreground">
-              Configure options and click &quot;Generate Text&quot; to create placeholder
-              content.
+              Configure options and click &quot;Generate Text&quot; to create
+              placeholder content.
             </p>
           </CardContent>
         </Card>

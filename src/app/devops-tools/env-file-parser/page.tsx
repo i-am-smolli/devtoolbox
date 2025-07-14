@@ -66,7 +66,6 @@ export default function EnvFileParserPage() {
 
         // Strip surrounding quotes (single or double)
         if (
-           
           (value.startsWith('"') && value.endsWith('"')) ||
           (value.startsWith("'") && value.endsWith("'"))
         ) {

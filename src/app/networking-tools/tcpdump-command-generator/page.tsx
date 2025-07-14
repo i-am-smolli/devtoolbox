@@ -446,10 +446,10 @@ export default function TcpdumpCommandGeneratorPage() {
           </Button>
           <Alert
             variant="default"
-            className="mt-2 sm:mt-0 border-blue-500 text-blue-700 dark:text-blue-300 text-xs max-w-md"
+            className="mt-2 sm:mt-0 border-yellow-600 text-yellow-600 dark:text-yellow-600 text-xs max-w-md"
           >
-            <Info className="h-4 w-4 text-blue-500" />
-            <AlertTitle className="text-sm text-blue-600 dark:text-blue-400">
+            <Info className="h-4 w-4 text-yellow-600" color="#d08700" />
+            <AlertTitle className="text-sm text-yellow-600 dark:text-yellow-600">
               Privilege Note
             </AlertTitle>
             <AlertDescription>

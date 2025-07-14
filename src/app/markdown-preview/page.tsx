@@ -100,12 +100,13 @@ export default function MarkdownPreviewPage() {
                   <ReactMarkdown
                     remarkPlugins={[remarkGfm]}
                     components={{
-                      img: ({ src, alt, ...rest }: React.ImgHTMLAttributes<HTMLImageElement>) => {
+                      img: ({
+                        src,
+                        alt,
+                        ...rest
+                      }: React.ImgHTMLAttributes<HTMLImageElement>) => {
                         const altText = alt || "";
-                        if (
-                          src &&
-                          src.startsWith("https://placehold.co/")
-                        ) {
+                        if (src && src.startsWith("https://placehold.co/")) {
                           return (
                             <img
                               src={src}

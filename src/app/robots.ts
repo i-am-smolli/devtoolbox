@@ -1,4 +1,4 @@
-import type { MetadataRoute } from 'next'
+import type { MetadataRoute } from "next";
 
 // IMPORTANT: Replace with your actual production domain or set a SITE_URL environment variable
 const BASE_URL = process.env.SITE_URL || "https://devtoolbox.icu";
@@ -6,9 +6,9 @@ const BASE_URL = process.env.SITE_URL || "https://devtoolbox.icu";
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
-      userAgent: '*',
+      userAgent: "*",
       disallow: [],
     },
     sitemap: `${BASE_URL}/sitemap.xml`,
-  }
+  };
 }

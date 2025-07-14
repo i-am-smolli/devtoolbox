@@ -230,8 +230,8 @@ export default function RandomStringGeneratorPage() {
         <Card>
           <CardContent className="p-6">
             <p className="text-muted-foreground">
-              Configure options and click &quot;Generate String&quot;. An initial string
-              is generated on load.
+              Configure options and click &quot;Generate String&quot;. An
+              initial string is generated on load.
             </p>
           </CardContent>
         </Card>
