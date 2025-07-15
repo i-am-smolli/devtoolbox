@@ -6,9 +6,13 @@ import { Toaster } from "@/components/ui/toaster";
 import { Inter, Source_Code_Pro } from "next/font/google";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(`https://devtoolbox.icu`),
   title: {
     default: "DevToolbox - Essential Developer Utilities",
     template: "%s - Online Tool",
+  },
+  alternates: {
+    canonical: "./",
   },
   description:
     "DevToolbox: A comprehensive suite of free online developer tools, including converters, generators, formatters, and utilities for JSON, YAML, Markdown, and more.",
