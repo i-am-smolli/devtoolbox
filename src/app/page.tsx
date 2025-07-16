@@ -50,7 +50,7 @@ import {
 export const metadata: Metadata = {
   title: "DevToolbox - Developer Utilities & Tools",
   description:
-    "Welcome to DevToolbox! Explore a wide range of essential online utilities for developers, including converters, generators, and analyzers.",
+    "DevToolbox is a lightweight, privacy-first suite of web-based tools for developers. From encoders to generators and analyzers — no cookies, no fluff, just tools that work.",
 };
 
 const tools = [
