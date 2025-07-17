@@ -1,4 +1,4 @@
-// Once we decide to use PWA features, we can uncomment this code
+// Once we decide to use PWA features, we can uncomment this code (and remove the dot infront of this file).
 // import type { MetadataRoute } from 'next'
 //  
 // export default function manifest(): MetadataRoute.Manifest {
