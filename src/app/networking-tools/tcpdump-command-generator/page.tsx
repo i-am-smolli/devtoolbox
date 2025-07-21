@@ -31,6 +31,7 @@ import {
   XCircle,
   PlusCircle,
 } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { useToast } from "@/hooks/use-toast";
 
 const FILTER_TYPES = [
@@ -211,7 +212,20 @@ export default function TcpdumpCommandGeneratorPage() {
         </CardHeader>
         <CardContent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <div className="space-y-1">
-            <Label htmlFor="interface">Interface</Label>
+            <Label htmlFor="interface">
+              Interface
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <span className="ml-1 cursor-help text-muted-foreground">
+                    <Info className="inline h-4 w-4" aria-label="More info" />
+                  </span>
+                </TooltipTrigger>
+                <TooltipContent>
+                  Specify the network interface to capture packets on. Use &#39;any&#39; to capture on all interfaces. <br />
+                  If not specified, tcpdump will use the first available interface.
+                </TooltipContent>
+              </Tooltip>
+            </Label>
             <Input
               id="interface"
               placeholder="e.g., eth0, any"
@@ -220,7 +234,19 @@ export default function TcpdumpCommandGeneratorPage() {
             />
           </div>
           <div className="space-y-1">
-            <Label htmlFor="packetCount">Packet Count (-c)</Label>
+            <Label htmlFor="packetCount">
+              Packet Count (-c)
+              <Tooltip>
+              <TooltipTrigger asChild>
+                <span className="ml-1 cursor-help text-muted-foreground">
+                <Info className="inline h-4 w-4" aria-label="More info" />
+                </span>
+              </TooltipTrigger>
+              <TooltipContent>
+                Limit the number of packets to capture. Leave blank to capture indefinitely.
+              </TooltipContent>
+              </Tooltip>
+            </Label>
             <Input
               id="packetCount"
               type="number"
@@ -231,7 +257,20 @@ export default function TcpdumpCommandGeneratorPage() {
             />
           </div>
           <div className="space-y-1">
-            <Label htmlFor="snapLen">Snapshot Length (-s)</Label>
+            <Label htmlFor="snapLen">
+              Snapshot Length (-s)
+              <Tooltip>
+              <TooltipTrigger asChild>
+                <span className="ml-1 cursor-help text-muted-foreground">
+                <Info className="inline h-4 w-4" aria-label="More info" />
+                </span>
+              </TooltipTrigger>
+              <TooltipContent>
+                Set the maximum number of bytes captured per packet. Use 0 for the full packet. <br />
+                Larger values capture more data but use more memory.
+              </TooltipContent>
+              </Tooltip>
+            </Label>
             <Input
               id="snapLen"
               type="number"
@@ -242,7 +281,20 @@ export default function TcpdumpCommandGeneratorPage() {
             />
           </div>
           <div className="space-y-1">
-            <Label htmlFor="timestampFormat">Timestamp (-t)</Label>
+            <Label htmlFor="timestampFormat">
+              Timestamp (-t)
+              <Tooltip>
+              <TooltipTrigger asChild>
+                <span className="ml-1 cursor-help text-muted-foreground">
+                <Info className="inline h-4 w-4" aria-label="More info" />
+                </span>
+              </TooltipTrigger>
+              <TooltipContent>
+                Control the timestamp format for each packet line. <br />
+                Options include hiding timestamps, showing deltas, or displaying date/time.
+              </TooltipContent>
+              </Tooltip>
+            </Label>
             <Select value={timestampFormat} onValueChange={setTimestampFormat}>
               <SelectTrigger id="timestampFormat">
                 <SelectValue placeholder="Default" />
@@ -260,7 +312,20 @@ export default function TcpdumpCommandGeneratorPage() {
             </Select>
           </div>
           <div className="space-y-1">
-            <Label htmlFor="verboseLevel">Verbosity (-v)</Label>
+            <Label htmlFor="verboseLevel">
+              Verbosity (-v)
+              <Tooltip>
+              <TooltipTrigger asChild>
+                <span className="ml-1 cursor-help text-muted-foreground">
+                <Info className="inline h-4 w-4" aria-label="More info" />
+                </span>
+              </TooltipTrigger>
+              <TooltipContent>
+                Increase the amount of packet information displayed. <br />
+                Use more v&#39;s (e.g., -vv, -vvv) for more detail.
+              </TooltipContent>
+              </Tooltip>
+            </Label>
             <Select value={verboseLevel} onValueChange={setVerboseLevel}>
               <SelectTrigger id="verboseLevel">
                 <SelectValue placeholder="Default" />
@@ -280,7 +345,18 @@ export default function TcpdumpCommandGeneratorPage() {
               onCheckedChange={(checked) => setDontResolve(!!checked)}
             />
             <Label htmlFor="dontResolve" className="cursor-pointer">
-              Don&#39;t resolve names (-n)
+              Don&#39;t resolve names (-n) 
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <span className="ml-1 cursor-help text-muted-foreground">
+                    <Info className="inline h-4 w-4" aria-label="More info" />
+                  </span>
+                </TooltipTrigger>
+                <TooltipContent>
+                  Do not resolve hostnames or service names. <br />
+                  This speeds up processing and avoids DNS lookups.
+                </TooltipContent>
+              </Tooltip>
             </Label>
           </div>
           <div className="flex items-center space-x-2 pt-6">
@@ -291,6 +367,17 @@ export default function TcpdumpCommandGeneratorPage() {
             />
             <Label htmlFor="noPromiscuous" className="cursor-pointer">
               No promiscuous mode (-p)
+              <Tooltip>
+              <TooltipTrigger asChild>
+                <span className="ml-1 cursor-help text-muted-foreground">
+                <Info className="inline h-4 w-4" aria-label="More info" />
+                </span>
+              </TooltipTrigger>
+              <TooltipContent>
+                Disable promiscuous mode on the interface. <br />
+                In non-promiscuous mode, only packets addressed to this host are captured.
+              </TooltipContent>
+              </Tooltip>
             </Label>
           </div>
         </CardContent>
@@ -318,7 +405,25 @@ export default function TcpdumpCommandGeneratorPage() {
             >
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 items-end">
                 <div className="space-y-1">
-                  <Label htmlFor={`filterType-${filter.id}`}>Type</Label>
+                    <Label htmlFor={`filterType-${filter.id}`}>
+                    Type
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                      <span className="ml-1 cursor-help text-muted-foreground">
+                        <Info className="inline h-4 w-4" aria-label="More info" />
+                      </span>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                      Select the type of filter to apply: <br />
+                      <ul>
+                        <li><b>Host</b> (IP address or hostname)</li> 
+                        <li><b>Port</b> (TCP/UDP port)</li> 
+                        <li><b>Network</b> (CIDR: e.g. 192.168.1.0/24)</li> 
+                        <li><b>Protocol</b> (e.g., tcp, udp, icmp)</li>
+                      </ul>
+                      </TooltipContent>
+                    </Tooltip>
+                    </Label>
                   <Select
                     value={filter.type}
                     onValueChange={(v) =>
@@ -340,7 +445,23 @@ export default function TcpdumpCommandGeneratorPage() {
                   </Select>
                 </div>
                 <div className="space-y-1">
-                  <Label htmlFor={`filterDir-${filter.id}`}>Direction</Label>
+                    <Label htmlFor={`filterDir-${filter.id}`}>
+                    Direction
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                      <span className="ml-1 cursor-help text-muted-foreground">
+                        <Info className="inline h-4 w-4" aria-label="More info" />
+                      </span>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                      <div>
+                        <b>Any</b>: Match both source and destination.<br />
+                        <b>Source</b>: Only match packets where this is the source.<br />
+                        <b>Destination</b>: Only match packets where this is the destination.
+                      </div>
+                      </TooltipContent>
+                    </Tooltip>
+                    </Label>
                   <Select
                     value={filter.direction}
                     onValueChange={(v) =>
@@ -361,7 +482,42 @@ export default function TcpdumpCommandGeneratorPage() {
                   </Select>
                 </div>
                 <div className="space-y-1 lg:col-span-2">
-                  <Label htmlFor={`filterValue-${filter.id}`}>Value</Label>
+                    <Label htmlFor={`filterValue-${filter.id}`}>
+                    Value
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                      <span className="ml-1 cursor-help text-muted-foreground">
+                        <Info className="inline h-4 w-4" aria-label="More info" />
+                      </span>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                      {filter.type === "host" && (
+                        <>
+                        Enter an IP address or hostname to match.<br />
+                        Example: <code>8.8.8.8</code> or <code>example.com</code>
+                        </>
+                      )}
+                      {filter.type === "port" && (
+                        <>
+                        Enter a TCP or UDP port number.<br />
+                        Example: <code>443</code>
+                        </>
+                      )}
+                      {filter.type === "net" && (
+                        <>
+                        Enter a network in CIDR notation.<br />
+                        Example: <code>192.168.1.0/24</code>
+                        </>
+                      )}
+                      {filter.type === "proto" && (
+                        <>
+                        Enter a protocol name.<br />
+                        Example: <code>tcp</code>, <code>udp</code>, <code>icmp</code>
+                        </>
+                      )}
+                      </TooltipContent>
+                    </Tooltip>
+                    </Label>
                   <Input
                     id={`filterValue-${filter.id}`}
                     placeholder={
