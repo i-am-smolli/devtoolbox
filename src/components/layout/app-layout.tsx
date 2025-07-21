@@ -41,9 +41,9 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                 <line x1="3" y1="9" x2="21" y2="9"></line>
                 <line x1="9" y1="21" x2="9" y2="9"></line>
               </svg>
-              <h1 className="text-xl font-headline font-semibold text-foreground">
+              <h2 className="text-xl font-headline font-semibold text-foreground">
                 DevToolbox
-              </h1>
+              </h2>
             </Link>
           </SidebarHeader>
           <SidebarContent className="grow p-2">

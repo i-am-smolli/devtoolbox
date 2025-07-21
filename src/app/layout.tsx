@@ -6,9 +6,13 @@ import { Toaster } from "@/components/ui/toaster";
 import { Inter, Source_Code_Pro } from "next/font/google";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(`https://devtoolbox.icu`),
   title: {
     default: "DevToolbox - Essential Developer Utilities",
     template: "%s - Online Tool",
+  },
+  alternates: {
+    canonical: "./",
   },
   description:
     "DevToolbox: A comprehensive suite of free online developer tools, including converters, generators, formatters, and utilities for JSON, YAML, Markdown, and more.",
@@ -27,6 +31,16 @@ export const metadata: Metadata = {
     "json analyzer",
     "markdown preview",
   ],
+  //  Once openGraph is set, no Metadata will be displayed
+  //  openGraph: {
+  //    title: "DevToolbox - Essential Developer Utilities",
+  //    description:
+  //      "DevToolbox: A comprehensive suite of free online developer tools, including converters, generators, formatters, and utilities for JSON, YAML, Markdown, and more.",
+  //    url: "https://devtoolbox.icu",
+  //    siteName: "DevToolbox",
+  //    locale: "en_US",
+  //    type: "website",
+  //  },
 };
 
 const inter = Inter({

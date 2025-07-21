@@ -16,8 +16,10 @@ servers:
   - <%= ENV["KAMAL_SERVER"] %>
 
 proxy:
+  hosts: 
+  - <%= ENV["KAMAL_SSL_NAME"] %>
+  - <%= ENV["KAMAL_SSL_ALT_NAME"] %>
   ssl: true
-  host: <%= ENV["KAMAL_SSL_NAME"] %>
   app_port: 3000
 
 ssh:
