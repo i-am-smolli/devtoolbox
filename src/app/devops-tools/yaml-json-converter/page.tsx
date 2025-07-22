@@ -17,7 +17,33 @@ import { ArrowRightLeft, AlertCircle, Copy } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import yaml from "js-yaml";
 
-// Metadata is now handled by layout.tsx
+const placeholderYAML = `name: DevToolbox
+version: 1.0.0
+features:
+  - Hex to Binary
+  - Markdown Preview
+  - JSON Analyzer
+settings:
+  darkMode: true
+  fontSize: 14
+author: i-am-smolli
+`;
+
+const placeholderJSON = `{
+  "name": "DevToolbox",
+  "version": "1.0.0",
+  "features": [
+    "Hex to Binary",
+    "Markdown Preview",
+    "JSON Analyzer"
+  ],
+  "settings": {
+    "darkMode": true,
+    "fontSize": 14
+  },
+  "author": "i-am-smolli"
+}
+`;
 
 export default function YamlJsonConverterPage() {
   const [yamlInput, setYamlInput] = useState("");
@@ -145,7 +171,7 @@ export default function YamlJsonConverterPage() {
           <CardContent className="grow p-0">
             <Textarea
               ref={yamlTextareaRef}
-              placeholder="Enter YAML here..."
+              placeholder={placeholderYAML}
               value={yamlInput}
               onChange={handleYamlInputChange}
               className="w-full resize-none border-0 rounded-none focus-visible:ring-0 p-4 font-code text-sm min-h-[200px]"
@@ -176,7 +202,7 @@ export default function YamlJsonConverterPage() {
           <CardContent className="grow p-0">
             <Textarea
               ref={jsonTextareaRef}
-              placeholder="Enter JSON here..."
+              placeholder={placeholderJSON}
               value={jsonInput}
               onChange={handleJsonInputChange}
               className="w-full resize-none border-0 rounded-none focus-visible:ring-0 p-4 font-code text-sm min-h-[200px]"

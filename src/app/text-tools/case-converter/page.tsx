@@ -15,8 +15,6 @@ import { Button } from "@/components/ui/button";
 import { CaseSensitive, Copy } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
-// Metadata is now handled by layout.tsx
-
 // Helper function to split words from various formats
 const toWords = (str: string): string[] => {
   if (!str) return [];

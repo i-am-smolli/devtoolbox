@@ -24,6 +24,7 @@ import {
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Pilcrow, Copy, AlertCircle, RefreshCw } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { InfoTooltip } from "@/components/InfoTooltip";
 
 // Metadata is now handled by layout.tsx
 
@@ -339,7 +340,13 @@ export default function LoremIpsumGeneratorPage() {
         </CardHeader>
         <CardContent className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="space-y-2">
-            <Label htmlFor="generatorType">Generator Type</Label>
+            <Label htmlFor="generatorType">
+              Generator Type
+              <InfoTooltip>
+                Select the type of placeholder text to generate. <br />
+                Options include standard Lorem Ipsum, DevOps jargon, or Tech Startup language.
+              </InfoTooltip>
+            </Label>
             <Select value={generatorType} onValueChange={setGeneratorType}>
               <SelectTrigger id="generatorType">
                 <SelectValue placeholder="Select type" />
@@ -356,6 +363,10 @@ export default function LoremIpsumGeneratorPage() {
           <div className="space-y-2">
             <Label htmlFor="numParagraphs">
               Number of Paragraphs ({MIN_PARAGRAPHS}-{MAX_PARAGRAPHS})
+              <InfoTooltip>
+                Specify how many paragraphs of text to generate. <br />
+                Each paragraph will contain the specified number of sentences.
+              </InfoTooltip>
             </Label>
             <Input
               id="numParagraphs"
@@ -378,8 +389,11 @@ export default function LoremIpsumGeneratorPage() {
           </div>
           <div className="space-y-2">
             <Label htmlFor="numSentences">
-              Sentences per Paragraph ({MIN_SENTENCES_PER_PARAGRAPH}-
-              {MAX_SENTENCES_PER_PARAGRAPH})
+              Sentences per Paragraph ({MIN_SENTENCES_PER_PARAGRAPH}-{MAX_SENTENCES_PER_PARAGRAPH})
+              <InfoTooltip>
+                Specify how many sentences each paragraph should contain. <br />
+                This allows you to control the length and complexity of the generated text.
+              </InfoTooltip>
             </Label>
             <Input
               id="numSentences"
