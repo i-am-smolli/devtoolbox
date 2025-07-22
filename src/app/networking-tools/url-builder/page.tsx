@@ -204,12 +204,24 @@ export default function UrlBuilderPage() {
                 <InfoTooltip>
                   Select the protocol for the URL. <br />
                   <ul className="list-disc pl-5 mt-1">
-                    <li><b>https</b> - Secure HTTP</li>
-                    <li><b>http</b> - Standard HTTP</li>
-                    <li><b>ftp</b> - File Transfer Protocol</li>
-                    <li><b>mailto</b> - Email link</li>
-                    <li><b>tel</b> - Telephone link</li>
-                    <li><b>none</b> - Relative URL (no protocol)</li>
+                    <li>
+                      <b>https</b> - Secure HTTP
+                    </li>
+                    <li>
+                      <b>http</b> - Standard HTTP
+                    </li>
+                    <li>
+                      <b>ftp</b> - File Transfer Protocol
+                    </li>
+                    <li>
+                      <b>mailto</b> - Email link
+                    </li>
+                    <li>
+                      <b>tel</b> - Telephone link
+                    </li>
+                    <li>
+                      <b>none</b> - Relative URL (no protocol)
+                    </li>
                   </ul>
                 </InfoTooltip>
               </Label>
@@ -232,7 +244,8 @@ export default function UrlBuilderPage() {
                 Hostname
                 <InfoTooltip>
                   Enter the hostname or IP address of the server. <br />
-                  Example: <code>www.example.com</code> or <code> 192.168.1.1</code>
+                  Example: <code>www.example.com</code> or{" "}
+                  <code> 192.168.1.1</code>
                 </InfoTooltip>
               </Label>
               <Input
@@ -265,7 +278,8 @@ export default function UrlBuilderPage() {
                 Pathname
                 <InfoTooltip>
                   Enter the path to the resource on the server. <br />
-                  Example: <code>/path/to/resource/index.php</code> or leave empty for root.
+                  Example: <code>/path/to/resource/index.php</code> or leave
+                  empty for root.
                 </InfoTooltip>
               </Label>
               <Input
@@ -301,7 +315,8 @@ export default function UrlBuilderPage() {
                   Key
                   <InfoTooltip>
                     Enter the name of the query parameter. <br />
-                    Example: <code>param1</code> or <code>page</code> or <code>article</code>
+                    Example: <code>param1</code> or <code>page</code> or{" "}
+                    <code>article</code>
                   </InfoTooltip>
                 </Label>
                 <Input
@@ -318,7 +333,8 @@ export default function UrlBuilderPage() {
                   Value
                   <InfoTooltip>
                     Enter the value for the query parameter. <br />
-                    Example: <code>value1</code> or <code>10</code> or <code>active</code>
+                    Example: <code>value1</code> or <code>10</code> or{" "}
+                    <code>active</code>
                   </InfoTooltip>
                 </Label>
                 <Input
@@ -356,7 +372,8 @@ export default function UrlBuilderPage() {
                 Example: <code>contact</code> or <code>top</code>
                 <br />
                 <br />
-                Note: This is most often used for single-page applications or to link to specific sections within a page.
+                Note: This is most often used for single-page applications or to
+                link to specific sections within a page.
               </InfoTooltip>
             </Label>
             <Input

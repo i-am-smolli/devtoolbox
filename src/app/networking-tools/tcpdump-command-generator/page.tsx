@@ -215,9 +215,11 @@ export default function TcpdumpCommandGeneratorPage() {
             <Label htmlFor="interface">
               Interface
               <InfoTooltip>
-                  Specify the network interface to capture packets on. Use &#39;any&#39; to capture on all interfaces. <br />
-                  If not specified, tcpdump will use the first available interface.
-                </InfoTooltip>
+                Specify the network interface to capture packets on. Use
+                &#39;any&#39; to capture on all interfaces. <br />
+                If not specified, tcpdump will use the first available
+                interface.
+              </InfoTooltip>
             </Label>
             <Input
               id="interface"
@@ -230,7 +232,8 @@ export default function TcpdumpCommandGeneratorPage() {
             <Label htmlFor="packetCount">
               Packet Count (-c)
               <InfoTooltip>
-                Limit the number of packets to capture. Leave blank to capture indefinitely.
+                Limit the number of packets to capture. Leave blank to capture
+                indefinitely.
               </InfoTooltip>
             </Label>
             <Input
@@ -246,7 +249,8 @@ export default function TcpdumpCommandGeneratorPage() {
             <Label htmlFor="snapLen">
               Snapshot Length (-s)
               <InfoTooltip>
-                Set the maximum number of bytes captured per packet. Use 0 for the full packet. <br />
+                Set the maximum number of bytes captured per packet. Use 0 for
+                the full packet. <br />
                 Larger values capture more data but use more memory.
               </InfoTooltip>
             </Label>
@@ -264,7 +268,8 @@ export default function TcpdumpCommandGeneratorPage() {
               Timestamp (-t)
               <InfoTooltip>
                 Control the timestamp format for each packet line. <br />
-                Options include hiding timestamps, showing deltas, or displaying date/time.
+                Options include hiding timestamps, showing deltas, or displaying
+                date/time.
               </InfoTooltip>
             </Label>
             <Select value={timestampFormat} onValueChange={setTimestampFormat}>
@@ -310,11 +315,11 @@ export default function TcpdumpCommandGeneratorPage() {
               onCheckedChange={(checked) => setDontResolve(!!checked)}
             />
             <Label htmlFor="dontResolve" className="cursor-pointer">
-              Don&#39;t resolve names (-n) 
-                <InfoTooltip>
-                  Do not resolve hostnames or service names. <br />
-                  This speeds up processing and avoids DNS lookups.
-                  </InfoTooltip>
+              Don&#39;t resolve names (-n)
+              <InfoTooltip>
+                Do not resolve hostnames or service names. <br />
+                This speeds up processing and avoids DNS lookups.
+              </InfoTooltip>
             </Label>
           </div>
           <div className="flex items-center space-x-2 pt-6">
@@ -327,7 +332,8 @@ export default function TcpdumpCommandGeneratorPage() {
               No promiscuous mode (-p)
               <InfoTooltip>
                 Disable promiscuous mode on the interface. <br />
-                In non-promiscuous mode, only packets addressed to this host are captured.
+                In non-promiscuous mode, only packets addressed to this host are
+                captured.
               </InfoTooltip>
             </Label>
           </div>
@@ -356,18 +362,26 @@ export default function TcpdumpCommandGeneratorPage() {
             >
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 items-end">
                 <div className="space-y-1">
-                    <Label htmlFor={`filterType-${filter.id}`}>
+                  <Label htmlFor={`filterType-${filter.id}`}>
                     Type
                     <InfoTooltip>
                       Select the type of filter to apply: <br />
                       <ul className="list-disc pl-5 mt-1">
-                        <li><b>Host</b> (IP address or hostname)</li> 
-                        <li><b>Port</b> (TCP/UDP port)</li> 
-                        <li><b>Network</b> (CIDR: e.g. 192.168.1.0/24)</li> 
-                        <li><b>Protocol</b> (e.g., tcp, udp, icmp)</li>
+                        <li>
+                          <b>Host</b> (IP address or hostname)
+                        </li>
+                        <li>
+                          <b>Port</b> (TCP/UDP port)
+                        </li>
+                        <li>
+                          <b>Network</b> (CIDR: e.g. 192.168.1.0/24)
+                        </li>
+                        <li>
+                          <b>Protocol</b> (e.g., tcp, udp, icmp)
+                        </li>
                       </ul>
-                      </InfoTooltip>
-                    </Label>
+                    </InfoTooltip>
+                  </Label>
                   <Select
                     value={filter.type}
                     onValueChange={(v) =>
@@ -389,16 +403,20 @@ export default function TcpdumpCommandGeneratorPage() {
                   </Select>
                 </div>
                 <div className="space-y-1">
-                    <Label htmlFor={`filterDir-${filter.id}`}>
+                  <Label htmlFor={`filterDir-${filter.id}`}>
                     Direction
                     <InfoTooltip>
                       <div>
-                        <b>Any</b>: Match both source and destination.<br />
-                        <b>Source</b>: Only match packets where this is the source.<br />
-                        <b>Destination</b>: Only match packets where this is the destination.
+                        <b>Any</b>: Match both source and destination.
+                        <br />
+                        <b>Source</b>: Only match packets where this is the
+                        source.
+                        <br />
+                        <b>Destination</b>: Only match packets where this is the
+                        destination.
                       </div>
-                      </InfoTooltip>
-                    </Label>
+                    </InfoTooltip>
+                  </Label>
                   <Select
                     value={filter.direction}
                     onValueChange={(v) =>
@@ -419,35 +437,41 @@ export default function TcpdumpCommandGeneratorPage() {
                   </Select>
                 </div>
                 <div className="space-y-1 lg:col-span-2">
-                    <Label htmlFor={`filterValue-${filter.id}`}>
+                  <Label htmlFor={`filterValue-${filter.id}`}>
                     Value
                     <InfoTooltip>
                       {filter.type === "host" && (
                         <>
-                        Enter an IP address or hostname to match.<br />
-                        Example: <code>8.8.8.8</code> or <code>example.com</code>
+                          Enter an IP address or hostname to match.
+                          <br />
+                          Example: <code>8.8.8.8</code> or{" "}
+                          <code>example.com</code>
                         </>
                       )}
                       {filter.type === "port" && (
                         <>
-                        Enter a TCP or UDP port number.<br />
-                        Example: <code>443</code>
+                          Enter a TCP or UDP port number.
+                          <br />
+                          Example: <code>443</code>
                         </>
                       )}
                       {filter.type === "net" && (
                         <>
-                        Enter a network in CIDR notation.<br />
-                        Example: <code>192.168.1.0/24</code>
+                          Enter a network in CIDR notation.
+                          <br />
+                          Example: <code>192.168.1.0/24</code>
                         </>
                       )}
                       {filter.type === "proto" && (
                         <>
-                        Enter a protocol name.<br />
-                        Example: <code>tcp</code>, <code>udp</code>, <code>icmp</code>
+                          Enter a protocol name.
+                          <br />
+                          Example: <code>tcp</code>, <code>udp</code>,{" "}
+                          <code>icmp</code>
                         </>
                       )}
-                      </InfoTooltip>
-                    </Label>
+                    </InfoTooltip>
+                  </Label>
                   <Input
                     id={`filterValue-${filter.id}`}
                     placeholder={

@@ -158,8 +158,9 @@ export default function NmapCommandGeneratorPage() {
           <div className="space-y-1">
             <Label htmlFor="target">Target (IP, Hostname, Range)</Label>
             <InfoTooltip>
-              Enter a single IP address, hostname, or CIDR range <br/ >
-              Example: <code>scanme.nmap.org</code> or <code>192.168.1.0/24</code>
+              Enter a single IP address, hostname, or CIDR range <br />
+              Example: <code>scanme.nmap.org</code> or{" "}
+              <code>192.168.1.0/24</code>
             </InfoTooltip>
             <Input
               id="target"
@@ -174,10 +175,18 @@ export default function NmapCommandGeneratorPage() {
               <InfoTooltip>
                 Select the type of scan to perform:
                 <ul className="list-disc pl-5 mt-1">
-                  <li><b>TCP SYN Scan</b>: Default, stealthy scan (requires root).</li>
-                  <li><b>TCP Connect Scan</b>: Full TCP connection scan.</li>
-                  <li><b>UDP Scan</b>: Scans UDP ports (requires root).</li>
-                  <li><b>Ping Scan</b>: Only checks if hosts are up, no port scan.</li>
+                  <li>
+                    <b>TCP SYN Scan</b>: Default, stealthy scan (requires root).
+                  </li>
+                  <li>
+                    <b>TCP Connect Scan</b>: Full TCP connection scan.
+                  </li>
+                  <li>
+                    <b>UDP Scan</b>: Scans UDP ports (requires root).
+                  </li>
+                  <li>
+                    <b>Ping Scan</b>: Only checks if hosts are up, no port scan.
+                  </li>
                 </ul>
               </InfoTooltip>
               <Select
@@ -230,7 +239,8 @@ export default function NmapCommandGeneratorPage() {
             <Label htmlFor="enableSV" className="cursor-pointer">
               Service Version Detection (-sV)
               <InfoTooltip>
-                Enable service version detection to try to identify software versions <br />
+                Enable service version detection to try to identify software
+                versions <br />
                 running on open ports.
               </InfoTooltip>
             </Label>
@@ -245,7 +255,8 @@ export default function NmapCommandGeneratorPage() {
             <Label htmlFor="enableO" className="cursor-pointer">
               OS Detection (-O, Root often needed)
               <InfoTooltip>
-                Enable OS detection to try to identify the operating system of the target host.
+                Enable OS detection to try to identify the operating system of
+                the target host.
               </InfoTooltip>
             </Label>
           </div>
@@ -270,7 +281,8 @@ export default function NmapCommandGeneratorPage() {
             <Label htmlFor="enablePN" className="cursor-pointer">
               No Ping Check (-Pn)
               <InfoTooltip>
-                Skip host discovery and treat all hosts as online. Useful for scanning firewalled hosts.
+                Skip host discovery and treat all hosts as online. Useful for
+                scanning firewalled hosts.
               </InfoTooltip>
             </Label>
           </div>
@@ -290,12 +302,24 @@ export default function NmapCommandGeneratorPage() {
               <InfoTooltip>
                 Adjust the timing of the scan to balance speed and stealth:
                 <ul className="list-disc pl-5 mt-1">
-                  <li><b>T0</b>: Paranoid (Very Slow)</li>
-                  <li><b>T1</b>: Sneaky (Slow)</li>
-                  <li><b>T2</b>: Polite (Reduced Speed)</li>
-                  <li><b>T3</b>: Normal (Default Speed)</li>
-                  <li><b>T4</b>: Aggressive (Fast)</li>
-                  <li><b>T5</b>: Insane (Very Fast)</li>
+                  <li>
+                    <b>T0</b>: Paranoid (Very Slow)
+                  </li>
+                  <li>
+                    <b>T1</b>: Sneaky (Slow)
+                  </li>
+                  <li>
+                    <b>T2</b>: Polite (Reduced Speed)
+                  </li>
+                  <li>
+                    <b>T3</b>: Normal (Default Speed)
+                  </li>
+                  <li>
+                    <b>T4</b>: Aggressive (Fast)
+                  </li>
+                  <li>
+                    <b>T5</b>: Insane (Very Fast)
+                  </li>
                 </ul>
               </InfoTooltip>
             </Label>
@@ -321,7 +345,8 @@ export default function NmapCommandGeneratorPage() {
             <Label htmlFor="verbose" className="cursor-pointer">
               Verbose Output (-v)
               <InfoTooltip>
-                Enable verbose output to see more details about the scan progress.
+                Enable verbose output to see more details about the scan
+                progress.
               </InfoTooltip>
             </Label>
           </div>
@@ -342,8 +367,10 @@ export default function NmapCommandGeneratorPage() {
             <Label htmlFor="enableA" className="cursor-pointer">
               Enable Aggressive Scan (-A)
               <InfoTooltip>
-                Enable aggressive scan mode, which includes OS detection, version detection, <br />
-                script scanning, and traceroute. This is a comprehensive scan that provides <br />
+                Enable aggressive scan mode, which includes OS detection,
+                version detection, <br />
+                script scanning, and traceroute. This is a comprehensive scan
+                that provides <br />
                 detailed information about the target.
               </InfoTooltip>
             </Label>

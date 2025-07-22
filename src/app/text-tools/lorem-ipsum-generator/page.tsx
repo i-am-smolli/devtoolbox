@@ -344,7 +344,8 @@ export default function LoremIpsumGeneratorPage() {
               Generator Type
               <InfoTooltip>
                 Select the type of placeholder text to generate. <br />
-                Options include standard Lorem Ipsum, DevOps jargon, or Tech Startup language.
+                Options include standard Lorem Ipsum, DevOps jargon, or Tech
+                Startup language.
               </InfoTooltip>
             </Label>
             <Select value={generatorType} onValueChange={setGeneratorType}>
@@ -389,10 +390,12 @@ export default function LoremIpsumGeneratorPage() {
           </div>
           <div className="space-y-2">
             <Label htmlFor="numSentences">
-              Sentences per Paragraph ({MIN_SENTENCES_PER_PARAGRAPH}-{MAX_SENTENCES_PER_PARAGRAPH})
+              Sentences per Paragraph ({MIN_SENTENCES_PER_PARAGRAPH}-
+              {MAX_SENTENCES_PER_PARAGRAPH})
               <InfoTooltip>
                 Specify how many sentences each paragraph should contain. <br />
-                This allows you to control the length and complexity of the generated text.
+                This allows you to control the length and complexity of the
+                generated text.
               </InfoTooltip>
             </Label>
             <Input

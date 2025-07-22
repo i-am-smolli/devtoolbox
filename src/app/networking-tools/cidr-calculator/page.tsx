@@ -280,9 +280,12 @@ export default function CidrCalculatorPage() {
                   <span className="font-code">
                     {calculationResults.networkAddress}
                     <InfoTooltip>
-                      It acts as the identifier for the subnet itself, much like a street name represents an entire street. <br />
-                      It doesn&apos;t refer to a specific device but to the network as a whole. <br />
-                      For this reason, it cannot be assigned to any individual device.
+                      It acts as the identifier for the subnet itself, much like
+                      a street name represents an entire street. <br />
+                      It doesn&apos;t refer to a specific device but to the
+                      network as a whole. <br />
+                      For this reason, it cannot be assigned to any individual
+                      device.
                     </InfoTooltip>
                   </span>
                 </div>
@@ -291,7 +294,9 @@ export default function CidrCalculatorPage() {
                   <span className="font-code">
                     {calculationResults.broadcastAddress}
                     <InfoTooltip>
-                      It serves as the &quot;send to all&quot; address. A packet sent to this address is received by every other device within that same subnet. <br />
+                      It serves as the &quot;send to all&quot; address. A packet
+                      sent to this address is received by every other device
+                      within that same subnet. <br />
                       Therefore, it cannot be assigned to a single device.
                     </InfoTooltip>
                   </span>
@@ -301,8 +306,10 @@ export default function CidrCalculatorPage() {
                   <span className="font-code">
                     {calculationResults.firstUsableHost}
                     <InfoTooltip>
-                      This is the first IP address that can be assigned to a device within the subnet. <br />
-                      It&apos;s like the first house on a street that can be lived in. <br />
+                      This is the first IP address that can be assigned to a
+                      device within the subnet. <br />
+                      It&apos;s like the first house on a street that can be
+                      lived in. <br />
                       It is always the <strong>network address</strong> +1.
                     </InfoTooltip>
                   </span>
@@ -312,7 +319,8 @@ export default function CidrCalculatorPage() {
                   <span className="font-code">
                     {calculationResults.lastUsableHost}
                     <InfoTooltip>
-                      This is the last address within a subnet that can be assigned to a device. <br />
+                      This is the last address within a subnet that can be
+                      assigned to a device. <br />
                       It is always the <strong>broadcast address</strong> - 1.
                     </InfoTooltip>
                   </span>
@@ -322,9 +330,14 @@ export default function CidrCalculatorPage() {
                   <span className="font-code">
                     {calculationResults.numUsableHosts.toLocaleString()}
                     <InfoTooltip>
-                      This is the total count of IP addresses available for devices within a subnet. <br />
-                      You can calculate it with the formula 2ⁿ - 2, where &apos;n&apos; is the number of host bits (the bits not used by the subnet mask). <br />
-                      The &quot;- 2&quot; accounts for the reserved <strong>network</strong> and <strong>broadcast addresses</strong>.
+                      This is the total count of IP addresses available for
+                      devices within a subnet. <br />
+                      You can calculate it with the formula 2ⁿ - 2, where
+                      &apos;n&apos; is the number of host bits (the bits not
+                      used by the subnet mask). <br />
+                      The &quot;- 2&quot; accounts for the reserved{" "}
+                      <strong>network</strong> and{" "}
+                      <strong>broadcast addresses</strong>.
                     </InfoTooltip>
                   </span>
                 </div>
@@ -333,8 +346,12 @@ export default function CidrCalculatorPage() {
                   <span className="font-code">
                     {calculationResults.subnetMask}
                     <InfoTooltip>
-                      A subnet mask is a 32-bit number that separates the network portion of an IP address from the host portion. <br />
-                      It uses a sequence of 1s to identify the network part and a sequence of 0s to identify the host part (e.g., 255.255.255.0).
+                      A subnet mask is a 32-bit number that separates the
+                      network portion of an IP address from the host portion.{" "}
+                      <br />
+                      It uses a sequence of 1s to identify the network part and
+                      a sequence of 0s to identify the host part (e.g.,
+                      255.255.255.0).
                     </InfoTooltip>
                   </span>
                 </div>
@@ -344,8 +361,11 @@ export default function CidrCalculatorPage() {
                     {calculationResults.wildcardMask}
                     <InfoTooltip>
                       The wildcard mask is the inverse of a subnet mask. <br />
-                      It is used in networking rules, like Access Control Lists (ACLs), to specify which parts of an IP address to match. <br />
-                      Where the subnet mask has a 1, the wildcard mask has a 0, and vice versa.
+                      It is used in networking rules, like Access Control Lists
+                      (ACLs), to specify which parts of an IP address to match.{" "}
+                      <br />
+                      Where the subnet mask has a 1, the wildcard mask has a 0,
+                      and vice versa.
                     </InfoTooltip>
                   </span>
                 </div>
@@ -354,9 +374,12 @@ export default function CidrCalculatorPage() {
                   <span className="font-code">
                     {calculationResults.cidrNotation}
                     <InfoTooltip>
-                      CIDR (Classless Inter-Domain Routing) notation is a compact way to represent a subnet mask. <br />
-                      It is shown as a slash followed by a number (e.g., /24), indicating how many bits are used for the network portion of the address. <br />
-                      A /24 is equivalent to a 255.255.255.0 subnet mask.
+                      CIDR (Classless Inter-Domain Routing) notation is a
+                      compact way to represent a subnet mask. <br />
+                      It is shown as a slash followed by a number (e.g., /24),
+                      indicating how many bits are used for the network portion
+                      of the address. <br />A /24 is equivalent to a
+                      255.255.255.0 subnet mask.
                     </InfoTooltip>
                   </span>
                 </div>
@@ -367,9 +390,20 @@ export default function CidrCalculatorPage() {
                     <InfoTooltip>
                       This categorizes the IP address:
                       <ul className="list-disc pl-5 mt-1">
-                        <li><b>Private:</b> Used within a local network (like a home or office) and cannot be routed on the public internet (e.g., 192.168.x.x, 10.x.x.x).</li>
-                        <li><b>Public:</b> A globally unique address that is accessible on the internet.</li>
-                        <li><b>Reserved:</b> Part of special-use ranges, such as the loopback address (127.0.0.1), which are not used for standard host assignments.</li>
+                        <li>
+                          <b>Private:</b> Used within a local network (like a
+                          home or office) and cannot be routed on the public
+                          internet (e.g., 192.168.x.x, 10.x.x.x).
+                        </li>
+                        <li>
+                          <b>Public:</b> A globally unique address that is
+                          accessible on the internet.
+                        </li>
+                        <li>
+                          <b>Reserved:</b> Part of special-use ranges, such as
+                          the loopback address (127.0.0.1), which are not used
+                          for standard host assignments.
+                        </li>
                       </ul>
                     </InfoTooltip>
                   </span>
