@@ -30,8 +30,7 @@ import {
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-
-// Metadata is now handled by layout.tsx
+import { InfoTooltip } from "@/components/InfoTooltip";
 
 interface QueryParam {
   id: string;
@@ -200,7 +199,20 @@ export default function UrlBuilderPage() {
         <CardContent className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="space-y-1">
-              <Label htmlFor="protocol">Protocol</Label>
+              <Label htmlFor="protocol">
+                Protocol
+                <InfoTooltip>
+                  Select the protocol for the URL. <br />
+                  <ul className="list-disc pl-5 mt-1">
+                    <li><b>https</b> - Secure HTTP</li>
+                    <li><b>http</b> - Standard HTTP</li>
+                    <li><b>ftp</b> - File Transfer Protocol</li>
+                    <li><b>mailto</b> - Email link</li>
+                    <li><b>tel</b> - Telephone link</li>
+                    <li><b>none</b> - Relative URL (no protocol)</li>
+                  </ul>
+                </InfoTooltip>
+              </Label>
               <Select value={protocol} onValueChange={setProtocol}>
                 <SelectTrigger id="protocol">
                   <SelectValue placeholder="Select protocol" />
@@ -216,7 +228,13 @@ export default function UrlBuilderPage() {
               </Select>
             </div>
             <div className="space-y-1 md:col-span-2">
-              <Label htmlFor="hostname">Hostname</Label>
+              <Label htmlFor="hostname">
+                Hostname
+                <InfoTooltip>
+                  Enter the hostname or IP address of the server. <br />
+                  Example: <code>www.example.com</code> or <code> 192.168.1.1</code>
+                </InfoTooltip>
+              </Label>
               <Input
                 id="hostname"
                 placeholder="www.example.com"
@@ -227,7 +245,13 @@ export default function UrlBuilderPage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="space-y-1">
-              <Label htmlFor="port">Port (Optional)</Label>
+              <Label htmlFor="port">
+                Port (Optional)
+                <InfoTooltip>
+                  Specify a port number if needed. <br />
+                  Example: <code>8080</code> or leave empty for default ports.
+                </InfoTooltip>
+              </Label>
               <Input
                 id="port"
                 type="number"
@@ -237,7 +261,13 @@ export default function UrlBuilderPage() {
               />
             </div>
             <div className="space-y-1 md:col-span-2">
-              <Label htmlFor="pathname">Pathname</Label>
+              <Label htmlFor="pathname">
+                Pathname
+                <InfoTooltip>
+                  Enter the path to the resource on the server. <br />
+                  Example: <code>/path/to/resource/index.php</code> or leave empty for root.
+                </InfoTooltip>
+              </Label>
               <Input
                 id="pathname"
                 placeholder="/path/to/resource"
@@ -269,6 +299,10 @@ export default function UrlBuilderPage() {
               <div className="grow space-y-1">
                 <Label htmlFor={`queryKey-${param.id}`} className="text-xs">
                   Key
+                  <InfoTooltip>
+                    Enter the name of the query parameter. <br />
+                    Example: <code>param1</code> or <code>page</code> or <code>article</code>
+                  </InfoTooltip>
                 </Label>
                 <Input
                   id={`queryKey-${param.id}`}
@@ -282,6 +316,10 @@ export default function UrlBuilderPage() {
               <div className="grow space-y-1">
                 <Label htmlFor={`queryValue-${param.id}`} className="text-xs">
                   Value
+                  <InfoTooltip>
+                    Enter the value for the query parameter. <br />
+                    Example: <code>value1</code> or <code>10</code> or <code>active</code>
+                  </InfoTooltip>
                 </Label>
                 <Input
                   id={`queryValue-${param.id}`}
@@ -311,7 +349,16 @@ export default function UrlBuilderPage() {
         </CardHeader>
         <CardContent>
           <div className="space-y-1">
-            <Label htmlFor="hash">Hash (without &apos;#&apos;)</Label>
+            <Label htmlFor="hash">
+              Hash (without &apos;#&apos;) (Optional)
+              <InfoTooltip>
+                Enter the fragment identifier for the URL. <br />
+                Example: <code>contact</code> or <code>top</code>
+                <br />
+                <br />
+                Note: This is most often used for single-page applications or to link to specific sections within a page.
+              </InfoTooltip>
+            </Label>
             <Input
               id="hash"
               placeholder="section-name"

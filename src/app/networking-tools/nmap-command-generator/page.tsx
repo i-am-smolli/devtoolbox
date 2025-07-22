@@ -159,7 +159,7 @@ export default function NmapCommandGeneratorPage() {
             <Label htmlFor="target">Target (IP, Hostname, Range)</Label>
             <InfoTooltip>
               Enter a single IP address, hostname, or CIDR range <br/ >
-              (e.g., 8.8.8.8, scanme.nmap.org or 192.168.1.0/24).
+              Example: <code>scanme.nmap.org</code> or <code>192.168.1.0/24</code>
             </InfoTooltip>
             <Input
               id="target"
