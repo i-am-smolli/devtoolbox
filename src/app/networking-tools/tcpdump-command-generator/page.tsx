@@ -360,7 +360,7 @@ export default function TcpdumpCommandGeneratorPage() {
                     Type
                     <InfoTooltip>
                       Select the type of filter to apply: <br />
-                      <ul>
+                      <ul className="list-disc pl-5 mt-1">
                         <li><b>Host</b> (IP address or hostname)</li> 
                         <li><b>Port</b> (TCP/UDP port)</li> 
                         <li><b>Network</b> (CIDR: e.g. 192.168.1.0/24)</li> 
