@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { useState, useEffect, useRef } from "react";
 import { PageHeader } from "@/components/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -11,6 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { LockKeyhole, Copy, AlertTriangle, Info } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useCallback } from "react";
 
 // Metadata is now handled by layout.tsx
 
@@ -43,9 +43,9 @@ export default function JwtDecoderPage() {
       textareaRef.current.style.height = "auto";
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
     }
-  }, [jwtInput]);
+  }, []);
 
-  const decodePart = (part: string): DecodedJwtPart => {
+  const decodePart = useCallback((part: string): DecodedJwtPart => {
     try {
       let base64 = part.replace(/-/g, "+").replace(/_/g, "/");
       const padding = base64.length % 4;
@@ -70,7 +70,7 @@ export default function JwtDecoderPage() {
             : "Invalid encoding or JSON format",
       };
     }
-  };
+  }, []);
 
   useEffect(() => {
     if (!jwtInput.trim()) {
@@ -102,7 +102,7 @@ export default function JwtDecoderPage() {
         "Error decoding header or payload. Check individual parts for details.",
       );
     }
-  }, [jwtInput]);
+  }, [jwtInput, decodePart]);
 
   const handleCopyToClipboard = async (
     text: string | object | null,

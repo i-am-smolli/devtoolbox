@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { useState, useEffect, useRef } from "react";
 import { PageHeader } from "@/components/page-header";
 import {
@@ -41,14 +40,14 @@ export default function UuidGeneratorPage() {
       outputTextareaRef.current.style.height = "auto";
       outputTextareaRef.current.style.height = `${outputTextareaRef.current.scrollHeight}px`;
     }
-  }, [generatedUuids]);
+  }, []);
 
   const handleGenerateUuids = () => {
     setError(null);
     setGeneratedUuids("");
     if (!isClient) return; // crypto API only available on client
 
-    if (isNaN(count) || count < MIN_COUNT || count > MAX_COUNT) {
+    if (Number.isNaN(count) || count < MIN_COUNT || count > MAX_COUNT) {
       setError(
         `Number of UUIDs must be between ${MIN_COUNT} and ${MAX_COUNT}.`,
       );
@@ -123,7 +122,7 @@ export default function UuidGeneratorPage() {
               onChange={(e) => {
                 const val = parseInt(e.target.value, 10);
                 // Allow clearing the input, handle NaN on generate
-                setCount(isNaN(val) ? 0 : val);
+                setCount(Number.isNaN(val) ? 0 : val);
               }}
               min={MIN_COUNT}
               max={MAX_COUNT}

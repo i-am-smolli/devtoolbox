@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import type React from "react";
 import { useState, useEffect, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -54,7 +54,7 @@ export default function MarkdownPreviewPage() {
       textareaRef.current.style.height = "auto"; // Reset height to recalculate
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
     }
-  }, [isClient, markdownInput]);
+  }, [isClient]);
 
   const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setMarkdownInput(e.target.value);
@@ -106,7 +106,10 @@ export default function MarkdownPreviewPage() {
                         ...rest
                       }: React.ImgHTMLAttributes<HTMLImageElement>) => {
                         const altText = alt || "";
-                        if (src && src.startsWith("https://placehold.co/")) {
+                        if (
+                          typeof src === "string" &&
+                          src.startsWith("https://placehold.co/")
+                        ) {
                           return (
                             <img
                               src={src}
@@ -116,7 +119,13 @@ export default function MarkdownPreviewPage() {
                             />
                           );
                         }
-                        return <img src={src} alt={altText} {...rest} />;
+                        return (
+                          <img
+                            src={typeof src === "string" ? src : undefined}
+                            alt={altText}
+                            {...rest}
+                          />
+                        );
                       },
                     }}
                   >

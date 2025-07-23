@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { useState, useEffect, useCallback } from "react";
 import { PageHeader } from "@/components/page-header";
 import {
@@ -99,7 +98,7 @@ export default function TcpdumpCommandGeneratorPage() {
 
     if (packetCount.trim()) {
       const count = parseInt(packetCount, 10);
-      if (!isNaN(count) && count > 0) {
+      if (!Number.isNaN(count) && count > 0) {
         commandParts.push(`-c ${count}`);
       } else {
         setError("Packet count must be a positive number.");
@@ -108,7 +107,7 @@ export default function TcpdumpCommandGeneratorPage() {
 
     if (snapLen.trim() && snapLen.trim() !== "0") {
       const len = parseInt(snapLen, 10);
-      if (!isNaN(len) && len >= 0) {
+      if (!Number.isNaN(len) && len >= 0) {
         commandParts.push(`-s ${len}`);
       } else {
         setError("Snapshot length must be a non-negative number.");
@@ -146,7 +145,7 @@ export default function TcpdumpCommandGeneratorPage() {
       if (index < filters.length - 1) {
         // Check if next filter is not empty
         const nextFilter = filters[index + 1];
-        if (nextFilter && nextFilter.value.trim()) {
+        if (nextFilter?.value.trim()) {
           filterExpressionParts.push(filter.conjunction);
         }
       }

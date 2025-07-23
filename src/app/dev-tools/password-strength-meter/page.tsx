@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import type React from "react";
 import { useState, useEffect } from "react";
 import { PageHeader } from "@/components/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -207,7 +207,7 @@ const calculatePasswordStrength = (
     finalDisplaySuggestions.push(
       allPossibleSuggestions.find((s) =>
         s.startsWith("Password is too short"),
-      )!,
+      ) ?? "Password is too short (minimum 8 characters recommended).",
     );
     finalDisplaySuggestions.push(
       ...allPossibleSuggestions.filter(
@@ -501,8 +501,8 @@ export default function PasswordStrengthMeterPage() {
               <AlertTitle>{getAlertTitle()}</AlertTitle>
               <AlertDescription>
                 <ul className="list-disc list-inside space-y-1">
-                  {strength.suggestions.map((suggestion, index) => (
-                    <li key={index}>{suggestion}</li>
+                  {strength.suggestions.map((suggestion) => (
+                    <li key={suggestion}>{suggestion}</li>
                   ))}
                 </ul>
               </AlertDescription>

@@ -51,25 +51,30 @@ export default function YamlJsonConverterPage() {
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
 
-  const yamlTextareaRef = useRef<HTMLTextAreaElement>(null);
-  const jsonTextareaRef = useRef<HTMLTextAreaElement>(null);
+  const yamlTextareaRef = useRef<HTMLTextAreaElement>(
+    null,
+  ) as React.RefObject<HTMLTextAreaElement>;
+  const jsonTextareaRef = useRef<HTMLTextAreaElement>(
+    null,
+  ) as React.RefObject<HTMLTextAreaElement>;
 
-  const adjustTextareaHeight = (
-    textareaRef: React.RefObject<HTMLTextAreaElement>,
-  ) => {
-    if (textareaRef.current) {
-      textareaRef.current.style.height = "auto";
-      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
-    }
-  };
+  const adjustTextareaHeight = React.useCallback(
+    (textareaRef: React.RefObject<HTMLTextAreaElement>) => {
+      if (textareaRef.current) {
+        textareaRef.current.style.height = "auto";
+        textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+      }
+    },
+    [],
+  );
 
   useEffect(() => {
     adjustTextareaHeight(yamlTextareaRef);
-  }, [yamlInput]);
+  }, [adjustTextareaHeight]);
 
   useEffect(() => {
     adjustTextareaHeight(jsonTextareaRef);
-  }, [jsonInput]);
+  }, [adjustTextareaHeight]);
 
   const handleYamlInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setYamlInput(e.target.value);

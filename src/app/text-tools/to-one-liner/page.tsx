@@ -1,7 +1,6 @@
 "use client";
 
-import React from "react";
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { PageHeader } from "@/components/page-header";
 import {
   Card,
@@ -25,15 +24,18 @@ export default function ToOneLinerPage() {
   const inputTextareaRef = useRef<HTMLTextAreaElement>(null);
   const outputTextareaRef = useRef<HTMLTextAreaElement>(null);
 
-  const adjustTextareaHeight = (ref: React.RefObject<HTMLTextAreaElement>) => {
-    if (ref.current) {
-      ref.current.style.height = "auto";
-      ref.current.style.height = `${ref.current.scrollHeight}px`;
-    }
-  };
+  const adjustTextareaHeight = React.useCallback(
+    (ref: React.RefObject<HTMLTextAreaElement | null>) => {
+      if (ref.current) {
+        ref.current.style.height = "auto";
+        ref.current.style.height = `${ref.current.scrollHeight}px`;
+      }
+    },
+    []
+  );
 
-  useEffect(() => adjustTextareaHeight(inputTextareaRef), [inputText]);
-  useEffect(() => adjustTextareaHeight(outputTextareaRef), [outputText]);
+  useEffect(() => adjustTextareaHeight(inputTextareaRef), [adjustTextareaHeight]);
+  useEffect(() => adjustTextareaHeight(outputTextareaRef), [adjustTextareaHeight]);
 
   const handleConvertToOneLine = () => {
     if (!inputText.trim()) {

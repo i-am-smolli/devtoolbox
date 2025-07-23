@@ -29,14 +29,7 @@ export default function JsonAnalyzerPage() {
   const [isValid, setIsValid] = useState<boolean | null>(null);
   const [isClient, setIsClient] = useState(false);
 
-  useEffect(() => {
-    setIsClient(true);
-    if (initialJson) {
-      handleAnalyze(JSON.stringify(initialJson, null, 2));
-    }
-  }, []);
-
-  const handleAnalyze = (currentInput: string) => {
+  const handleAnalyze = React.useCallback((currentInput: string) => {
     if (!currentInput.trim()) {
       setFormattedJson("");
       setError(null);
@@ -57,7 +50,15 @@ export default function JsonAnalyzerPage() {
       );
       setIsValid(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    setIsClient(true);
+    if (initialJson) {
+      handleAnalyze(JSON.stringify(initialJson, null, 2));
+    }
+  }, [handleAnalyze]);
+
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newText = e.target.value;

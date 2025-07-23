@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { useState, useEffect, useRef } from "react";
 import { PageHeader } from "@/components/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -49,7 +48,7 @@ export default function HashGeneratorPage() {
       textareaRef.current.style.height = "auto";
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
     }
-  }, [inputText]);
+  }, []);
 
   function bufferToHex(buffer: ArrayBuffer): string {
     return Array.from(new Uint8Array(buffer))

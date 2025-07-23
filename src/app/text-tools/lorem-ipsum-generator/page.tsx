@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { useState, useEffect, useRef } from "react";
 import { PageHeader } from "@/components/page-header";
 import {
@@ -224,7 +223,7 @@ export default function LoremIpsumGeneratorPage() {
       outputTextareaRef.current.style.height = "auto";
       outputTextareaRef.current.style.height = `${outputTextareaRef.current.scrollHeight}px`;
     }
-  }, [isClient, outputText]);
+  }, [isClient]);
 
   const getRandomInt = (min: number, max: number) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -243,7 +242,7 @@ export default function LoremIpsumGeneratorPage() {
     for (let i = 0; i < numWords; i++) {
       sentence += getRandomWord(wordList) + (i === numWords - 1 ? "" : " ");
     }
-    return sentence.charAt(0).toUpperCase() + sentence.slice(1) + ".";
+    return `${sentence.charAt(0).toUpperCase() + sentence.slice(1)}.`;
   };
 
   const generateParagraph = (

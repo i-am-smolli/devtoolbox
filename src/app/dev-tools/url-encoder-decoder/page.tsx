@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import type React from "react";
 import { useState, useEffect, useRef } from "react";
 import { PageHeader } from "@/components/page-header";
 import {
@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Link as LinkIcon, Copy, AlertCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useCallback } from "react";
 
 // Metadata is now handled by layout.tsx
 
@@ -27,17 +28,18 @@ export default function UrlEncoderDecoderPage() {
   const plainTextRef = useRef<HTMLTextAreaElement>(null);
   const encodedTextRef = useRef<HTMLTextAreaElement>(null);
 
-  const adjustTextareaHeight = (
-    textareaRef: React.RefObject<HTMLTextAreaElement>,
-  ) => {
-    if (textareaRef.current) {
-      textareaRef.current.style.height = "auto";
-      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
-    }
-  };
+  const adjustTextareaHeight = useCallback(
+    (textareaRef: React.RefObject<HTMLTextAreaElement | null>) => {
+      if (textareaRef.current) {
+        textareaRef.current.style.height = "auto";
+        textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+      }
+    },
+    [],
+  );
 
-  useEffect(() => adjustTextareaHeight(plainTextRef), [plainText]);
-  useEffect(() => adjustTextareaHeight(encodedTextRef), [encodedText]);
+  useEffect(() => adjustTextareaHeight(plainTextRef), [adjustTextareaHeight]);
+  useEffect(() => adjustTextareaHeight(encodedTextRef), [adjustTextareaHeight]);
 
   const handleEncode = () => {
     setError(null);

@@ -42,21 +42,7 @@ export default function UrlExplorerPage() {
   const [isClient, setIsClient] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  useEffect(() => {
-    setIsClient(true);
-    if (urlInput) {
-      handleParseUrl(urlInput);
-    }
-  }, []); // Only run on mount with initial URL
-
-  useEffect(() => {
-    if (isClient && textareaRef.current) {
-      textareaRef.current.style.height = "auto";
-      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
-    }
-  }, [isClient, urlInput]);
-
-  const handleParseUrl = (currentInput: string) => {
+  const handleParseUrl = React.useCallback((currentInput: string) => {
     if (!currentInput.trim()) {
       setParsedDetails(null);
       setError(null);
@@ -87,7 +73,21 @@ export default function UrlExplorerPage() {
           : "Invalid URL format. Please enter a full URL including protocol (e.g., https://).",
       );
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    setIsClient(true);
+    if (urlInput) {
+      handleParseUrl(urlInput);
+    }
+  }, [handleParseUrl, urlInput]); // Only run on mount with initial URL
+
+  useEffect(() => {
+    if (isClient && textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
+  }, [isClient]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newText = e.target.value;
@@ -147,7 +147,6 @@ export default function UrlExplorerPage() {
                       </Label>
                       <div
                         className="flex h-auto min-h-10 w-full items-center rounded-md border border-input bg-muted/50 px-3 py-2 text-base font-code break-all md:text-sm"
-                        aria-label={`${key} value`}
                       >
                         {parsedDetails[key] as string}
                       </div>

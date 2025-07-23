@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { useState, useEffect, useCallback } from "react";
 import { PageHeader } from "@/components/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -105,7 +104,7 @@ export default function CidrCalculatorPage() {
       const ip = parts[0];
       const prefix = parseInt(parts[1], 10);
 
-      if (isNaN(prefix) || prefix < 0 || prefix > 32) return null;
+      if (Number.isNaN(prefix) || prefix < 0 || prefix > 32) return null;
 
       const ipLong = ipToLong(ip);
       if (ipLong === null) return null;
@@ -127,7 +126,7 @@ export default function CidrCalculatorPage() {
 
       const numUsableHosts =
         prefix <= 30
-          ? Math.pow(2, 32 - prefix) - 2
+          ? 2 ** (32 - prefix) - 2
           : prefix === 31
             ? 0
             : prefix === 32
@@ -179,7 +178,8 @@ export default function CidrCalculatorPage() {
       // Auto-calculate on initial load or if cidrInput changes programmatically
       handleCalculateCidr();
     }
-  }, [isClient]); // Removed handleCalculateCidr from deps to avoid re-calc on its own change
+  }, [isClient, cidrInput, // Auto-calculate on initial load or if cidrInput changes programmatically
+      handleCalculateCidr]); // Removed handleCalculateCidr from deps to avoid re-calc on its own change
 
   const handleGenerateSubnets = useCallback(() => {
     setSubnetError(null);
@@ -192,7 +192,7 @@ export default function CidrCalculatorPage() {
     }
 
     const newPrefix = parseInt(newPrefixLengthInput, 10);
-    if (isNaN(newPrefix) || newPrefix <= baseParsed.prefix || newPrefix > 32) {
+    if (Number.isNaN(newPrefix) || newPrefix <= baseParsed.prefix || newPrefix > 32) {
       setSubnetError(
         `New prefix length must be a number greater than ${baseParsed.prefix} and less than or equal to 32.`,
       );
@@ -201,8 +201,8 @@ export default function CidrCalculatorPage() {
 
     const subnets: SubnetInfo[] = [];
     const subnetBits = newPrefix - baseParsed.prefix;
-    const numberOfSubnets = Math.pow(2, subnetBits);
-    const subnetSize = Math.pow(2, 32 - newPrefix);
+    const numberOfSubnets = 2 ** subnetBits;
+    const subnetSize = 2 ** (32 - newPrefix);
 
     let currentNetworkLong =
       baseParsed.ipLong & ((-1 << (32 - baseParsed.prefix)) >>> 0); // Ensure base network address
@@ -476,8 +476,8 @@ export default function CidrCalculatorPage() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {generatedSubnets.map((subnet, index) => (
-                    <TableRow key={index}>
+                  {generatedSubnets.map((subnet) => (
+                    <TableRow key={subnet.networkAddress + "/" + subnet.cidrNotation}>
                       <TableCell className="font-code">
                         {subnet.networkAddress}
                       </TableCell>

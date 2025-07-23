@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { useState, useEffect, useCallback, useRef } from "react";
 import { PageHeader } from "@/components/page-header";
 import {
@@ -156,7 +155,7 @@ export default function UrlBuilderPage() {
       generatedUrlTextareaRef.current.style.height = "auto";
       generatedUrlTextareaRef.current.style.height = `${generatedUrlTextareaRef.current.scrollHeight}px`;
     }
-  }, [generatedUrl]);
+  }, []);
 
   const handleCopyToClipboard = async () => {
     if (!generatedUrl || error) {

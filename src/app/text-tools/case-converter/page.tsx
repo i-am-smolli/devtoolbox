@@ -1,19 +1,20 @@
 "use client";
+import type React from "react";
 
-import React from "react";
-import { useState, useEffect, useRef } from "react";
 import { PageHeader } from "@/components/page-header";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
+  CardFooter,
   CardHeader,
   CardTitle,
-  CardFooter,
 } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { CaseSensitive, Copy } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { CaseSensitive, Copy } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { useCallback } from "react";
 
 // Helper function to split words from various formats
 const toWords = (str: string): string[] => {
@@ -85,18 +86,22 @@ export default function CaseConverterPage() {
   const [outputText, setOutputText] = useState("");
   const { toast } = useToast();
 
-  const inputTextareaRef = useRef<HTMLTextAreaElement>(null);
-  const outputTextareaRef = useRef<HTMLTextAreaElement>(null);
+  const inputTextareaRef = useRef<HTMLTextAreaElement>(
+    null,
+  ) as React.RefObject<HTMLTextAreaElement>;
+  const outputTextareaRef = useRef<HTMLTextAreaElement>(
+    null,
+  ) as React.RefObject<HTMLTextAreaElement>;
 
-  const adjustTextareaHeight = (ref: React.RefObject<HTMLTextAreaElement>) => {
+  const adjustTextareaHeight = useCallback((ref: React.RefObject<HTMLTextAreaElement>) => {
     if (ref.current) {
       ref.current.style.height = "auto";
       ref.current.style.height = `${ref.current.scrollHeight}px`;
     }
-  };
+  }, []);
 
-  useEffect(() => adjustTextareaHeight(inputTextareaRef), [inputText]);
-  useEffect(() => adjustTextareaHeight(outputTextareaRef), [outputText]);
+  useEffect(() => adjustTextareaHeight(inputTextareaRef), [adjustTextareaHeight]);
+  useEffect(() => adjustTextareaHeight(outputTextareaRef), [adjustTextareaHeight]);
 
   const handleConvert = (caseId: string) => {
     if (!inputText.trim()) {

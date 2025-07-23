@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import React from "react";
 import { PageHeader } from "@/components/page-header";
 import {
   Card,
@@ -65,7 +64,7 @@ export default function CurlGeneratorPage() {
       requestBodyTextareaRef.current.style.height = "auto";
       requestBodyTextareaRef.current.style.height = `${requestBodyTextareaRef.current.scrollHeight}px`;
     }
-  }, [requestBody]);
+  }, []);
 
   const addHeader = () => {
     setHeaders([...headers, { id: Date.now().toString(), key: "", value: "" }]);

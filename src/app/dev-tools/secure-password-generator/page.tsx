@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { useState, useEffect } from "react";
 import { PageHeader } from "@/components/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -108,7 +107,7 @@ export default function SecurePasswordGeneratorPage() {
               value={passwordLength}
               onChange={(e) => {
                 const val = parseInt(e.target.value, 10);
-                if (!isNaN(val)) {
+                if (!Number.isNaN(val)) {
                   setPasswordLength(val);
                 } else if (e.target.value === "") {
                   setPasswordLength(0); // Allow clearing, handle validation on generate

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import type React from "react";
 import { useState, useEffect, useRef } from "react";
 import { PageHeader } from "@/components/page-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -9,6 +9,7 @@ import { FolderTree, AlertCircle } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import JsonExplorerNode from "@/components/json-explorer-node";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { useCallback } from "react";
 
 // Metadata is now handled by layout.tsx
 
@@ -52,19 +53,7 @@ export default function JsonExplorerPage() {
   const [isClient, setIsClient] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  useEffect(() => {
-    setIsClient(true);
-    handleParseJson(initialJson);
-  }, []);
-
-  useEffect(() => {
-    if (isClient && textareaRef.current) {
-      textareaRef.current.style.height = "auto"; // Reset height to recalculate
-      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
-    }
-  }, [isClient, jsonInput]);
-
-  const handleParseJson = (currentInput: string) => {
+  const handleParseJson = useCallback((currentInput: string) => {
     if (!currentInput.trim()) {
       setParsedJson(null);
       setError(null);
@@ -87,7 +76,21 @@ export default function JsonExplorerPage() {
         setError("Invalid JSON format");
       }
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    setIsClient(true);
+    handleParseJson(initialJson);
+  }, [handleParseJson]);
+
+  useEffect(() => {
+    if (isClient && textareaRef.current) {
+      textareaRef.current.style.height = "auto"; // Reset height to recalculate
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
+  }, [isClient]);
+
+
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newText = e.target.value;

@@ -1,12 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   typescript: {
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: false,
   },
   eslint: {
-    ignoreDuringBuilds: true,
+    ignoreDuringBuilds: false,
   },
   reactStrictMode: true,
   images: {
@@ -19,10 +18,9 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-};
 
-module.exports = {
   output: process.env.BUILD_STANDALONE === "true" ? "standalone" : undefined,
+
   async headers() {
     return [
       {
@@ -64,7 +62,6 @@ module.exports = {
         ],
       },
       {
-        // I'm not happy about this, but it's necessary for the markdown preview to work correctly. Maybe someone smarter than me can figure out a better way.
         source: "/markdown-preview",
         headers: [
           {

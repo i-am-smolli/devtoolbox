@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import type React from "react";
 import { useState, useEffect, useRef } from "react";
 import { PageHeader } from "@/components/page-header";
 import {
@@ -56,7 +56,7 @@ export default function DockerfileLinterPage() {
       textareaRef.current.style.height = "auto";
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
     }
-  }, [dockerfileContent]);
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setDockerfileContent(e.target.value);
@@ -212,8 +212,11 @@ export default function DockerfileLinterPage() {
                       </AlertDescription>
                     </Alert>
                     <ul className="space-y-2">
-                      {issues.map((issue, index) => (
-                        <li key={index} className="text-sm">
+                      {issues.map((issue) => (
+                        <li
+                          key={`${issue.line}-${issue.type}-${issue.message}`}
+                          className="text-sm"
+                        >
                           <span
                             className={`font-semibold ${issue.type === "warning" ? "text-yellow-500" : ""}`}
                           >
@@ -236,9 +239,9 @@ export default function DockerfileLinterPage() {
               )}
               {!isLoading && issues.length > 0 && (
                 <ul className="mt-4 space-y-2">
-                  {issues.map((issue, index) => (
+                  {issues.map((issue) => (
                     <li
-                      key={index}
+                      key={`${issue.line}-${issue.type}-${issue.message}`}
                       className="text-sm p-2 rounded-md bg-muted/50"
                     >
                       <span

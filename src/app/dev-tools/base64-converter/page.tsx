@@ -22,20 +22,21 @@ export default function Base64ConverterPage() {
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
 
-  const plainTextRef = useRef<HTMLTextAreaElement>(null);
-  const base64TextRef = useRef<HTMLTextAreaElement>(null);
+  const plainTextRef = useRef<HTMLTextAreaElement | null>(null);
+  const base64TextRef = useRef<HTMLTextAreaElement | null>(null);
 
-  const adjustTextareaHeight = (
-    textareaRef: React.RefObject<HTMLTextAreaElement>,
-  ) => {
-    if (textareaRef.current) {
-      textareaRef.current.style.height = "auto";
-      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
-    }
-  };
+  const adjustTextareaHeight = React.useCallback(
+    (textareaRef: React.RefObject<HTMLTextAreaElement | null>) => {
+      if (textareaRef.current) {
+        textareaRef.current.style.height = "auto";
+        textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+      }
+    },
+    [],
+  );
 
-  useEffect(() => adjustTextareaHeight(plainTextRef), [plainText]);
-  useEffect(() => adjustTextareaHeight(base64TextRef), [base64Text]);
+  useEffect(() => adjustTextareaHeight(plainTextRef), [adjustTextareaHeight]);
+  useEffect(() => adjustTextareaHeight(base64TextRef), [adjustTextareaHeight]);
 
   const handleEncode = () => {
     setError(null);

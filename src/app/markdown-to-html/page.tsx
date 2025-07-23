@@ -52,8 +52,33 @@ export default function MarkdownToHtmlPage() {
   const [isClient, setIsClient] = useState(false);
   const { toast } = useToast();
 
-  const markdownTextareaRef = useRef<HTMLTextAreaElement>(null);
-  const htmlTextareaRef = useRef<HTMLTextAreaElement>(null);
+  const markdownTextareaRef = useRef<HTMLTextAreaElement>(
+    null,
+  ) as React.RefObject<HTMLTextAreaElement>;
+  const htmlTextareaRef = useRef<HTMLTextAreaElement>(
+    null,
+  ) as React.RefObject<HTMLTextAreaElement>;
+
+  const handleConvertToHtml = React.useCallback(
+    async (currentMarkdown: string) => {
+      if (!currentMarkdown.trim()) {
+        setHtmlOutput("");
+        return;
+      }
+      try {
+        const rawHtml = await marked.parse(currentMarkdown);
+        setHtmlOutput(rawHtml);
+      } catch {
+        setHtmlOutput("Error converting Markdown to HTML.");
+        toast({
+          title: "Conversion Error",
+          description: "Could not convert Markdown to HTML.",
+          variant: "destructive",
+        });
+      }
+    },
+    [toast],
+  );
 
   useEffect(() => {
     setIsClient(true);
@@ -61,47 +86,30 @@ export default function MarkdownToHtmlPage() {
     if (initialMarkdown) {
       handleConvertToHtml(initialMarkdown);
     }
-  }, []);
+  }, [handleConvertToHtml]);
 
-  const adjustTextareaHeight = (
-    textareaRef: React.RefObject<HTMLTextAreaElement>,
-  ) => {
-    if (textareaRef.current) {
-      textareaRef.current.style.height = "auto";
-      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
-    }
-  };
+  const adjustTextareaHeight = React.useCallback(
+    (textareaRef: React.RefObject<HTMLTextAreaElement>) => {
+      if (textareaRef.current) {
+        textareaRef.current.style.height = "auto";
+        textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+      }
+    },
+    [],
+  );
 
   useEffect(() => {
     if (isClient) adjustTextareaHeight(markdownTextareaRef);
-  }, [isClient, markdownInput]);
+  }, [isClient, adjustTextareaHeight]);
 
   useEffect(() => {
     if (isClient) adjustTextareaHeight(htmlTextareaRef);
-  }, [isClient, htmlOutput]);
+  }, [isClient, adjustTextareaHeight]);
 
   const handleMarkdownInputChange = (
     e: React.ChangeEvent<HTMLTextAreaElement>,
   ) => {
     setMarkdownInput(e.target.value);
-  };
-
-  const handleConvertToHtml = async (currentMarkdown: string) => {
-    if (!currentMarkdown.trim()) {
-      setHtmlOutput("");
-      return;
-    }
-    try {
-      const rawHtml = await marked.parse(currentMarkdown);
-      setHtmlOutput(rawHtml);
-    } catch {
-      setHtmlOutput("Error converting Markdown to HTML.");
-      toast({
-        title: "Conversion Error",
-        description: "Could not convert Markdown to HTML.",
-        variant: "destructive",
-      });
-    }
   };
 
   const handleCopyHtml = async () => {

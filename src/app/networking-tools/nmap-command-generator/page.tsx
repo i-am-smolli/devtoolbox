@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { useState, useEffect, useCallback, useRef } from "react";
 import { PageHeader } from "@/components/page-header";
 import {
@@ -114,7 +113,7 @@ export default function NmapCommandGeneratorPage() {
       commandTextareaRef.current.style.height = "auto";
       commandTextareaRef.current.style.height = `${commandTextareaRef.current.scrollHeight}px`;
     }
-  }, [generatedCommand]);
+  }, []);
 
   const handleCopyToClipboard = async () => {
     if (!generatedCommand || error) {

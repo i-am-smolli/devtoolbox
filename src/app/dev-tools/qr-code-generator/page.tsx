@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { useState, useEffect, useCallback, useRef } from "react";
 import { PageHeader } from "@/components/page-header";
 import {
@@ -117,7 +116,7 @@ export default function QrCodeGeneratorPage() {
           emailParams.append("subject", formData.emailSubject);
         if (formData.emailBody) emailParams.append("body", formData.emailBody);
         setQrValue(
-          `mailto:${formData.emailTo}${emailParams.toString() ? "?" + emailParams.toString() : ""}`,
+          `mailto:${formData.emailTo}${emailParams.toString() ? `?${emailParams.toString()}` : ""}`,
         );
         break;
       }
@@ -128,7 +127,9 @@ export default function QrCodeGeneratorPage() {
           return;
         }
         if (
+          Number.
           isNaN(parseFloat(formData.geoLatitude)) ||
+          Number.
           isNaN(parseFloat(formData.geoLongitude))
         ) {
           setError("Latitude and Longitude must be valid numbers.");
@@ -146,7 +147,7 @@ export default function QrCodeGeneratorPage() {
     if (isClient) {
       generateQrValue();
     }
-  }, [activeTab, formData, generateQrValue, isClient]);
+  }, [generateQrValue, isClient]);
 
   const handleDownload = () => {
     if (!qrCodeRef.current || error || !qrValue) {
