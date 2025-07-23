@@ -17,7 +17,7 @@ const initialJson = {
   version: "1.0.0",
   features: ["Hex to Binary", "Markdown Preview", "JSON Analyzer"],
   settings: { darkMode: true, fontSize: 14 },
-  author: "iamsmolli",
+  author: "i-am-smolli",
 };
 
 export default function JsonAnalyzerPage() {

@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     canonical: "./",
   },
   description:
-    "DevToolbox: A comprehensive suite of free online developer tools, including converters, generators, formatters, and utilities for JSON, YAML, Markdown, and more.",
+    "DevToolbox is a lightweight, privacy-first suite of web-based tools for developers. From encoders to generators and analyzers — no cookies, no fluff, just tools that work.",
   keywords: [
     "developer tools",
     "online tools",
