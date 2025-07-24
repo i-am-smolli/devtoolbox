@@ -1,15 +1,14 @@
 "use client";
 
+import { AlertCircle, FolderTree } from "lucide-react";
 import type React from "react";
-import { useState, useEffect, useRef } from "react";
-import { PageHeader } from "@/components/page-header";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Textarea } from "@/components/ui/textarea";
-import { FolderTree, AlertCircle } from "lucide-react";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { useCallback, useEffect, useRef, useState } from "react";
 import JsonExplorerNode from "@/components/json-explorer-node";
+import { PageHeader } from "@/components/page-header";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useCallback } from "react";
+import { Textarea } from "@/components/ui/textarea";
 
 // Metadata is now handled by layout.tsx
 
@@ -89,8 +88,6 @@ export default function JsonExplorerPage() {
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
     }
   }, [isClient]);
-
-
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newText = e.target.value;

@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { AlertCircle, Palette } from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
 import { PageHeader } from "@/components/page-header";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Palette, AlertCircle } from "lucide-react";
 
 // Conversion Functions
 function hexToRgb(hex: string): { r: number; g: number; b: number } | null {
@@ -200,12 +200,9 @@ export default function ColorConverterPage() {
       const bNum = parseInt(b, 10);
 
       if (
-        Number.
-        isNaN(rNum) ||
-        Number.
-        isNaN(gNum) ||
-        Number.
-        isNaN(bNum) ||
+        Number.isNaN(rNum) ||
+        Number.isNaN(gNum) ||
+        Number.isNaN(bNum) ||
         rNum < 0 ||
         rNum > 255 ||
         gNum < 0 ||
@@ -230,12 +227,9 @@ export default function ColorConverterPage() {
       const lNum = parseInt(l, 10);
 
       if (
-        Number.
-        isNaN(hNum) ||
-        Number.
-        isNaN(sNum) ||
-        Number.
-        isNaN(lNum) ||
+        Number.isNaN(hNum) ||
+        Number.isNaN(sNum) ||
+        Number.isNaN(lNum) ||
         hNum < 0 ||
         hNum > 360 ||
         sNum < 0 ||

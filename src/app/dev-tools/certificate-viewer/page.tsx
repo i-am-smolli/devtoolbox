@@ -1,17 +1,25 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { AlertCircle, Copy, FileKey, RefreshCw } from "lucide-react";
+import forge from "node-forge";
+import { useEffect, useRef, useState } from "react";
 import { PageHeader } from "@/components/page-header";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
+  CardFooter,
   CardHeader,
   CardTitle,
-  CardFooter,
 } from "@/components/ui/card";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import {
   Table,
   TableBody,
@@ -20,16 +28,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import { FileKey, AlertCircle, Copy, RefreshCw } from "lucide-react";
+import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import forge from "node-forge";
-import { Badge } from "@/components/ui/badge";
 
 interface CertificateAttribute {
   oid: string;

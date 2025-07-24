@@ -156,9 +156,7 @@ const JsonExplorerNode: FC<JsonExplorerNodeProps> = ({
                 typeof item === "object" &&
                 "id" in (item as Record<string, unknown>)
               ) {
-                itemKey = String(
-                  (item as Record<string, unknown>).id
-                );
+                itemKey = String((item as Record<string, unknown>).id);
               } else {
                 itemKey = `${name ?? "item"}-${index}`;
               }

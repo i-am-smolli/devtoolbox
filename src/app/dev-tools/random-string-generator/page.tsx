@@ -1,22 +1,21 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { AlertCircle, Copy, RefreshCw, Shuffle } from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
 import { PageHeader } from "@/components/page-header";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
+  CardFooter,
   CardHeader,
   CardTitle,
-  CardFooter,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Shuffle, Copy, AlertCircle, RefreshCw } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { useCallback } from "react";
 
 const MIN_LENGTH = 1;
 const MAX_LENGTH = 2048;
@@ -92,8 +91,6 @@ export default function RandomStringGeneratorPage() {
     handleGenerateString();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [handleGenerateString]);
-
-
 
   const handleCopyToClipboard = async () => {
     if (!generatedString) return;

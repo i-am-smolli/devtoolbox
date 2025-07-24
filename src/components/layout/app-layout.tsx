@@ -1,20 +1,20 @@
 "use client";
 
-import type React from "react";
+import { Github } from "lucide-react";
 import Link from "next/link";
+import type React from "react";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 import {
-  SidebarProvider,
   Sidebar,
-  SidebarHeader,
   SidebarContent,
   SidebarFooter,
+  SidebarHeader,
   SidebarInset,
+  SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { Separator } from "@/components/ui/separator";
 import { MainNav } from "./main-nav";
-import { Button } from "@/components/ui/button";
-import { Github } from "lucide-react";
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
   return (

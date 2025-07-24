@@ -1,21 +1,20 @@
 "use client";
 
-import React from "react";
-import { useState, useEffect, useRef } from "react";
+import { BookText, Copy } from "lucide-react";
 import { marked } from "marked";
+import React, { useEffect, useRef, useState } from "react";
 import { PageHeader } from "@/components/page-header";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
+  CardFooter,
   CardHeader,
   CardTitle,
-  CardFooter,
 } from "@/components/ui/card";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { BookText, Copy } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/hooks/use-toast";
 
 // Metadata is now handled by layout.tsx
 

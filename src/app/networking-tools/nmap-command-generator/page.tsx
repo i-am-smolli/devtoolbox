@@ -1,18 +1,21 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { AlertCircle, Copy, Info, ScanSearch } from "lucide-react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { InfoTooltip } from "@/components/InfoTooltip";
 import { PageHeader } from "@/components/page-header";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
+  CardFooter,
   CardHeader,
   CardTitle,
-  CardFooter,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -21,10 +24,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { ScanSearch, Copy, AlertCircle, Info } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { InfoTooltip } from "@/components/InfoTooltip";
 
 const SCAN_TYPES = [
   { value: "-sS", label: "TCP SYN Scan (Default, Root often needed)" },

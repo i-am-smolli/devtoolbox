@@ -1,12 +1,15 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { AlertCircle, Network } from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
+import { InfoTooltip } from "@/components/InfoTooltip";
 import { PageHeader } from "@/components/page-header";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Separator } from "@/components/ui/separator";
 import {
   Table,
   TableBody,
@@ -15,9 +18,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Network, AlertCircle } from "lucide-react";
-import { Separator } from "@/components/ui/separator";
-import { InfoTooltip } from "@/components/InfoTooltip";
 
 interface CidrCalculationResults {
   networkAddress: string;
@@ -178,8 +178,11 @@ export default function CidrCalculatorPage() {
       // Auto-calculate on initial load or if cidrInput changes programmatically
       handleCalculateCidr();
     }
-  }, [isClient, cidrInput, // Auto-calculate on initial load or if cidrInput changes programmatically
-      handleCalculateCidr]); // Removed handleCalculateCidr from deps to avoid re-calc on its own change
+  }, [
+    isClient,
+    cidrInput, // Auto-calculate on initial load or if cidrInput changes programmatically
+    handleCalculateCidr,
+  ]); // Removed handleCalculateCidr from deps to avoid re-calc on its own change
 
   const handleGenerateSubnets = useCallback(() => {
     setSubnetError(null);
@@ -192,7 +195,11 @@ export default function CidrCalculatorPage() {
     }
 
     const newPrefix = parseInt(newPrefixLengthInput, 10);
-    if (Number.isNaN(newPrefix) || newPrefix <= baseParsed.prefix || newPrefix > 32) {
+    if (
+      Number.isNaN(newPrefix) ||
+      newPrefix <= baseParsed.prefix ||
+      newPrefix > 32
+    ) {
       setSubnetError(
         `New prefix length must be a number greater than ${baseParsed.prefix} and less than or equal to 32.`,
       );
@@ -477,7 +484,9 @@ export default function CidrCalculatorPage() {
                 </TableHeader>
                 <TableBody>
                   {generatedSubnets.map((subnet) => (
-                    <TableRow key={subnet.networkAddress + "/" + subnet.cidrNotation}>
+                    <TableRow
+                      key={subnet.networkAddress + "/" + subnet.cidrNotation}
+                    >
                       <TableCell className="font-code">
                         {subnet.networkAddress}
                       </TableCell>
