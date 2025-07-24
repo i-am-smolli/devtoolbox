@@ -10,8 +10,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Textarea } from "@/components/ui/textarea";
 
-// Metadata is now handled by layout.tsx
-
 const initialMarkdown = `# Markdown Previewer
 
 ## Type your Markdown on the left...
@@ -111,6 +109,7 @@ export default function MarkdownPreviewPage() {
                           src.startsWith("https://placehold.co/")
                         ) {
                           return (
+                            // biome-ignore lint/performance/noImgElement: Placeholder images
                             <img
                               src={src}
                               alt={altText}
@@ -120,6 +119,7 @@ export default function MarkdownPreviewPage() {
                           );
                         }
                         return (
+                          // biome-ignore lint/performance/noImgElement: Placeholder images
                           <img
                             src={typeof src === "string" ? src : undefined}
                             alt={altText}
