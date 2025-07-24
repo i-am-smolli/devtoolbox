@@ -485,7 +485,7 @@ export default function CidrCalculatorPage() {
                 <TableBody>
                   {generatedSubnets.map((subnet) => (
                     <TableRow
-                      key={subnet.networkAddress + "/" + subnet.cidrNotation}
+                      key={`${subnet.networkAddress}/${subnet.cidrNotation}`}
                     >
                       <TableCell className="font-code">
                         {subnet.networkAddress}
