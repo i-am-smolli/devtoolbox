@@ -1,19 +1,17 @@
 "use client";
-import React from "react";
-
-import { useState, useEffect, useRef } from "react";
+import { AlertCircle, Copy, Shuffle } from "lucide-react";
+import React, { useEffect, useRef, useState } from "react";
 import { PageHeader } from "@/components/page-header";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
+  CardFooter,
   CardHeader,
   CardTitle,
-  CardFooter,
 } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Shuffle, Copy, AlertCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 export default function Base64ConverterPage() {
@@ -22,20 +20,21 @@ export default function Base64ConverterPage() {
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
 
-  const plainTextRef = useRef<HTMLTextAreaElement>(null);
-  const base64TextRef = useRef<HTMLTextAreaElement>(null);
+  const plainTextRef = useRef<HTMLTextAreaElement | null>(null);
+  const base64TextRef = useRef<HTMLTextAreaElement | null>(null);
 
-  const adjustTextareaHeight = (
-    textareaRef: React.RefObject<HTMLTextAreaElement>,
-  ) => {
-    if (textareaRef.current) {
-      textareaRef.current.style.height = "auto";
-      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
-    }
-  };
+  const adjustTextareaHeight = React.useCallback(
+    (textareaRef: React.RefObject<HTMLTextAreaElement | null>) => {
+      if (textareaRef.current) {
+        textareaRef.current.style.height = "auto";
+        textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+      }
+    },
+    [],
+  );
 
-  useEffect(() => adjustTextareaHeight(plainTextRef), [plainText]);
-  useEffect(() => adjustTextareaHeight(base64TextRef), [base64Text]);
+  useEffect(() => adjustTextareaHeight(plainTextRef), [adjustTextareaHeight]);
+  useEffect(() => adjustTextareaHeight(base64TextRef), [adjustTextareaHeight]);
 
   const handleEncode = () => {
     setError(null);

@@ -1,14 +1,13 @@
 "use client";
 
-import React from "react";
-import { useState, useEffect } from "react";
+import { AlertCircle, CheckCircle, Code2 } from "lucide-react";
+import React, { useEffect, useState } from "react";
 import { PageHeader } from "@/components/page-header";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { Code2, AlertCircle, CheckCircle } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Textarea } from "@/components/ui/textarea";
 
 // Metadata is now handled by layout.tsx
 
@@ -29,14 +28,7 @@ export default function JsonAnalyzerPage() {
   const [isValid, setIsValid] = useState<boolean | null>(null);
   const [isClient, setIsClient] = useState(false);
 
-  useEffect(() => {
-    setIsClient(true);
-    if (initialJson) {
-      handleAnalyze(JSON.stringify(initialJson, null, 2));
-    }
-  }, []);
-
-  const handleAnalyze = (currentInput: string) => {
+  const handleAnalyze = React.useCallback((currentInput: string) => {
     if (!currentInput.trim()) {
       setFormattedJson("");
       setError(null);
@@ -57,7 +49,14 @@ export default function JsonAnalyzerPage() {
       );
       setIsValid(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    setIsClient(true);
+    if (initialJson) {
+      handleAnalyze(JSON.stringify(initialJson, null, 2));
+    }
+  }, [handleAnalyze]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newText = e.target.value;

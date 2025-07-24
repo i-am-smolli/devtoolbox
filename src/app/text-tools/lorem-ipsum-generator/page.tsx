@@ -1,19 +1,20 @@
 "use client";
 
-import React from "react";
-import { useState, useEffect, useRef } from "react";
+import { AlertCircle, Copy, Pilcrow, RefreshCw } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { InfoTooltip } from "@/components/InfoTooltip";
 import { PageHeader } from "@/components/page-header";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
+  CardFooter,
   CardHeader,
   CardTitle,
-  CardFooter,
 } from "@/components/ui/card";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -21,10 +22,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Pilcrow, Copy, AlertCircle, RefreshCw } from "lucide-react";
+import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { InfoTooltip } from "@/components/InfoTooltip";
 
 // Metadata is now handled by layout.tsx
 
@@ -224,7 +223,7 @@ export default function LoremIpsumGeneratorPage() {
       outputTextareaRef.current.style.height = "auto";
       outputTextareaRef.current.style.height = `${outputTextareaRef.current.scrollHeight}px`;
     }
-  }, [isClient, outputText]);
+  }, [isClient]);
 
   const getRandomInt = (min: number, max: number) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -243,7 +242,7 @@ export default function LoremIpsumGeneratorPage() {
     for (let i = 0; i < numWords; i++) {
       sentence += getRandomWord(wordList) + (i === numWords - 1 ? "" : " ");
     }
-    return sentence.charAt(0).toUpperCase() + sentence.slice(1) + ".";
+    return `${sentence.charAt(0).toUpperCase() + sentence.slice(1)}.`;
   };
 
   const generateParagraph = (

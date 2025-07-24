@@ -1,18 +1,25 @@
 "use client";
 
-import React from "react";
-import { useState, useEffect, useRef } from "react";
+import { AlertCircle, Copy, FileKey, RefreshCw } from "lucide-react";
+import forge from "node-forge";
+import { useEffect, useRef, useState } from "react";
 import { PageHeader } from "@/components/page-header";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
+  CardFooter,
   CardHeader,
   CardTitle,
-  CardFooter,
 } from "@/components/ui/card";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import {
   Table,
   TableBody,
@@ -21,16 +28,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import { FileKey, AlertCircle, Copy, RefreshCw } from "lucide-react";
+import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import forge from "node-forge";
-import { Badge } from "@/components/ui/badge";
 
 interface CertificateAttribute {
   oid: string;
@@ -279,7 +278,7 @@ export default function CertificateViewerPage() {
       textareaRef.current.style.height = "auto";
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
     }
-  }, [isClient, certificateInput]);
+  }, [isClient]);
 
   const handleParseCertificate = () => {
     if (!certificateInput.trim()) {
@@ -404,8 +403,8 @@ export default function CertificateViewerPage() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {attributes.map((attr, index) => (
-                <TableRow key={`${title}-${index}`}>
+              {attributes.map((attr) => (
+                <TableRow key={`${title}-${attr.oid}-${attr.value}`}>
                   <TableCell className="font-medium break-words">
                     {attr.shortName || attr.name}
                   </TableCell>
@@ -525,7 +524,7 @@ export default function CertificateViewerPage() {
                       className="ml-2"
                       onClick={() =>
                         handleCopyToClipboard(
-                          parsedDetails.publicKey.pem!,
+                          parsedDetails.publicKey.pem || "",
                           "Public Key PEM",
                         )
                       }
@@ -574,10 +573,10 @@ export default function CertificateViewerPage() {
                 </CardHeader>
                 <CardContent>
                   <Accordion type="multiple" className="w-full">
-                    {parsedDetails.extensions.map((ext, index) => (
+                    {parsedDetails.extensions.map((ext) => (
                       <AccordionItem
-                        value={`ext-${index}`}
-                        key={`ext-${index}`}
+                        value={`ext-${ext.id}`}
+                        key={`ext-${ext.id}-${ext.name}`}
                       >
                         <AccordionTrigger className="text-sm hover:no-underline">
                           <div className="flex items-center gap-2">

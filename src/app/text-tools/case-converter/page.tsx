@@ -1,18 +1,17 @@
 "use client";
-
-import React from "react";
-import { useState, useEffect, useRef } from "react";
+import { CaseSensitive, Copy } from "lucide-react";
+import type React from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { PageHeader } from "@/components/page-header";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
+  CardFooter,
   CardHeader,
   CardTitle,
-  CardFooter,
 } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { CaseSensitive, Copy } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 // Helper function to split words from various formats
@@ -85,18 +84,31 @@ export default function CaseConverterPage() {
   const [outputText, setOutputText] = useState("");
   const { toast } = useToast();
 
-  const inputTextareaRef = useRef<HTMLTextAreaElement>(null);
-  const outputTextareaRef = useRef<HTMLTextAreaElement>(null);
+  const inputTextareaRef = useRef<HTMLTextAreaElement>(
+    null,
+  ) as React.RefObject<HTMLTextAreaElement>;
+  const outputTextareaRef = useRef<HTMLTextAreaElement>(
+    null,
+  ) as React.RefObject<HTMLTextAreaElement>;
 
-  const adjustTextareaHeight = (ref: React.RefObject<HTMLTextAreaElement>) => {
-    if (ref.current) {
-      ref.current.style.height = "auto";
-      ref.current.style.height = `${ref.current.scrollHeight}px`;
-    }
-  };
+  const adjustTextareaHeight = useCallback(
+    (ref: React.RefObject<HTMLTextAreaElement>) => {
+      if (ref.current) {
+        ref.current.style.height = "auto";
+        ref.current.style.height = `${ref.current.scrollHeight}px`;
+      }
+    },
+    [],
+  );
 
-  useEffect(() => adjustTextareaHeight(inputTextareaRef), [inputText]);
-  useEffect(() => adjustTextareaHeight(outputTextareaRef), [outputText]);
+  useEffect(
+    () => adjustTextareaHeight(inputTextareaRef),
+    [adjustTextareaHeight],
+  );
+  useEffect(
+    () => adjustTextareaHeight(outputTextareaRef),
+    [adjustTextareaHeight],
+  );
 
   const handleConvert = (caseId: string) => {
     if (!inputText.trim()) {

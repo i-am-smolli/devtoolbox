@@ -1,19 +1,28 @@
 "use client";
 
-import React from "react";
-import { useState, useEffect, useCallback } from "react";
+import {
+  AlertCircle,
+  Copy,
+  Info,
+  PlusCircle,
+  RadioTower,
+  XCircle,
+} from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
+import { InfoTooltip } from "@/components/InfoTooltip";
 import { PageHeader } from "@/components/page-header";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
+  CardFooter,
   CardHeader,
   CardTitle,
-  CardFooter,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -22,16 +31,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import {
-  RadioTower,
-  Copy,
-  AlertCircle,
-  Info,
-  XCircle,
-  PlusCircle,
-} from "lucide-react";
-import { InfoTooltip } from "@/components/InfoTooltip";
 import { useToast } from "@/hooks/use-toast";
 
 const FILTER_TYPES = [
@@ -99,7 +98,7 @@ export default function TcpdumpCommandGeneratorPage() {
 
     if (packetCount.trim()) {
       const count = parseInt(packetCount, 10);
-      if (!isNaN(count) && count > 0) {
+      if (!Number.isNaN(count) && count > 0) {
         commandParts.push(`-c ${count}`);
       } else {
         setError("Packet count must be a positive number.");
@@ -108,7 +107,7 @@ export default function TcpdumpCommandGeneratorPage() {
 
     if (snapLen.trim() && snapLen.trim() !== "0") {
       const len = parseInt(snapLen, 10);
-      if (!isNaN(len) && len >= 0) {
+      if (!Number.isNaN(len) && len >= 0) {
         commandParts.push(`-s ${len}`);
       } else {
         setError("Snapshot length must be a non-negative number.");
@@ -146,7 +145,7 @@ export default function TcpdumpCommandGeneratorPage() {
       if (index < filters.length - 1) {
         // Check if next filter is not empty
         const nextFilter = filters[index + 1];
-        if (nextFilter && nextFilter.value.trim()) {
+        if (nextFilter?.value.trim()) {
           filterExpressionParts.push(filter.conjunction);
         }
       }

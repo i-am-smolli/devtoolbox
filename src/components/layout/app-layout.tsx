@@ -1,20 +1,20 @@
 "use client";
 
-import React from "react";
+import { Github } from "lucide-react";
 import Link from "next/link";
+import type React from "react";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 import {
-  SidebarProvider,
   Sidebar,
-  SidebarHeader,
   SidebarContent,
   SidebarFooter,
+  SidebarHeader,
   SidebarInset,
+  SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { Separator } from "@/components/ui/separator";
 import { MainNav } from "./main-nav";
-import { Button } from "@/components/ui/button";
-import { Github } from "lucide-react";
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -37,6 +37,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
                 strokeLinejoin="round"
                 className="h-8 w-8 text-primary"
               >
+                <title>DevToolbox Logo</title>
                 <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
                 <line x1="3" y1="9" x2="21" y2="9"></line>
                 <line x1="9" y1="21" x2="9" y2="9"></line>

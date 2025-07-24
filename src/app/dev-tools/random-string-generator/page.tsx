@@ -1,22 +1,21 @@
 "use client";
 
-import React from "react";
-import { useState, useEffect } from "react";
+import { AlertCircle, Copy, RefreshCw, Shuffle } from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
 import { PageHeader } from "@/components/page-header";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
+  CardFooter,
   CardHeader,
   CardTitle,
-  CardFooter,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Shuffle, Copy, AlertCircle, RefreshCw } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 const MIN_LENGTH = 1;
 const MAX_LENGTH = 2048;
@@ -39,19 +38,13 @@ export default function RandomStringGeneratorPage() {
   const { toast } = useToast();
   const [isClient, setIsClient] = useState(false);
 
-  useEffect(() => {
-    setIsClient(true);
-    // Generate an initial string on load
-    handleGenerateString();
-  }, [isClient]); // Only run on client mount
-
-  const handleGenerateString = () => {
+  const handleGenerateString: () => void = useCallback(() => {
     if (!isClient) return;
     setError(null);
     setGeneratedString("");
     setIsLoading(true);
 
-    if (isNaN(length) || length < MIN_LENGTH || length > MAX_LENGTH) {
+    if (Number.isNaN(length) || length < MIN_LENGTH || length > MAX_LENGTH) {
       setError(`Length must be between ${MIN_LENGTH} and ${MAX_LENGTH}.`);
       setIsLoading(false);
       return;
@@ -83,7 +76,21 @@ export default function RandomStringGeneratorPage() {
       setGeneratedString(result);
       setIsLoading(false);
     }, 100);
-  };
+  }, [
+    isClient,
+    length,
+    includeUppercase,
+    includeLowercase,
+    includeNumbers,
+    includeSymbols,
+  ]);
+
+  useEffect(() => {
+    setIsClient(true);
+    // Generate an initial string on load
+    handleGenerateString();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [handleGenerateString]);
 
   const handleCopyToClipboard = async () => {
     if (!generatedString) return;
@@ -125,7 +132,7 @@ export default function RandomStringGeneratorPage() {
               value={length}
               onChange={(e) => {
                 const val = parseInt(e.target.value, 10);
-                setLength(isNaN(val) ? 0 : val); // Allow clearing, validate on generate
+                setLength(Number.isNaN(val) ? 0 : val); // Allow clearing, validate on generate
               }}
               min={MIN_LENGTH}
               max={MAX_LENGTH}

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import React from "react";
+import type React from "react";
 import "./globals.css";
+import { Inter, Source_Code_Pro } from "next/font/google";
 import { AppLayout } from "@/components/layout/app-layout";
 import { Toaster } from "@/components/ui/toaster";
-import { Inter, Source_Code_Pro } from "next/font/google";
 
 export const metadata: Metadata = {
   metadataBase: new URL(`https://devtoolbox.icu`),

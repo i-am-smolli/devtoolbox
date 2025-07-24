@@ -1,21 +1,20 @@
 "use client";
 
-import React from "react";
-import { useState, useEffect, useRef } from "react";
+import yaml from "js-yaml";
+import { AlertCircle, ArrowRightLeft, Copy } from "lucide-react";
+import React, { useEffect, useRef, useState } from "react";
 import { PageHeader } from "@/components/page-header";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
+  CardFooter,
   CardHeader,
   CardTitle,
-  CardFooter,
 } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { ArrowRightLeft, AlertCircle, Copy } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import yaml from "js-yaml";
 
 const placeholderYAML = `name: DevToolbox
 version: 1.0.0
@@ -51,25 +50,30 @@ export default function YamlJsonConverterPage() {
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
 
-  const yamlTextareaRef = useRef<HTMLTextAreaElement>(null);
-  const jsonTextareaRef = useRef<HTMLTextAreaElement>(null);
+  const yamlTextareaRef = useRef<HTMLTextAreaElement>(
+    null,
+  ) as React.RefObject<HTMLTextAreaElement>;
+  const jsonTextareaRef = useRef<HTMLTextAreaElement>(
+    null,
+  ) as React.RefObject<HTMLTextAreaElement>;
 
-  const adjustTextareaHeight = (
-    textareaRef: React.RefObject<HTMLTextAreaElement>,
-  ) => {
-    if (textareaRef.current) {
-      textareaRef.current.style.height = "auto";
-      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
-    }
-  };
+  const adjustTextareaHeight = React.useCallback(
+    (textareaRef: React.RefObject<HTMLTextAreaElement>) => {
+      if (textareaRef.current) {
+        textareaRef.current.style.height = "auto";
+        textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+      }
+    },
+    [],
+  );
 
   useEffect(() => {
     adjustTextareaHeight(yamlTextareaRef);
-  }, [yamlInput]);
+  }, [adjustTextareaHeight]);
 
   useEffect(() => {
     adjustTextareaHeight(jsonTextareaRef);
-  }, [jsonInput]);
+  }, [adjustTextareaHeight]);
 
   const handleYamlInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setYamlInput(e.target.value);

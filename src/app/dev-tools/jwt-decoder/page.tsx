@@ -1,15 +1,14 @@
 "use client";
 
-import React from "react";
-import { useState, useEffect, useRef } from "react";
+import { AlertTriangle, Copy, Info, LockKeyhole } from "lucide-react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { PageHeader } from "@/components/page-header";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { LockKeyhole, Copy, AlertTriangle, Info } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 
 // Metadata is now handled by layout.tsx
@@ -43,9 +42,9 @@ export default function JwtDecoderPage() {
       textareaRef.current.style.height = "auto";
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
     }
-  }, [jwtInput]);
+  }, []);
 
-  const decodePart = (part: string): DecodedJwtPart => {
+  const decodePart = useCallback((part: string): DecodedJwtPart => {
     try {
       let base64 = part.replace(/-/g, "+").replace(/_/g, "/");
       const padding = base64.length % 4;
@@ -70,7 +69,7 @@ export default function JwtDecoderPage() {
             : "Invalid encoding or JSON format",
       };
     }
-  };
+  }, []);
 
   useEffect(() => {
     if (!jwtInput.trim()) {
@@ -102,7 +101,7 @@ export default function JwtDecoderPage() {
         "Error decoding header or payload. Check individual parts for details.",
       );
     }
-  }, [jwtInput]);
+  }, [jwtInput, decodePart]);
 
   const handleCopyToClipboard = async (
     text: string | object | null,

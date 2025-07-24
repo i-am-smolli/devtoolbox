@@ -1,16 +1,15 @@
 "use client";
 
-import React from "react";
-import { useState, useEffect } from "react";
+import { AlertCircle, Copy, KeyRound } from "lucide-react";
+import { useEffect, useState } from "react";
 import { PageHeader } from "@/components/page-header";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
-import { KeyRound, Copy, AlertCircle } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useToast } from "@/hooks/use-toast";
 
 // Metadata is now handled by layout.tsx
 
@@ -108,7 +107,7 @@ export default function SecurePasswordGeneratorPage() {
               value={passwordLength}
               onChange={(e) => {
                 const val = parseInt(e.target.value, 10);
-                if (!isNaN(val)) {
+                if (!Number.isNaN(val)) {
                   setPasswordLength(val);
                 } else if (e.target.value === "") {
                   setPasswordLength(0); // Allow clearing, handle validation on generate

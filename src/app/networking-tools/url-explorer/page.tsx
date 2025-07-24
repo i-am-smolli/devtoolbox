@@ -1,11 +1,12 @@
 "use client";
 
-import React from "react";
-import { useState, useEffect, useRef } from "react";
+import { AlertCircle, SearchCode } from "lucide-react";
+import React, { useEffect, useRef, useState } from "react";
 import { PageHeader } from "@/components/page-header";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Textarea } from "@/components/ui/textarea";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Table,
   TableBody,
@@ -14,9 +15,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { SearchCode, AlertCircle } from "lucide-react";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 
 // Metadata is now handled by layout.tsx
 
@@ -42,21 +41,7 @@ export default function UrlExplorerPage() {
   const [isClient, setIsClient] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  useEffect(() => {
-    setIsClient(true);
-    if (urlInput) {
-      handleParseUrl(urlInput);
-    }
-  }, []); // Only run on mount with initial URL
-
-  useEffect(() => {
-    if (isClient && textareaRef.current) {
-      textareaRef.current.style.height = "auto";
-      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
-    }
-  }, [isClient, urlInput]);
-
-  const handleParseUrl = (currentInput: string) => {
+  const handleParseUrl = React.useCallback((currentInput: string) => {
     if (!currentInput.trim()) {
       setParsedDetails(null);
       setError(null);
@@ -87,7 +72,21 @@ export default function UrlExplorerPage() {
           : "Invalid URL format. Please enter a full URL including protocol (e.g., https://).",
       );
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    setIsClient(true);
+    if (urlInput) {
+      handleParseUrl(urlInput);
+    }
+  }, [handleParseUrl, urlInput]); // Only run on mount with initial URL
+
+  useEffect(() => {
+    if (isClient && textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
+  }, [isClient]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newText = e.target.value;
@@ -145,10 +144,7 @@ export default function UrlExplorerPage() {
                       <Label className="capitalize text-muted-foreground">
                         {key.replace(/([A-Z])/g, " $1").trim()}:
                       </Label>
-                      <div
-                        className="flex h-auto min-h-10 w-full items-center rounded-md border border-input bg-muted/50 px-3 py-2 text-base font-code break-all md:text-sm"
-                        aria-label={`${key} value`}
-                      >
+                      <div className="flex h-auto min-h-10 w-full items-center rounded-md border border-input bg-muted/50 px-3 py-2 text-base font-code break-all md:text-sm">
                         {parsedDetails[key] as string}
                       </div>
                     </div>

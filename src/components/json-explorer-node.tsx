@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import type { FC } from "react";
 import {
   Accordion,
@@ -149,20 +148,33 @@ const JsonExplorerNode: FC<JsonExplorerNodeProps> = ({
           </AccordionTrigger>
           <AccordionContent className="pl-4 border-l border-dashed ml-2.5 relative">
             <div className="absolute left-0 top-0 w-px h-full"></div>
-            {arr.map((item, index) => (
-              <JsonExplorerNode
-                key={index}
-                name={`Index ${index}`}
-                data={item}
-              />
-            ))}
+            {arr.map((item, index) => {
+              // Try to use a unique key if possible, fallback to name+index
+              let itemKey: string;
+              if (
+                item &&
+                typeof item === "object" &&
+                "id" in (item as Record<string, unknown>)
+              ) {
+                itemKey = String((item as Record<string, unknown>).id);
+              } else {
+                itemKey = `${name ?? "item"}-${index}`;
+              }
+              return (
+                <JsonExplorerNode
+                  key={itemKey}
+                  name={`Index ${index}`}
+                  data={item}
+                />
+              );
+            })}
           </AccordionContent>
         </AccordionItem>
       </Accordion>
     );
   }
 
-  let valueDisplay;
+  let valueDisplay: string;
   let valueClass = "text-sm"; // Base class, removed break-all
   switch (type) {
     case "string":

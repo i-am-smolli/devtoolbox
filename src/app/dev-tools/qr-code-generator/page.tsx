@@ -1,19 +1,20 @@
 "use client";
 
-import React from "react";
-import { useState, useEffect, useCallback, useRef } from "react";
+import { AlertCircle, Download, QrCode as QrCodeIcon } from "lucide-react";
+import { QRCodeCanvas } from "qrcode.react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { PageHeader } from "@/components/page-header";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
+  CardFooter,
   CardHeader,
   CardTitle,
-  CardFooter,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
   SelectContent,
@@ -22,9 +23,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { QrCode as QrCodeIcon, Download, AlertCircle } from "lucide-react";
-import { QRCodeCanvas } from "qrcode.react";
+import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 
 type QrDataType = "text" | "url" | "wifi" | "sms" | "email" | "geo";
@@ -117,7 +116,7 @@ export default function QrCodeGeneratorPage() {
           emailParams.append("subject", formData.emailSubject);
         if (formData.emailBody) emailParams.append("body", formData.emailBody);
         setQrValue(
-          `mailto:${formData.emailTo}${emailParams.toString() ? "?" + emailParams.toString() : ""}`,
+          `mailto:${formData.emailTo}${emailParams.toString() ? `?${emailParams.toString()}` : ""}`,
         );
         break;
       }
@@ -128,8 +127,8 @@ export default function QrCodeGeneratorPage() {
           return;
         }
         if (
-          isNaN(parseFloat(formData.geoLatitude)) ||
-          isNaN(parseFloat(formData.geoLongitude))
+          Number.isNaN(parseFloat(formData.geoLatitude)) ||
+          Number.isNaN(parseFloat(formData.geoLongitude))
         ) {
           setError("Latitude and Longitude must be valid numbers.");
           setQrValue("");
@@ -146,7 +145,7 @@ export default function QrCodeGeneratorPage() {
     if (isClient) {
       generateQrValue();
     }
-  }, [activeTab, formData, generateQrValue, isClient]);
+  }, [generateQrValue, isClient]);
 
   const handleDownload = () => {
     if (!qrCodeRef.current || error || !qrValue) {

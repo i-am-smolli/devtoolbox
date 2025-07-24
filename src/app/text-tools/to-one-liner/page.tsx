@@ -1,18 +1,17 @@
 "use client";
 
-import React from "react";
-import { useState, useEffect, useRef } from "react";
+import { Copy, Minimize2 } from "lucide-react";
+import React, { useEffect, useRef, useState } from "react";
 import { PageHeader } from "@/components/page-header";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
+  CardFooter,
   CardHeader,
   CardTitle,
-  CardFooter,
 } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { Minimize2, Copy } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 // Metadata is now handled by layout.tsx
@@ -25,15 +24,24 @@ export default function ToOneLinerPage() {
   const inputTextareaRef = useRef<HTMLTextAreaElement>(null);
   const outputTextareaRef = useRef<HTMLTextAreaElement>(null);
 
-  const adjustTextareaHeight = (ref: React.RefObject<HTMLTextAreaElement>) => {
-    if (ref.current) {
-      ref.current.style.height = "auto";
-      ref.current.style.height = `${ref.current.scrollHeight}px`;
-    }
-  };
+  const adjustTextareaHeight = React.useCallback(
+    (ref: React.RefObject<HTMLTextAreaElement | null>) => {
+      if (ref.current) {
+        ref.current.style.height = "auto";
+        ref.current.style.height = `${ref.current.scrollHeight}px`;
+      }
+    },
+    [],
+  );
 
-  useEffect(() => adjustTextareaHeight(inputTextareaRef), [inputText]);
-  useEffect(() => adjustTextareaHeight(outputTextareaRef), [outputText]);
+  useEffect(
+    () => adjustTextareaHeight(inputTextareaRef),
+    [adjustTextareaHeight],
+  );
+  useEffect(
+    () => adjustTextareaHeight(outputTextareaRef),
+    [adjustTextareaHeight],
+  );
 
   const handleConvertToOneLine = () => {
     if (!inputText.trim()) {

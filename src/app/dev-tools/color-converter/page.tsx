@@ -1,13 +1,12 @@
 "use client";
 
-import React from "react";
-import { useState, useEffect, useCallback } from "react";
+import { AlertCircle, Palette } from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
 import { PageHeader } from "@/components/page-header";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Palette, AlertCircle } from "lucide-react";
 
 // Conversion Functions
 function hexToRgb(hex: string): { r: number; g: number; b: number } | null {
@@ -29,9 +28,9 @@ function hexToRgb(hex: string): { r: number; g: number; b: number } | null {
 function rgbToHex(r: number, g: number, b: number): string {
   const componentToHex = (c: number) => {
     const hex = c.toString(16);
-    return hex.length === 1 ? "0" + hex : hex;
+    return hex.length === 1 ? `0${hex}` : hex;
   };
-  return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+  return `#${componentToHex(r)}${componentToHex(g)}${componentToHex(b)}`;
 }
 
 function rgbToHsl(
@@ -120,9 +119,9 @@ export default function ColorConverterPage() {
   const updatePreview = useCallback(
     (rVal: number, gVal: number, bVal: number) => {
       if (
-        !isNaN(rVal) &&
-        !isNaN(gVal) &&
-        !isNaN(bVal) &&
+        !Number.isNaN(rVal) &&
+        !Number.isNaN(gVal) &&
+        !Number.isNaN(bVal) &&
         rVal >= 0 &&
         rVal <= 255 &&
         gVal >= 0 &&
@@ -201,9 +200,9 @@ export default function ColorConverterPage() {
       const bNum = parseInt(b, 10);
 
       if (
-        isNaN(rNum) ||
-        isNaN(gNum) ||
-        isNaN(bNum) ||
+        Number.isNaN(rNum) ||
+        Number.isNaN(gNum) ||
+        Number.isNaN(bNum) ||
         rNum < 0 ||
         rNum > 255 ||
         gNum < 0 ||
@@ -228,9 +227,9 @@ export default function ColorConverterPage() {
       const lNum = parseInt(l, 10);
 
       if (
-        isNaN(hNum) ||
-        isNaN(sNum) ||
-        isNaN(lNum) ||
+        Number.isNaN(hNum) ||
+        Number.isNaN(sNum) ||
+        Number.isNaN(lNum) ||
         hNum < 0 ||
         hNum > 360 ||
         sNum < 0 ||
@@ -268,7 +267,6 @@ export default function ColorConverterPage() {
             <div
               className="h-24 w-full rounded-md border transition-colors duration-300"
               style={{ backgroundColor: error ? "transparent" : colorPreview }}
-              aria-label="Color preview"
             />
           )}
 

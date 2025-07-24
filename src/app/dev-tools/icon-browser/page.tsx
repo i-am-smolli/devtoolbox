@@ -1,25 +1,24 @@
 "use client";
 
-import React from "react";
-import { useState, useEffect, useMemo, useRef } from "react";
-import {
-  icons as lucideIconCollection,
-  Copy,
-  Sparkles,
-  MousePointerSquareDashed,
-} from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { Input } from "@/components/ui/input";
+import {
+  Copy,
+  icons as lucideIconCollection,
+  MousePointerSquareDashed,
+  Sparkles,
+} from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { PageHeader } from "@/components/page-header";
 import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
+  CardDescription,
   CardHeader,
   CardTitle,
-  CardDescription,
 } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { PageHeader } from "@/components/page-header";
 import { useToast } from "@/hooks/use-toast";
 
 const allLucideIcons: { name: string; component: LucideIcon }[] =
@@ -93,6 +92,7 @@ export default function IconBrowserPage() {
     const IconComponent = icon.component;
     return (
       <button
+        type="button"
         onClick={onClick}
         className={`flex flex-col items-center justify-center p-3 border rounded-lg hover:bg-accent hover:text-accent-foreground transition-colors focus:outline-hidden focus:ring-2 focus:ring-ring ${isSelected ? "ring-2 ring-primary bg-primary/10" : ""}`}
         aria-label={`Select icon ${icon.name}`}
@@ -109,7 +109,7 @@ export default function IconBrowserPage() {
   const searchPlaceholder = useMemo(() => {
     if (!isClient) return "Loading icons...";
     return `Search ${allLucideIcons.length} icons...`;
-  }, [isClient, allLucideIcons.length]);
+  }, [isClient]);
 
   return (
     <div className="flex flex-col h-full">
