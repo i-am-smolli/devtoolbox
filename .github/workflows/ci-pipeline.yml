@@ -26,5 +26,8 @@ jobs:
       - name: Run Linter
         run: npm run lint
 
+      - name: Run knip
+        run: npx knip
+        
       - name: Run Build
         run: npm run build
