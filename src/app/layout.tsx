@@ -64,7 +64,11 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${sourceCodePro.variable}`}>
       <head>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="any" />
-        <script defer data-domain="devtoolbox.icu" src="https://plausible.devtoolbox.icu/js/script.js"></script>
+        <script
+          defer
+          data-domain="devtoolbox.icu"
+          src="https://plausible.devtoolbox.icu/js/script.js"
+        ></script>
       </head>
       <body className="font-body antialiased">
         <AppLayout>{children}</AppLayout>
