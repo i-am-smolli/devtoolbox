@@ -11,8 +11,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 
-// Metadata is now handled by layout.tsx
-
 const MIN_LENGTH = 8;
 const MAX_LENGTH = 128;
 const DEFAULT_LENGTH = 16;
@@ -60,8 +58,22 @@ export default function SecurePasswordGeneratorPage() {
     }
 
     let newPassword = "";
+
+    function getSecureRandomInt(max: number): number {
+      if (max <= 0 || max > 0x7fffffff) throw new Error("Invalid max value");
+      const uint32Max = 0xffffffff;
+      const limit = uint32Max - (uint32Max % max);
+      let rand: number;
+      do {
+        const arr = new Uint32Array(1);
+        window.crypto.getRandomValues(arr);
+        rand = arr[0];
+      } while (rand >= limit);
+      return rand % max;
+    }
+
     for (let i = 0; i < passwordLength; i++) {
-      const randomIndex = Math.floor(Math.random() * charSet.length);
+      const randomIndex = getSecureRandomInt(charSet.length);
       newPassword += charSet[randomIndex];
     }
     setGeneratedPassword(newPassword);
