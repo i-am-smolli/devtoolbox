@@ -122,7 +122,7 @@ export default function CurlGeneratorPage() {
       command += ` -d '${escapedBody}'`;
     }
 
-    command += ` "${url.trim().replace(/"/g, '\\"')}"`; // Escape double quotes in URL
+    command += ` "${url.trim().replace(/\\/g, "\\\\").replace(/"/g, '\\"')}"`; // Escape backslashes and double quotes in URL
     setCurlCommand(command);
   }, [url, method, headers, requestBody]);
 
