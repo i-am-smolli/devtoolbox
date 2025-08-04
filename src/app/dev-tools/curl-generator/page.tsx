@@ -103,9 +103,16 @@ export default function CurlGeneratorPage() {
 
     headers.forEach((header) => {
       if (header.key.trim()) {
-        const escapedHeaderKey = header.key.trim().replace(/"/g, '\\"');
+        const escapedHeaderKey = header.key
+          .trim()
+          .replace(/\\/g, "\\\\")
+          .replace(/"/g, '\\"');
 
-        const escapedHeaderValue = header.value.trim().replace(/"/g, '\\"');
+        const escapedHeaderValue = header.value
+          .trim()
+          .replace(/\\/g, "\\\\")
+          .replace(/"/g, '\\"');
+
         command += ` -H "${escapedHeaderKey}: ${escapedHeaderValue}"`;
       }
     });
