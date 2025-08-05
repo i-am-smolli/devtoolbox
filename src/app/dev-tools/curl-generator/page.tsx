@@ -103,9 +103,16 @@ export default function CurlGeneratorPage() {
 
     headers.forEach((header) => {
       if (header.key.trim()) {
-        const escapedHeaderKey = header.key.trim().replace(/"/g, '\\"');
+        const escapedHeaderKey = header.key
+          .trim()
+          .replace(/\\/g, "\\\\")
+          .replace(/"/g, '\\"');
 
-        const escapedHeaderValue = header.value.trim().replace(/"/g, '\\"');
+        const escapedHeaderValue = header.value
+          .trim()
+          .replace(/\\/g, "\\\\")
+          .replace(/"/g, '\\"');
+
         command += ` -H "${escapedHeaderKey}: ${escapedHeaderValue}"`;
       }
     });
@@ -115,7 +122,7 @@ export default function CurlGeneratorPage() {
       command += ` -d '${escapedBody}'`;
     }
 
-    command += ` "${url.trim().replace(/"/g, '\\"')}"`; // Escape double quotes in URL
+    command += ` "${url.trim().replace(/\\/g, "\\\\").replace(/"/g, '\\"')}"`; // Escape backslashes and double quotes in URL
     setCurlCommand(command);
   }, [url, method, headers, requestBody]);
 
