@@ -1,15 +1,20 @@
 name: CI
+
 permissions:
   contents: read
-  
+
 on:
   push:
+    branches:
+      - master
+
   pull_request:
+    branches:
+      - master
 
 jobs:
   run-checks:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -20,7 +25,7 @@ jobs:
           node-version: "24"
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Run Typechecks
         run: npm run typecheck
