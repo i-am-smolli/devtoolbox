@@ -1,7 +1,12 @@
 name: CI
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
-  
+
 on:
   push:
   pull_request:
@@ -20,7 +25,7 @@ jobs:
           node-version: "24"
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci 
 
       - name: Run Typechecks
         run: npm run typecheck
@@ -33,3 +38,4 @@ jobs:
         
       - name: Run Build
         run: npm run build
+        
