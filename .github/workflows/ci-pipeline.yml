@@ -1,15 +1,16 @@
 name: CI
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
-  cancel-in-progress: true
-
 permissions:
   contents: read
 
 on:
   push:
+    branches:
+      - master
+
   pull_request:
+    branches:
+      - master
 
 jobs:
   run-checks:
@@ -37,4 +38,3 @@ jobs:
         
       - name: Run Build
         run: npm run build
-        
