@@ -236,7 +236,7 @@ export default function SecurePasswordGeneratorPage() {
                   Choose the type of symbols to include in the password.
                   <ul className="list-disc pl-5">
                     <li>
-                      <strong>Default set:</strong> !@#$%_+-=
+                      <strong>Medium set:</strong> !@#$%_+-=
                     </li>
                     <li>
                       <strong>Strong set:</strong> !@#$%^&*()_+-=[]{}
