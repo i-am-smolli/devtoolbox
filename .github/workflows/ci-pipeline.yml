@@ -14,7 +14,6 @@ on:
 jobs:
   run-checks:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -25,7 +24,7 @@ jobs:
           node-version: "24"
 
       - name: Install dependencies
-        run: npm ci 
+        run: npm ci
 
       - name: Run Typechecks
         run: npm run typecheck
