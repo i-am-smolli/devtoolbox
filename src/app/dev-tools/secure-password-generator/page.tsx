@@ -2,6 +2,7 @@
 
 import { AlertCircle, Copy, KeyRound } from "lucide-react";
 import { useEffect, useState } from "react";
+import { InfoTooltip } from "@/components/InfoTooltip";
 import { PageHeader } from "@/components/page-header";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -9,6 +10,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 
 const MIN_LENGTH = 8;
@@ -20,7 +28,7 @@ export default function SecurePasswordGeneratorPage() {
   const [includeUppercase, setIncludeUppercase] = useState(true);
   const [includeLowercase, setIncludeLowercase] = useState(true);
   const [includeNumbers, setIncludeNumbers] = useState(true);
-  const [includeSymbols, setIncludeSymbols] = useState(true);
+  const [symbolFormat, setSymbolFormat] = useState<string>("default");
   const [generatedPassword, setGeneratedPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
@@ -43,13 +51,29 @@ export default function SecurePasswordGeneratorPage() {
     const uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     const lowercaseChars = "abcdefghijklmnopqrstuvwxyz";
     const numberChars = "0123456789";
-    const symbolChars = "!@#$%^&*()_+-=[]{}|;:,.<>?";
+    const symbolCharsWeak = "_+-=,.";
+    const symbolCharsMedium = "!@#$%_+-=";
+    const symbolCharsStrong = "!@#$%^&*()_+-=[]{}|;:,.<>?";
 
     let charSet = "";
     if (includeUppercase) charSet += uppercaseChars;
     if (includeLowercase) charSet += lowercaseChars;
     if (includeNumbers) charSet += numberChars;
-    if (includeSymbols) charSet += symbolChars;
+
+    switch (symbolFormat) {
+      case "weak":
+        charSet += symbolCharsWeak;
+        break;
+      case "default":
+        charSet += symbolCharsMedium;
+        break;
+      case "strong":
+        charSet += symbolCharsStrong;
+        break;
+      case "none":
+        // No symbols added, charSet remains unchanged
+        break;
+    }
 
     if (charSet === "") {
       setError("Please select at least one character type.");
@@ -72,9 +96,52 @@ export default function SecurePasswordGeneratorPage() {
       return rand % max;
     }
 
-    for (let i = 0; i < passwordLength; i++) {
-      const randomIndex = getSecureRandomInt(charSet.length);
-      newPassword += charSet[randomIndex];
+    // Helper to check if password contains at least one char from each selected type
+    function isValidPassword(pw: string) {
+      if (includeUppercase && !/[A-Z]/.test(pw)) return false;
+      if (includeLowercase && !/[a-z]/.test(pw)) return false;
+      if (includeNumbers && !/[0-9]/.test(pw)) return false;
+      if (symbolFormat !== "none") {
+        let symbolRegex: RegExp | undefined;
+        switch (symbolFormat) {
+          case "weak":
+            symbolRegex = new RegExp(
+              `[${symbolCharsWeak.replace(/[-/\\^$*+?.()|[\]{}]/g, "\\$&")}]`,
+            );
+            break;
+          case "default":
+            symbolRegex = new RegExp(
+              `[${symbolCharsMedium.replace(/[-/\\^$*+?.()|[\]{}]/g, "\\$&")}]`,
+            );
+            break;
+          case "strong":
+            symbolRegex = new RegExp(
+              `[${symbolCharsStrong.replace(/[-/\\^$*+?.()|[\]{}]/g, "\\$&")}]`,
+            );
+            break;
+        }
+        if (symbolRegex && !symbolRegex.test(pw)) return false;
+      }
+      return true;
+    }
+
+    let attempts = 0;
+    const maxAttempts = 10;
+    do {
+      newPassword = "";
+      for (let i = 0; i < passwordLength; i++) {
+        const randomIndex = getSecureRandomInt(charSet.length);
+        newPassword += charSet[randomIndex];
+      }
+      attempts++;
+    } while (!isValidPassword(newPassword) && attempts < maxAttempts);
+
+    if (!isValidPassword(newPassword)) {
+      setError(
+        "Could not generate a password with the selected options. Try adjusting your settings.",
+      );
+      setGeneratedPassword("");
+      return;
     }
     setGeneratedPassword(newPassword);
   };
@@ -162,15 +229,40 @@ export default function SecurePasswordGeneratorPage() {
                 Include Numbers (0-9)
               </Label>
             </div>
-            <div className="flex items-center space-x-2">
-              <Checkbox
-                id="includeSymbols"
-                checked={includeSymbols}
-                onCheckedChange={(checked) => setIncludeSymbols(!!checked)}
-              />
-              <Label htmlFor="includeSymbols" className="cursor-pointer">
-                Include Symbols (!@#$...)
+            <div className="space-y-1">
+              <Label htmlFor="symbolFormat">
+                Include Symbols
+                <InfoTooltip>
+                  Choose the type of symbols to include in the password.
+                  <ul className="list-disc pl-5">
+                    <li>
+                      <strong>Default set:</strong> !@#$%_+-=
+                    </li>
+                    <li>
+                      <strong>Strong set:</strong> !@#$%^&*()_+-=[]{}
+                      |;:,.&lt;&gt;?
+                    </li>
+                    <li>
+                      <strong>Weak set:</strong> _+-=,. (less secure)
+                    </li>
+                    <li>
+                      <strong>None:</strong> No symbols included (not
+                      recommended)
+                    </li>
+                  </ul>
+                </InfoTooltip>
               </Label>
+              <Select value={symbolFormat} onValueChange={setSymbolFormat}>
+                <SelectTrigger id="symbolFormat">
+                  <SelectValue placeholder="Default" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="default">Medium</SelectItem>
+                  <SelectItem value="strong">Strong</SelectItem>
+                  <SelectItem value="weak">Weak</SelectItem>
+                  <SelectItem value="none">None, unsecure</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           </div>
 
