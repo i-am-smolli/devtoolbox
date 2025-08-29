@@ -1,7 +1,7 @@
 "use client";
 
 import { AlertCircle, Copy, RefreshCw, Shuffle } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useId, useState} from "react";
 import { PageHeader } from "@/components/page-header";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -37,6 +37,11 @@ export default function RandomStringGeneratorPage() {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
   const [isClient, setIsClient] = useState(false);
+  const stringLength = useId();
+  const includeUppercaseId = useId();
+  const includeLowercaseId = useId();
+  const includeNumbersId = useId();
+  const includeSymbolsId = useId();
 
   const handleGenerateString: () => void = useCallback(() => {
     if (!isClient) return;
@@ -123,11 +128,11 @@ export default function RandomStringGeneratorPage() {
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="space-y-2">
-            <Label htmlFor="stringLength">
+            <Label htmlFor={stringLength}>
               String Length ({MIN_LENGTH}-{MAX_LENGTH})
             </Label>
             <Input
-              id="stringLength"
+              id={stringLength}
               type="number"
               value={length}
               onChange={(e) => {
@@ -147,41 +152,41 @@ export default function RandomStringGeneratorPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">
               <div className="flex items-center space-x-2">
                 <Checkbox
-                  id="includeUppercase"
+                  id={includeUppercaseId}
                   checked={includeUppercase}
                   onCheckedChange={(checked) => setIncludeUppercase(!!checked)}
                 />
-                <Label htmlFor="includeUppercase" className="cursor-pointer">
+                <Label htmlFor={includeUppercaseId} className="cursor-pointer">
                   Uppercase (A-Z)
                 </Label>
               </div>
               <div className="flex items-center space-x-2">
                 <Checkbox
-                  id="includeLowercase"
+                  id={includeLowercaseId}
                   checked={includeLowercase}
                   onCheckedChange={(checked) => setIncludeLowercase(!!checked)}
                 />
-                <Label htmlFor="includeLowercase" className="cursor-pointer">
+                <Label htmlFor={includeLowercaseId} className="cursor-pointer">
                   Lowercase (a-z)
                 </Label>
               </div>
               <div className="flex items-center space-x-2">
                 <Checkbox
-                  id="includeNumbers"
+                  id={includeNumbersId}
                   checked={includeNumbers}
                   onCheckedChange={(checked) => setIncludeNumbers(!!checked)}
                 />
-                <Label htmlFor="includeNumbers" className="cursor-pointer">
+                <Label htmlFor={includeNumbersId} className="cursor-pointer">
                   Numbers (0-9)
                 </Label>
               </div>
               <div className="flex items-center space-x-2">
                 <Checkbox
-                  id="includeSymbols"
+                  id={includeSymbolsId}
                   checked={includeSymbols}
                   onCheckedChange={(checked) => setIncludeSymbols(!!checked)}
                 />
-                <Label htmlFor="includeSymbols" className="cursor-pointer">
+                <Label htmlFor={includeSymbolsId} className="cursor-pointer">
                   Symbols (!@#$...)
                 </Label>
               </div>
