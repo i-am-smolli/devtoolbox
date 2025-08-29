@@ -1,7 +1,7 @@
 "use client";
 
 import { CalendarClock, Copy } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useId, useState } from "react";
 import { PageHeader } from "@/components/page-header";
 import { Button } from "@/components/ui/button";
 import {
@@ -23,7 +23,6 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 
-// Metadata is now handled by layout.tsx
 
 type CronPartMode = "every" | "specific" | "range" | "step";
 
@@ -61,6 +60,8 @@ export default function CronExpressionBuilderPage() {
   );
   const [cronExpression, setCronExpression] = useState("* * * * *");
   const { toast } = useToast();
+
+  const generatedCron = useId();
 
   const buildPartExpression = useCallback((config: CronPartConfig): string => {
     switch (config.mode) {
@@ -275,12 +276,12 @@ export default function CronExpressionBuilderPage() {
           </Tabs>
         </CardContent>
         <CardFooter className="flex-col items-start space-y-2 pt-6">
-          <Label htmlFor="generatedCron" className="text-lg font-semibold">
+          <Label htmlFor={generatedCron} className="text-lg font-semibold">
             Generated Cron Expression
           </Label>
           <div className="flex w-full items-center space-x-2">
             <Input
-              id="generatedCron"
+              id={generatedCron}
               value={cronExpression}
               readOnly
               className="font-code bg-muted/50 text-base"
