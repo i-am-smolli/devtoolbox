@@ -8,7 +8,7 @@ import {
   RadioTower,
   XCircle,
 } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useId, useState } from "react";
 import { InfoTooltip } from "@/components/InfoTooltip";
 import { PageHeader } from "@/components/page-header";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -70,6 +70,14 @@ export default function TcpdumpCommandGeneratorPage() {
   const [error, setError] = useState<string | null>(null);
 
   const { toast } = useToast();
+
+  const interfaceId = useId();
+  const packetCountId = useId();
+  const snapLenId = useId();
+  const timestampFormatId = useId();
+  const dontResolveId = useId();
+  const verboseLevelId = useId();
+  const noPromiscuousId = useId();
 
   const addFilter = () => {
     setFilters([...filters, createNewFilter()]);
@@ -221,7 +229,7 @@ export default function TcpdumpCommandGeneratorPage() {
               </InfoTooltip>
             </Label>
             <Input
-              id="interface"
+              id={interfaceId}
               placeholder="e.g., eth0, any"
               value={interfaceName}
               onChange={(e) => setInterfaceName(e.target.value)}
@@ -236,7 +244,7 @@ export default function TcpdumpCommandGeneratorPage() {
               </InfoTooltip>
             </Label>
             <Input
-              id="packetCount"
+              id={packetCountId}
               type="number"
               placeholder="e.g., 100 (optional)"
               value={packetCount}
@@ -254,7 +262,7 @@ export default function TcpdumpCommandGeneratorPage() {
               </InfoTooltip>
             </Label>
             <Input
-              id="snapLen"
+              id={snapLenId}
               type="number"
               placeholder="e.g., 65535 (0 for full)"
               value={snapLen}
@@ -272,7 +280,7 @@ export default function TcpdumpCommandGeneratorPage() {
               </InfoTooltip>
             </Label>
             <Select value={timestampFormat} onValueChange={setTimestampFormat}>
-              <SelectTrigger id="timestampFormat">
+              <SelectTrigger id={timestampFormatId}>
                 <SelectValue placeholder="Default" />
               </SelectTrigger>
               <SelectContent>
@@ -296,7 +304,7 @@ export default function TcpdumpCommandGeneratorPage() {
               </InfoTooltip>
             </Label>
             <Select value={verboseLevel} onValueChange={setVerboseLevel}>
-              <SelectTrigger id="verboseLevel">
+              <SelectTrigger id={verboseLevelId}>
                 <SelectValue placeholder="Default" />
               </SelectTrigger>
               <SelectContent>
@@ -309,7 +317,7 @@ export default function TcpdumpCommandGeneratorPage() {
           </div>
           <div className="flex items-center space-x-2 pt-6">
             <Checkbox
-              id="dontResolve"
+              id={dontResolveId}
               checked={dontResolve}
               onCheckedChange={(checked) => setDontResolve(!!checked)}
             />
@@ -323,7 +331,7 @@ export default function TcpdumpCommandGeneratorPage() {
           </div>
           <div className="flex items-center space-x-2 pt-6">
             <Checkbox
-              id="noPromiscuous"
+              id={noPromiscuousId}
               checked={noPromiscuous}
               onCheckedChange={(checked) => setNoPromiscuous(!!checked)}
             />

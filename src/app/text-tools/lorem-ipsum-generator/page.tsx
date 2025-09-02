@@ -1,7 +1,7 @@
 "use client";
 
 import { AlertCircle, Copy, Pilcrow, RefreshCw } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { InfoTooltip } from "@/components/InfoTooltip";
 import { PageHeader } from "@/components/page-header";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -213,6 +213,9 @@ export default function LoremIpsumGeneratorPage() {
   const { toast } = useToast();
   const outputTextareaRef = useRef<HTMLTextAreaElement>(null);
   const [isClient, setIsClient] = useState(false);
+  const generatorTypeId = useId();
+  const numParagraphsId = useId();
+  const numSentencesId = useId();
 
   useEffect(() => {
     setIsClient(true);
@@ -348,7 +351,7 @@ export default function LoremIpsumGeneratorPage() {
               </InfoTooltip>
             </Label>
             <Select value={generatorType} onValueChange={setGeneratorType}>
-              <SelectTrigger id="generatorType">
+              <SelectTrigger id={generatorTypeId}>
                 <SelectValue placeholder="Select type" />
               </SelectTrigger>
               <SelectContent>
@@ -361,7 +364,7 @@ export default function LoremIpsumGeneratorPage() {
             </Select>
           </div>
           <div className="space-y-2">
-            <Label htmlFor="numParagraphs">
+            <Label htmlFor={numParagraphsId}>
               Number of Paragraphs ({MIN_PARAGRAPHS}-{MAX_PARAGRAPHS})
               <InfoTooltip>
                 Specify how many paragraphs of text to generate. <br />
@@ -369,7 +372,7 @@ export default function LoremIpsumGeneratorPage() {
               </InfoTooltip>
             </Label>
             <Input
-              id="numParagraphs"
+              id={numParagraphsId}
               type="number"
               value={numParagraphs}
               onChange={(e) =>
@@ -398,7 +401,7 @@ export default function LoremIpsumGeneratorPage() {
               </InfoTooltip>
             </Label>
             <Input
-              id="numSentences"
+              id={numSentencesId}
               type="number"
               value={numSentences}
               onChange={(e) =>

@@ -10,7 +10,7 @@ import {
   XCircle,
 } from "lucide-react";
 import type React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { PageHeader } from "@/components/page-header";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -353,6 +353,7 @@ export default function PasswordStrengthMeterPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [strength, setStrength] = useState<PasswordStrengthResult | null>(null);
   const [isClient, setIsClient] = useState(false);
+  const passwordInputId = useId();
 
   useEffect(() => {
     setIsClient(true);
@@ -395,10 +396,10 @@ export default function PasswordStrengthMeterPage() {
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="space-y-2">
-            <Label htmlFor="passwordInput">Password</Label>
+            <Label htmlFor={passwordInputId}>Password</Label>
             <div className="flex items-center space-x-2">
               <Input
-                id="passwordInput"
+                id={passwordInputId}
                 type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}

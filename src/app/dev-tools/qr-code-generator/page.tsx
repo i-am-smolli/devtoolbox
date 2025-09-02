@@ -2,7 +2,7 @@
 
 import { AlertCircle, Download, QrCode as QrCodeIcon } from "lucide-react";
 import { QRCodeCanvas } from "qrcode.react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { PageHeader } from "@/components/page-header";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -30,7 +30,7 @@ type QrDataType = "text" | "url" | "wifi" | "sms" | "email" | "geo";
 
 const initialData = {
   text: "Hello, DevToolbox!",
-  url: "https://firebase.google.com/project-idx",
+  url: "https://devtoolbox.icu/dev-tools/qr-code-generator",
   wifiSsid: "MyNetwork",
   wifiPassword: "MyPassword123",
   wifiEncryption: "WPA",
@@ -53,6 +53,8 @@ export default function QrCodeGeneratorPage() {
   const qrCodeRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
   const [isClient, setIsClient] = useState(false);
+  const qrSizeId = useId();
+  const qrErrorLevelId = useId();
 
   useEffect(() => {
     setIsClient(true);
@@ -369,9 +371,9 @@ export default function QrCodeGeneratorPage() {
             )}
             <div className="grid grid-cols-2 gap-4 w-full">
               <div className="space-y-1">
-                <Label htmlFor="qrSize">Size (px)</Label>
+                <Label htmlFor={qrSizeId}>Size (px)</Label>
                 <Input
-                  id="qrSize"
+                  id={qrSizeId}
                   type="number"
                   value={qrSize}
                   onChange={(e) =>
@@ -389,7 +391,7 @@ export default function QrCodeGeneratorPage() {
                     setQrErrorLevel(value as "L" | "M" | "Q" | "H")
                   }
                 >
-                  <SelectTrigger id="qrErrorLevel">
+                  <SelectTrigger id={qrErrorLevelId}>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>

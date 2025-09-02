@@ -1,7 +1,7 @@
 "use client";
 
 import { AlertCircle, Network } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useId, useState } from "react";
 import { InfoTooltip } from "@/components/InfoTooltip";
 import { PageHeader } from "@/components/page-header";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -88,6 +88,10 @@ export default function CidrCalculatorPage() {
   const [newPrefixLengthInput, setNewPrefixLengthInput] = useState("");
   const [generatedSubnets, setGeneratedSubnets] = useState<SubnetInfo[]>([]);
   const [subnetError, setSubnetError] = useState<string | null>(null);
+
+  const cidrInputId = useId();
+  const subnettingBaseCidrId = useId();
+  const newPrefixLengthId = useId();
 
   const [isClient, setIsClient] = useState(false);
   useEffect(() => {
@@ -252,9 +256,9 @@ export default function CidrCalculatorPage() {
         <CardContent className="space-y-4">
           <div className="flex flex-col sm:flex-row items-start sm:items-end gap-2">
             <div className="grow w-full sm:w-auto">
-              <Label htmlFor="cidrInput">CIDR Address</Label>
+              <Label htmlFor={cidrInputId}>CIDR Address</Label>
               <Input
-                id="cidrInput"
+                id={cidrInputId}
                 type="text"
                 placeholder="e.g., 192.168.1.0/24"
                 value={cidrInput}
@@ -430,9 +434,9 @@ export default function CidrCalculatorPage() {
         <CardContent className="space-y-4">
           <div className="flex flex-col sm:flex-row items-start sm:items-end gap-2">
             <div className="grow w-full sm:w-1/2">
-              <Label htmlFor="subnettingBaseCidr">Base Network CIDR</Label>
+              <Label htmlFor={subnettingBaseCidrId}>Base Network CIDR</Label>
               <Input
-                id="subnettingBaseCidr"
+                id={subnettingBaseCidrId}
                 type="text"
                 placeholder="e.g., 192.168.1.0/24"
                 value={subnettingBaseCidr}
@@ -441,9 +445,9 @@ export default function CidrCalculatorPage() {
               />
             </div>
             <div className="grow w-full sm:w-1/4">
-              <Label htmlFor="newPrefixLength">New Prefix Length</Label>
+              <Label htmlFor={newPrefixLengthId}>New Prefix Length</Label>
               <Input
-                id="newPrefixLength"
+                id={newPrefixLengthId}
                 type="number"
                 placeholder="e.g., 26"
                 value={newPrefixLengthInput}

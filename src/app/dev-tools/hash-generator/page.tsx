@@ -1,7 +1,7 @@
 "use client";
 
 import { AlertCircle, Copy, Fingerprint, RefreshCw } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { PageHeader } from "@/components/page-header";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -42,6 +42,10 @@ export default function HashGeneratorPage() {
   const [isLoading, setIsLoading] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const { toast } = useToast();
+  const inputTextId = useId();
+  const algorithmSelectId = useId();
+  const errorMessageInputId = useId();
+  const hashedOutputId = useId();
 
   useEffect(() => {
     if (textareaRef.current) {
@@ -124,27 +128,27 @@ export default function HashGeneratorPage() {
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="space-y-2">
-            <Label htmlFor="inputText">Input Text</Label>
+            <Label htmlFor={inputTextId}>Input Text</Label>
             <Textarea
               ref={textareaRef}
-              id="inputText"
+              id={inputTextId}
               placeholder="Enter text to hash..."
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               className="font-code min-h-[100px] resize-none"
               style={{ overflowY: "hidden" }}
-              aria-describedby={error ? "error-message-input" : undefined}
+              aria-describedby={error ? errorMessageInputId : undefined}
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="algorithmSelect">Select Algorithm</Label>
+            <Label htmlFor={algorithmSelectId}>Select Algorithm</Label>
             <Select
               value={selectedAlgorithm}
               onValueChange={setSelectedAlgorithm}
             >
               <SelectTrigger
-                id="algorithmSelect"
+                id={algorithmSelectId}
                 className="w-full sm:w-[280px]"
               >
                 <SelectValue placeholder="Select an algorithm" />
@@ -169,7 +173,7 @@ export default function HashGeneratorPage() {
           </Button>
 
           {error && (
-            <Alert variant="destructive" id="error-message-input">
+            <Alert variant="destructive" id={errorMessageInputId}>
               <AlertCircle className="h-4 w-4" />
               <AlertTitle>Error</AlertTitle>
               <AlertDescription>{error}</AlertDescription>
@@ -178,12 +182,12 @@ export default function HashGeneratorPage() {
 
           {hashedOutput && !error && (
             <div className="space-y-2">
-              <Label htmlFor="hashedOutput">
+              <Label htmlFor={hashedOutputId}>
                 Generated Hash ({selectedAlgorithm.toUpperCase()})
               </Label>
               <div className="flex items-center space-x-2">
                 <Input
-                  id="hashedOutput"
+                  id={hashedOutputId}
                   type="text"
                   value={hashedOutput}
                   readOnly

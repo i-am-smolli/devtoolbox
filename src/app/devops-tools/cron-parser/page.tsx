@@ -1,15 +1,13 @@
 "use client";
 
 import { AlertCircle, ClipboardList } from "lucide-react";
-import { useState } from "react";
+import { useId, useState } from "react";
 import { PageHeader } from "@/components/page-header";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-
-// Metadata is now handled by layout.tsx
 
 interface ParsedCronPart {
   label: string;
@@ -139,6 +137,8 @@ export default function CronParserPage() {
   const [cronInput, setCronInput] = useState("*/15 0 1,15 * 1-5");
   const [parsedParts, setParsedParts] = useState<ParsedCronPart[] | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const cronInputString = useId();
+  const errormessage = useId();
 
   const handleParseCron = () => {
     setError(null);
@@ -202,16 +202,16 @@ export default function CronParserPage() {
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="space-y-2">
-            <Label htmlFor="cronInputString">Cron Expression</Label>
+            <Label htmlFor={cronInputString}>Cron Expression</Label>
             <div className="flex items-center space-x-2">
               <Input
-                id="cronInputString"
+                id={cronInputString}
                 type="text"
                 placeholder="e.g., */15 0 1,15 * 1-5"
                 value={cronInput}
                 onChange={(e) => setCronInput(e.target.value)}
                 className="font-code"
-                aria-describedby={error ? "error-message" : undefined}
+                aria-describedby={error ? errormessage : undefined}
               />
               <Button onClick={handleParseCron}>Parse</Button>
             </div>
@@ -223,7 +223,7 @@ export default function CronParserPage() {
           </div>
 
           {error && (
-            <Alert variant="destructive" id="error-message">
+            <Alert variant="destructive" id={errormessage}>
               <AlertCircle className="h-4 w-4" />
               <AlertTitle>Parsing Error</AlertTitle>
               <AlertDescription>{error}</AlertDescription>

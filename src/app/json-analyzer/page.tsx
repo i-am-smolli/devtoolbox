@@ -1,15 +1,13 @@
 "use client";
 
 import { AlertCircle, CheckCircle, Code2 } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useId, useState } from "react";
 import { PageHeader } from "@/components/page-header";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Textarea } from "@/components/ui/textarea";
-
-// Metadata is now handled by layout.tsx
 
 const initialJson = {
   name: "DevToolbox",
@@ -27,6 +25,8 @@ export default function JsonAnalyzerPage() {
   const [error, setError] = useState<string | null>(null);
   const [isValid, setIsValid] = useState<boolean | null>(null);
   const [isClient, setIsClient] = useState(false);
+  const jsonDefaultMessage = useId();
+  const jsonErrorMessage = useId();
 
   const handleAnalyze = React.useCallback((currentInput: string) => {
     if (!currentInput.trim()) {
@@ -98,7 +98,7 @@ export default function JsonAnalyzerPage() {
         {isClient && isValid === true && (
           <Alert
             variant="default"
-            id="json-valid-message"
+            id={jsonDefaultMessage}
             className="border-green-500"
           >
             <CheckCircle className="h-4 w-4 text-green-500" />
@@ -109,7 +109,7 @@ export default function JsonAnalyzerPage() {
           </Alert>
         )}
         {isClient && isValid === false && error && (
-          <Alert variant="destructive" id="json-error-message">
+          <Alert variant="destructive" id={jsonErrorMessage}>
             <AlertCircle className="h-4 w-4" />
             <AlertTitle>Invalid JSON</AlertTitle>
             <AlertDescription>{error}</AlertDescription>
@@ -132,7 +132,7 @@ export default function JsonAnalyzerPage() {
               aria-invalid={isValid === false}
               aria-describedby={
                 error
-                  ? "json-error-message"
+                  ? jsonErrorMessage
                   : isValid === true
                     ? "json-valid-message"
                     : undefined

@@ -1,7 +1,7 @@
 "use client";
 
 import { AlertCircle, Copy, Info, ScanSearch } from "lucide-react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { InfoTooltip } from "@/components/InfoTooltip";
 import { PageHeader } from "@/components/page-header";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -58,6 +58,17 @@ export default function NmapCommandGeneratorPage() {
 
   const { toast } = useToast();
   const commandTextareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const targetId = useId();
+  const scanTypeId = useId();
+  const portsId = useId();
+  const enableSVId = useId();
+  const enableOId = useId();
+  const timingTemplateId = useId();
+  const verboseId = useId();
+  const enableSCId = useId();
+  const enableAId = useId();
+  const enablePnId = useId();
 
   const buildNmapCommand = useCallback(() => {
     setError(null);
@@ -155,14 +166,14 @@ export default function NmapCommandGeneratorPage() {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-1">
-            <Label htmlFor="target">Target (IP, Hostname, Range)</Label>
+            <Label htmlFor={targetId}>Target (IP, Hostname, Range)</Label>
             <InfoTooltip>
               Enter a single IP address, hostname, or CIDR range <br />
               Example: <code>scanme.nmap.org</code> or{" "}
               <code>192.168.1.0/24</code>
             </InfoTooltip>
             <Input
-              id="target"
+              id={targetId}
               placeholder="e.g., scanme.nmap.org or 192.168.1.0/24"
               value={target}
               onChange={(e) => setTarget(e.target.value)}
@@ -170,7 +181,7 @@ export default function NmapCommandGeneratorPage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-1">
-              <Label htmlFor="scanType">Scan Type</Label>
+              <Label htmlFor={scanTypeId}>Scan Type</Label>
               <InfoTooltip>
                 Select the type of scan to perform:
                 <ul className="list-disc pl-5 mt-1">
@@ -193,7 +204,7 @@ export default function NmapCommandGeneratorPage() {
                 onValueChange={setScanType}
                 disabled={enableA}
               >
-                <SelectTrigger id="scanType">
+                <SelectTrigger id={scanTypeId}>
                   <SelectValue placeholder="Select scan type" />
                 </SelectTrigger>
                 <SelectContent>
@@ -206,14 +217,14 @@ export default function NmapCommandGeneratorPage() {
               </Select>
             </div>
             <div className="space-y-1">
-              <Label htmlFor="ports">Ports (Optional)</Label>
+              <Label htmlFor={portsId}>Ports (Optional)</Label>
               <InfoTooltip>
                 Specify ports to scan, separated by commas or ranges.
                 <br />
                 Example: <code>22,80,443</code> or <code>1-1000</code>.
               </InfoTooltip>
               <Input
-                id="ports"
+                id={portsId}
                 placeholder="e.g., 22,80,443 or 1-1000"
                 value={ports}
                 onChange={(e) => setPorts(e.target.value)}
@@ -230,12 +241,12 @@ export default function NmapCommandGeneratorPage() {
         <CardContent className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           <div className="flex items-center space-x-2">
             <Checkbox
-              id="enableSV"
+              id={enableSVId}
               checked={enableSV && !enableA}
               onCheckedChange={(checked) => setEnableSV(!!checked)}
               disabled={enableA}
             />
-            <Label htmlFor="enableSV" className="cursor-pointer">
+            <Label htmlFor={enableSVId} className="cursor-pointer">
               Service Version Detection (-sV)
               <InfoTooltip>
                 Enable service version detection to try to identify software
@@ -246,12 +257,12 @@ export default function NmapCommandGeneratorPage() {
           </div>
           <div className="flex items-center space-x-2">
             <Checkbox
-              id="enableO"
+              id={enableOId}
               checked={enableO && !enableA}
               onCheckedChange={(checked) => setEnableO(!!checked)}
               disabled={enableA}
             />
-            <Label htmlFor="enableO" className="cursor-pointer">
+            <Label htmlFor={enableOId} className="cursor-pointer">
               OS Detection (-O, Root often needed)
               <InfoTooltip>
                 Enable OS detection to try to identify the operating system of
@@ -261,23 +272,23 @@ export default function NmapCommandGeneratorPage() {
           </div>
           <div className="flex items-center space-x-2">
             <Checkbox
-              id="enableSC"
+              id={enableSCId}
               checked={enableSC && !enableA}
               onCheckedChange={(checked) => setEnableSC(!!checked)}
               disabled={enableA}
             />
-            <Label htmlFor="enableSC" className="cursor-pointer">
+            <Label htmlFor={enableSCId} className="cursor-pointer">
               Default Scripts (-sC)
             </Label>
           </div>
           <div className="flex items-center space-x-2">
             <Checkbox
-              id="enablePN"
+              id={enablePnId}
               checked={enablePn && !enableA}
               onCheckedChange={(checked) => setEnablePN(!!checked)}
               disabled={enableA}
             />
-            <Label htmlFor="enablePN" className="cursor-pointer">
+            <Label htmlFor={enablePnId} className="cursor-pointer">
               No Ping Check (-Pn)
               <InfoTooltip>
                 Skip host discovery and treat all hosts as online. Useful for
@@ -296,7 +307,7 @@ export default function NmapCommandGeneratorPage() {
         </CardHeader>
         <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-1">
-            <Label htmlFor="timingTemplate">
+            <Label htmlFor={timingTemplateId}>
               Timing Template
               <InfoTooltip>
                 Adjust the timing of the scan to balance speed and stealth:
@@ -323,7 +334,7 @@ export default function NmapCommandGeneratorPage() {
               </InfoTooltip>
             </Label>
             <Select value={timingTemplate} onValueChange={setTimingTemplate}>
-              <SelectTrigger id="timingTemplate">
+              <SelectTrigger id={timingTemplateId}>
                 <SelectValue placeholder="Select timing template" />
               </SelectTrigger>
               <SelectContent>
@@ -337,11 +348,11 @@ export default function NmapCommandGeneratorPage() {
           </div>
           <div className="flex items-center space-x-2 pt-6">
             <Checkbox
-              id="verbose"
+              id={verboseId}
               checked={verbose}
               onCheckedChange={(checked) => setVerbose(!!checked)}
             />
-            <Label htmlFor="verbose" className="cursor-pointer">
+            <Label htmlFor={verboseId} className="cursor-pointer">
               Verbose Output (-v)
               <InfoTooltip>
                 Enable verbose output to see more details about the scan
@@ -359,11 +370,11 @@ export default function NmapCommandGeneratorPage() {
         <CardContent>
           <div className="flex items-center space-x-2">
             <Checkbox
-              id="enableA"
+              id={enableAId}
               checked={enableA}
               onCheckedChange={(checked) => setEnableA(!!checked)}
             />
-            <Label htmlFor="enableA" className="cursor-pointer">
+            <Label htmlFor={enableAId} className="cursor-pointer">
               Enable Aggressive Scan (-A)
               <InfoTooltip>
                 Enable aggressive scan mode, which includes OS detection,
