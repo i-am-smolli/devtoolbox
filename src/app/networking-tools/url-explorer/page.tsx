@@ -1,7 +1,7 @@
 "use client";
 
 import { AlertCircle, SearchCode } from "lucide-react";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useId, useRef, useState } from "react";
 import { PageHeader } from "@/components/page-header";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -40,6 +40,7 @@ export default function UrlExplorerPage() {
   const [error, setError] = useState<string | null>(null);
   const [isClient, setIsClient] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const urlErrorMessage = useId();
 
   const handleParseUrl = React.useCallback((currentInput: string) => {
     if (!currentInput.trim()) {
@@ -115,14 +116,14 @@ export default function UrlExplorerPage() {
             className="w-full resize-none border rounded-md focus-visible:ring-1 p-4 font-code text-sm min-h-[100px]"
             aria-label="URL Input"
             aria-invalid={!!error}
-            aria-describedby={error ? "url-error-message" : undefined}
+            aria-describedby={error ? urlErrorMessage : undefined}
             style={{ overflowY: "hidden" }}
           />
         </CardContent>
       </Card>
 
       {isClient && error && (
-        <Alert variant="destructive" id="url-error-message">
+        <Alert variant="destructive" id={urlErrorMessage}>
           <AlertCircle className="h-4 w-4" />
           <AlertTitle>Invalid URL</AlertTitle>
           <AlertDescription>{error}</AlertDescription>

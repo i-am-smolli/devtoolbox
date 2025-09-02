@@ -2,15 +2,13 @@
 
 import { AlertCircle, FolderTree } from "lucide-react";
 import type React from "react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useRef, useState } from "react";
 import JsonExplorerNode from "@/components/json-explorer-node";
 import { PageHeader } from "@/components/page-header";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Textarea } from "@/components/ui/textarea";
-
-// Metadata is now handled by layout.tsx
 
 const initialJson = `{
   "id": "0001",
@@ -51,6 +49,7 @@ export default function JsonExplorerPage() {
   const [error, setError] = useState<string | null>(null);
   const [isClient, setIsClient] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const jsonErrorMessage = useId();
 
   const handleParseJson = useCallback((currentInput: string) => {
     if (!currentInput.trim()) {
@@ -116,7 +115,7 @@ export default function JsonExplorerPage() {
               className="w-full resize-none border-0 rounded-none focus-visible:ring-0 p-4 font-code text-sm"
               aria-label="JSON Input"
               aria-invalid={!!error}
-              aria-describedby={error ? "json-error-message" : undefined}
+              aria-describedby={error ? jsonErrorMessage : undefined}
               style={{ overflowY: "hidden" }}
             />
           </CardContent>
@@ -129,7 +128,7 @@ export default function JsonExplorerPage() {
           <CardContent className="grow p-0">
             {isClient && error && (
               <div className="p-4">
-                <Alert variant="destructive" id="json-error-message">
+                <Alert variant="destructive" id={jsonErrorMessage}>
                   <AlertCircle className="h-4 w-4" />
                   <AlertTitle>Invalid JSON</AlertTitle>
                   <AlertDescription>{error}</AlertDescription>

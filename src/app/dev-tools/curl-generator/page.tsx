@@ -7,7 +7,7 @@ import {
   TerminalSquare,
   XCircle,
 } from "lucide-react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { PageHeader } from "@/components/page-header";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -58,6 +58,9 @@ export default function CurlGeneratorPage() {
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
   const requestBodyTextareaRef = useRef<HTMLTextAreaElement>(null);
+  const urlId = useId();
+  const methodId = useId();
+  const requestBodyId = useId();
 
   useEffect(() => {
     if (requestBodyTextareaRef.current) {
@@ -163,9 +166,9 @@ export default function CurlGeneratorPage() {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="url">URL</Label>
+            <Label htmlFor={urlId}>URL</Label>
             <Input
-              id="url"
+              id={urlId}
               type="text"
               placeholder="https://api.example.com/data"
               value={url}
@@ -174,9 +177,9 @@ export default function CurlGeneratorPage() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="method">HTTP Method</Label>
+            <Label htmlFor={methodId}>HTTP Method</Label>
             <Select value={method} onValueChange={setMethod}>
-              <SelectTrigger id="method" className="w-full sm:w-[180px]">
+              <SelectTrigger id={methodId} className="w-full sm:w-[180px]">
                 <SelectValue placeholder="Select method" />
               </SelectTrigger>
               <SelectContent>
@@ -233,7 +236,7 @@ export default function CurlGeneratorPage() {
               <Label htmlFor="requestBody">Request Body</Label>
               <Textarea
                 ref={requestBodyTextareaRef}
-                id="requestBody"
+                id={requestBodyId}
                 placeholder="Enter JSON, XML, or other payload..."
                 value={requestBody}
                 onChange={(e) => setRequestBody(e.target.value)}

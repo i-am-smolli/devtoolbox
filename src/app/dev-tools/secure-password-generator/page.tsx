@@ -1,7 +1,7 @@
 "use client";
 
 import { AlertCircle, Copy, KeyRound } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { InfoTooltip } from "@/components/InfoTooltip";
 import { PageHeader } from "@/components/page-header";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -33,6 +33,12 @@ export default function SecurePasswordGeneratorPage() {
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
   const [isClient, setIsClient] = useState(false);
+  const generatedPasswordId = useId();
+  const includeUppercaseId = useId();
+  const includeLowercaseId = useId();
+  const includeNumbersId = useId();
+  const symbolFormatId = useId();
+  const passwordLengthId = useId();
 
   useEffect(() => {
     setIsClient(true);
@@ -177,11 +183,11 @@ export default function SecurePasswordGeneratorPage() {
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="space-y-2">
-            <Label htmlFor="passwordLength">
+            <Label htmlFor={passwordLengthId}>
               Password Length (min {MIN_LENGTH}, max {MAX_LENGTH})
             </Label>
             <Input
-              id="passwordLength"
+              id={passwordLengthId}
               type="number"
               value={passwordLength}
               onChange={(e) => {
@@ -201,36 +207,36 @@ export default function SecurePasswordGeneratorPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="flex items-center space-x-2">
               <Checkbox
-                id="includeUppercase"
+                id={includeUppercaseId}
                 checked={includeUppercase}
                 onCheckedChange={(checked) => setIncludeUppercase(!!checked)}
               />
-              <Label htmlFor="includeUppercase" className="cursor-pointer">
+              <Label htmlFor={includeUppercaseId} className="cursor-pointer">
                 Include Uppercase (A-Z)
               </Label>
             </div>
             <div className="flex items-center space-x-2">
               <Checkbox
-                id="includeLowercase"
+                id={includeLowercaseId}
                 checked={includeLowercase}
                 onCheckedChange={(checked) => setIncludeLowercase(!!checked)}
               />
-              <Label htmlFor="includeLowercase" className="cursor-pointer">
+              <Label htmlFor={includeLowercaseId} className="cursor-pointer">
                 Include Lowercase (a-z)
               </Label>
             </div>
             <div className="flex items-center space-x-2">
               <Checkbox
-                id="includeNumbers"
+                id={includeNumbersId}
                 checked={includeNumbers}
                 onCheckedChange={(checked) => setIncludeNumbers(!!checked)}
               />
-              <Label htmlFor="includeNumbers" className="cursor-pointer">
+              <Label htmlFor={includeNumbersId} className="cursor-pointer">
                 Include Numbers (0-9)
               </Label>
             </div>
             <div className="space-y-1">
-              <Label htmlFor="symbolFormat">
+              <Label htmlFor={symbolFormatId}>
                 Include Symbols
                 <InfoTooltip>
                   Choose the type of symbols to include in the password.
@@ -253,7 +259,7 @@ export default function SecurePasswordGeneratorPage() {
                 </InfoTooltip>
               </Label>
               <Select value={symbolFormat} onValueChange={setSymbolFormat}>
-                <SelectTrigger id="symbolFormat">
+                <SelectTrigger id={symbolFormatId}>
                   <SelectValue placeholder="Default" />
                 </SelectTrigger>
                 <SelectContent>
@@ -280,10 +286,10 @@ export default function SecurePasswordGeneratorPage() {
 
           {isClient && generatedPassword && !error && (
             <div className="space-y-2">
-              <Label htmlFor="generatedPassword">Generated Password</Label>
+              <Label htmlFor={generatedPasswordId}>Generated Password</Label>
               <div className="flex items-center space-x-2">
                 <Input
-                  id="generatedPassword"
+                  id={generatedPasswordId}
                   type="text"
                   value={generatedPassword}
                   readOnly

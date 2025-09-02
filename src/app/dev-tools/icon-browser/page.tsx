@@ -26,6 +26,32 @@ const allLucideIcons: { name: string; component: LucideIcon }[] =
     .map(([name, component]) => ({ name, component: component as LucideIcon }))
     .sort((a, b) => a.name.localeCompare(b.name));
 
+const IconDisplay = ({
+  icon,
+  onClick,
+  isSelected,
+}: {
+  icon: { name: string; component: LucideIcon };
+  onClick: () => void;
+  isSelected: boolean;
+}) => {
+  const IconComponent = icon.component;
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`flex flex-col items-center justify-center p-3 border rounded-lg hover:bg-accent hover:text-accent-foreground transition-colors focus:outline-hidden focus:ring-2 focus:ring-ring ${isSelected ? "ring-2 ring-primary bg-primary/10" : ""}`}
+      aria-label={`Select icon ${icon.name}`}
+      title={icon.name}
+    >
+      <IconComponent size={28} className="mb-1.5" />
+      <span className="text-xs text-center truncate w-full block">
+        {icon.name}
+      </span>
+    </button>
+  );
+};
+
 export default function IconBrowserPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedIcon, setSelectedIcon] = useState<{
@@ -78,32 +104,6 @@ export default function IconBrowserPage() {
         variant: "destructive",
       });
     }
-  };
-
-  const IconDisplay = ({
-    icon,
-    onClick,
-    isSelected,
-  }: {
-    icon: { name: string; component: LucideIcon };
-    onClick: () => void;
-    isSelected: boolean;
-  }) => {
-    const IconComponent = icon.component;
-    return (
-      <button
-        type="button"
-        onClick={onClick}
-        className={`flex flex-col items-center justify-center p-3 border rounded-lg hover:bg-accent hover:text-accent-foreground transition-colors focus:outline-hidden focus:ring-2 focus:ring-ring ${isSelected ? "ring-2 ring-primary bg-primary/10" : ""}`}
-        aria-label={`Select icon ${icon.name}`}
-        title={icon.name}
-      >
-        <IconComponent size={28} className="mb-1.5" />
-        <span className="text-xs text-center truncate w-full block">
-          {icon.name}
-        </span>
-      </button>
-    );
   };
 
   const searchPlaceholder = useMemo(() => {

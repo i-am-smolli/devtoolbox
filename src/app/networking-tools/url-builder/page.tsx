@@ -7,7 +7,7 @@ import {
   PlusCircle,
   XCircle,
 } from "lucide-react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { InfoTooltip } from "@/components/InfoTooltip";
 import { PageHeader } from "@/components/page-header";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -50,6 +50,11 @@ export default function UrlBuilderPage() {
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
   const generatedUrlTextareaRef = useRef<HTMLTextAreaElement>(null);
+  const protocolId = useId();
+  const hostnameId = useId();
+  const portId = useId();
+  const pathnameId = useId();
+  const hashId = useId();
 
   const addQueryParam = () => {
     setQueryParams([
@@ -225,7 +230,7 @@ export default function UrlBuilderPage() {
                 </InfoTooltip>
               </Label>
               <Select value={protocol} onValueChange={setProtocol}>
-                <SelectTrigger id="protocol">
+                <SelectTrigger id={protocolId}>
                   <SelectValue placeholder="Select protocol" />
                 </SelectTrigger>
                 <SelectContent>
@@ -248,7 +253,7 @@ export default function UrlBuilderPage() {
                 </InfoTooltip>
               </Label>
               <Input
-                id="hostname"
+                id={hostnameId}
                 placeholder="www.example.com"
                 value={hostname}
                 onChange={(e) => setHostname(e.target.value)}
@@ -265,7 +270,7 @@ export default function UrlBuilderPage() {
                 </InfoTooltip>
               </Label>
               <Input
-                id="port"
+                id={portId}
                 type="number"
                 placeholder="8080"
                 value={port}
@@ -282,7 +287,7 @@ export default function UrlBuilderPage() {
                 </InfoTooltip>
               </Label>
               <Input
-                id="pathname"
+                id={pathnameId}
                 placeholder="/path/to/resource"
                 value={pathname}
                 onChange={(e) => setPathname(e.target.value)}
@@ -376,7 +381,7 @@ export default function UrlBuilderPage() {
               </InfoTooltip>
             </Label>
             <Input
-              id="hash"
+              id={hashId}
               placeholder="section-name"
               value={hash}
               onChange={(e) => setHash(e.target.value)}

@@ -1,7 +1,7 @@
 "use client";
 
 import { AlertCircle, Blocks, Copy, RefreshCw } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { PageHeader } from "@/components/page-header";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -30,6 +30,7 @@ export default function UuidGeneratorPage() {
   const { toast } = useToast();
   const outputTextareaRef = useRef<HTMLTextAreaElement>(null);
   const [isClient, setIsClient] = useState(false);
+  const uuidCount = useId();
 
   useEffect(() => {
     setIsClient(true);
@@ -112,11 +113,11 @@ export default function UuidGeneratorPage() {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="uuidCount">
+            <Label htmlFor={uuidCount}>
               Number of UUIDs to Generate (Max: {MAX_COUNT})
             </Label>
             <Input
-              id="uuidCount"
+              id={uuidCount}
               type="number"
               value={count}
               onChange={(e) => {

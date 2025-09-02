@@ -1,7 +1,7 @@
 "use client";
 
 import { AlertCircle, Palette } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useId, useState } from "react";
 import { PageHeader } from "@/components/page-header";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -108,6 +108,13 @@ export default function ColorConverterPage() {
   const [h, setH] = useState<string>("217");
   const [s, setS] = useState<string>("90");
   const [l, setL] = useState<string>("61");
+  const hexInputId = useId();
+  const rgbRInputId = useId();
+  const rgbGInputId = useId();
+  const rgbBInputId = useId();
+  const hslHInputId = useId();
+  const hslSInputId = useId();
+  const hslLInputId = useId();
 
   const [colorPreview, setColorPreview] = useState<string>("#4285F4");
   const [error, setError] = useState<string | null>(null);
@@ -281,11 +288,11 @@ export default function ColorConverterPage() {
           <div className="space-y-4">
             {/* HEX Input */}
             <div className="space-y-2">
-              <Label htmlFor="hexInput" className="text-lg font-semibold">
+              <Label htmlFor={hexInputId} className="text-lg font-semibold">
                 HEX
               </Label>
               <Input
-                id="hexInput"
+                id={hexInputId}
                 type="text"
                 placeholder="#RRGGBB"
                 value={hex}
@@ -301,13 +308,13 @@ export default function ColorConverterPage() {
               <div className="grid grid-cols-3 gap-4">
                 <div>
                   <Label
-                    htmlFor="rgbRInput"
+                    htmlFor={rgbRInputId}
                     className="text-xs text-muted-foreground"
                   >
                     Red
                   </Label>
                   <Input
-                    id="rgbRInput"
+                    id={rgbRInputId}
                     type="text"
                     inputMode="numeric"
                     pattern="[0-9]*"
@@ -320,13 +327,13 @@ export default function ColorConverterPage() {
                 </div>
                 <div>
                   <Label
-                    htmlFor="rgbGInput"
+                    htmlFor={rgbGInputId}
                     className="text-xs text-muted-foreground"
                   >
                     Green
                   </Label>
                   <Input
-                    id="rgbGInput"
+                    id={rgbGInputId}
                     type="text"
                     inputMode="numeric"
                     pattern="[0-9]*"
@@ -339,13 +346,13 @@ export default function ColorConverterPage() {
                 </div>
                 <div>
                   <Label
-                    htmlFor="rgbBInput"
+                    htmlFor={rgbBInputId}
                     className="text-xs text-muted-foreground"
                   >
                     Blue
                   </Label>
                   <Input
-                    id="rgbBInput"
+                    id={rgbBInputId}
                     type="text"
                     inputMode="numeric"
                     pattern="[0-9]*"
@@ -365,13 +372,13 @@ export default function ColorConverterPage() {
               <div className="grid grid-cols-3 gap-4">
                 <div>
                   <Label
-                    htmlFor="hslHInput"
+                    htmlFor={hslHInputId}
                     className="text-xs text-muted-foreground"
                   >
                     Hue (°)
                   </Label>
                   <Input
-                    id="hslHInput"
+                    id={hslHInputId}
                     type="text"
                     inputMode="numeric"
                     pattern="[0-9]*"
@@ -384,13 +391,13 @@ export default function ColorConverterPage() {
                 </div>
                 <div>
                   <Label
-                    htmlFor="hslSInput"
+                    htmlFor={hslSInputId}
                     className="text-xs text-muted-foreground"
                   >
                     Saturation (%)
                   </Label>
                   <Input
-                    id="hslSInput"
+                    id={hslSInputId}
                     type="text"
                     inputMode="numeric"
                     pattern="[0-9]*"
@@ -403,13 +410,13 @@ export default function ColorConverterPage() {
                 </div>
                 <div>
                   <Label
-                    htmlFor="hslLInput"
+                    htmlFor={hslLInputId}
                     className="text-xs text-muted-foreground"
                   >
                     Lightness (%)
                   </Label>
                   <Input
-                    id="hslLInput"
+                    id={hslLInputId}
                     type="text"
                     inputMode="numeric"
                     pattern="[0-9]*"

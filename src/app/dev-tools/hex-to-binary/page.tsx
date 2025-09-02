@@ -2,7 +2,7 @@
 
 import { AlertCircle, Binary } from "lucide-react";
 import type React from "react";
-import { useState } from "react";
+import { useId, useState } from "react";
 import { PageHeader } from "@/components/page-header";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -14,6 +14,9 @@ export default function HexToBinaryPage() {
   const [hexInput, setHexInput] = useState("");
   const [binaryOutput, setBinaryOutput] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const hexInputId = useId();
+  const errorMessageId = useId();
+  const binaryOutputId = useId();
 
   const convertHexToBinary = () => {
     const sanitizedHex = hexInput.replace(/\s/g, ""); // Remove spaces
@@ -66,9 +69,9 @@ export default function HexToBinaryPage() {
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="space-y-2">
-            <Label htmlFor="hexInput">Hexadecimal Input</Label>
+            <Label htmlFor={hexInputId}>Hexadecimal Input</Label>
             <Input
-              id="hexInput"
+              id={hexInputId}
               type="text"
               placeholder="e.g., 1A2B or 1a2b"
               value={hexInput}
@@ -83,7 +86,7 @@ export default function HexToBinaryPage() {
           </Button>
 
           {error && (
-            <Alert variant="destructive" id="error-message">
+            <Alert variant="destructive" id={errorMessageId}>
               <AlertCircle className="h-4 w-4" />
               <AlertTitle>Error</AlertTitle>
               <AlertDescription>{error}</AlertDescription>
@@ -92,9 +95,9 @@ export default function HexToBinaryPage() {
 
           {binaryOutput && !error && (
             <div className="space-y-2">
-              <Label htmlFor="binaryOutput">Binary Output</Label>
+              <Label htmlFor={binaryOutputId}>Binary Output</Label>
               <Input
-                id="binaryOutput"
+                id={binaryOutputId}
                 type="text"
                 value={binaryOutput}
                 readOnly

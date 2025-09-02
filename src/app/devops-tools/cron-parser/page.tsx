@@ -1,15 +1,13 @@
 "use client";
 
 import { AlertCircle, ClipboardList } from "lucide-react";
-import { useState } from "react";
+import { useId, useState } from "react";
 import { PageHeader } from "@/components/page-header";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-
-// Metadata is now handled by layout.tsx
 
 interface ParsedCronPart {
   label: string;
@@ -56,8 +54,8 @@ function parseCronPart(partValue: string, partIndex: number): string {
 
   if (partValue.includes("*/")) {
     const step = partValue.split("*/")[1];
-    if (/^\d+$/.test(step) && parseInt(step) >= 1) {
-      const stepNum = parseInt(step);
+    if (/^\d+$/.test(step) && parseInt(step, 10) >= 1) {
+      const stepNum = parseInt(step, 10);
       // Basic validation for step against range (e.g. */70 for minutes is not ideal)
       if (
         (partIndex === 0 && stepNum > 59) ||
@@ -80,8 +78,8 @@ function parseCronPart(partValue: string, partIndex: number): string {
       values.every(
         (v) =>
           /^\d+$/.test(v) &&
-          parseInt(v) >= range.min &&
-          parseInt(v) <= range.max,
+          parseInt(v, 10) >= range.min &&
+          parseInt(v, 10) <= range.max,
       )
     ) {
       return `At ${partName}(s) ${values.join(", ")}`;
@@ -97,9 +95,9 @@ function parseCronPart(partValue: string, partIndex: number): string {
     if (
       /^\d+$/.test(start) &&
       /^\d+$/.test(end) &&
-      parseInt(start) >= range.min &&
-      parseInt(end) <= range.max &&
-      parseInt(start) <= parseInt(end)
+      parseInt(start, 10) >= range.min &&
+      parseInt(end, 10) <= range.max &&
+      parseInt(start, 10) <= parseInt(end, 10)
     ) {
       return `From ${partName} ${start} through ${end}`;
     } else {
@@ -110,7 +108,7 @@ function parseCronPart(partValue: string, partIndex: number): string {
   }
 
   if (/^\d+$/.test(partValue)) {
-    const numVal = parseInt(partValue);
+    const numVal = parseInt(partValue, 10);
     if (numVal >= range.min && numVal <= range.max) {
       return `At ${partName} ${partValue}`;
     } else {
@@ -139,6 +137,8 @@ export default function CronParserPage() {
   const [cronInput, setCronInput] = useState("*/15 0 1,15 * 1-5");
   const [parsedParts, setParsedParts] = useState<ParsedCronPart[] | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const cronInputString = useId();
+  const errormessage = useId();
 
   const handleParseCron = () => {
     setError(null);
@@ -202,16 +202,16 @@ export default function CronParserPage() {
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="space-y-2">
-            <Label htmlFor="cronInputString">Cron Expression</Label>
+            <Label htmlFor={cronInputString}>Cron Expression</Label>
             <div className="flex items-center space-x-2">
               <Input
-                id="cronInputString"
+                id={cronInputString}
                 type="text"
                 placeholder="e.g., */15 0 1,15 * 1-5"
                 value={cronInput}
                 onChange={(e) => setCronInput(e.target.value)}
                 className="font-code"
-                aria-describedby={error ? "error-message" : undefined}
+                aria-describedby={error ? errormessage : undefined}
               />
               <Button onClick={handleParseCron}>Parse</Button>
             </div>
@@ -223,7 +223,7 @@ export default function CronParserPage() {
           </div>
 
           {error && (
-            <Alert variant="destructive" id="error-message">
+            <Alert variant="destructive" id={errormessage}>
               <AlertCircle className="h-4 w-4" />
               <AlertTitle>Parsing Error</AlertTitle>
               <AlertDescription>{error}</AlertDescription>
