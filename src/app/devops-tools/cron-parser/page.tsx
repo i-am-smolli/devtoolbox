@@ -54,8 +54,8 @@ function parseCronPart(partValue: string, partIndex: number): string {
 
   if (partValue.includes("*/")) {
     const step = partValue.split("*/")[1];
-    if (/^\d+$/.test(step) && parseInt(step) >= 1) {
-      const stepNum = parseInt(step);
+    if (/^\d+$/.test(step) && parseInt(step, 10) >= 1) {
+      const stepNum = parseInt(step, 10);
       // Basic validation for step against range (e.g. */70 for minutes is not ideal)
       if (
         (partIndex === 0 && stepNum > 59) ||
@@ -78,8 +78,8 @@ function parseCronPart(partValue: string, partIndex: number): string {
       values.every(
         (v) =>
           /^\d+$/.test(v) &&
-          parseInt(v) >= range.min &&
-          parseInt(v) <= range.max,
+          parseInt(v, 10) >= range.min &&
+          parseInt(v, 10) <= range.max,
       )
     ) {
       return `At ${partName}(s) ${values.join(", ")}`;
@@ -95,9 +95,9 @@ function parseCronPart(partValue: string, partIndex: number): string {
     if (
       /^\d+$/.test(start) &&
       /^\d+$/.test(end) &&
-      parseInt(start) >= range.min &&
-      parseInt(end) <= range.max &&
-      parseInt(start) <= parseInt(end)
+      parseInt(start, 10) >= range.min &&
+      parseInt(end, 10) <= range.max &&
+      parseInt(start, 10) <= parseInt(end, 10)
     ) {
       return `From ${partName} ${start} through ${end}`;
     } else {
@@ -108,7 +108,7 @@ function parseCronPart(partValue: string, partIndex: number): string {
   }
 
   if (/^\d+$/.test(partValue)) {
-    const numVal = parseInt(partValue);
+    const numVal = parseInt(partValue, 10);
     if (numVal >= range.min && numVal <= range.max) {
       return `At ${partName} ${partValue}`;
     } else {
