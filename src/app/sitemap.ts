@@ -39,6 +39,7 @@ const pages: string[] = [
   "/dev-tools/jwt-decoder",
   "/text-tools/lorem-ipsum-generator",
   "/dev-tools/icon-browser",
+  "/networking-tools/juniper-srx-applications",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

@@ -21,6 +21,7 @@ import {
   KeyRound,
   LayoutDashboard,
   Link as LinkIcon,
+  ListTree,
   LockKeyhole,
   Minimize2,
   Network,
@@ -132,6 +133,11 @@ const navItems = [
     href: "/networking-tools/cidr-calculator",
     label: "CIDR Calculator",
     icon: Network,
+  },
+  {
+    href: "/networking-tools/juniper-srx-applications",
+    label: "Juniper SRX Apps",
+    icon: ListTree,
   },
   {
     href: "/networking-tools/nmap-command-generator",

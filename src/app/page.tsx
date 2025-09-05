@@ -20,6 +20,7 @@ import {
   KeyRound,
   LayoutDashboard,
   Link as LinkIcon,
+  ListTree,
   LockKeyhole,
   Minimize2,
   Network,
@@ -254,6 +255,12 @@ const tools = [
     description: "Browse and search Lucide React icons for your projects.",
     href: "/dev-tools/icon-browser",
     icon: Grid,
+  },
+  {
+    title: "Juniper SRX App List",
+    description: "Browse the default application list for Juniper SRX.",
+    href: "/networking-tools/juniper-srx-applications",
+    icon: ListTree,
   },
 ];
 
