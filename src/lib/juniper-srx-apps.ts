@@ -1,4 +1,4 @@
-export interface JuniperSrxApplication {
+interface JuniperSrxApplication {
   name: string;
   description: string;
   protocol: string;
@@ -38,7 +38,8 @@ export const defaultApplications: JuniperSrxApplication[] = [
   },
   {
     name: "junos-netbios-session",
-    description: "Network Basic Input Output System  - networking protocol used on Windows networks session service port",
+    description:
+      "Network Basic Input Output System  - networking protocol used on Windows networks session service port",
     protocol: "tcp",
     port: "139",
   },
@@ -352,7 +353,8 @@ export const defaultApplications: JuniperSrxApplication[] = [
   },
   {
     name: "junos-icmp-all",
-    description: "ICMP All Traffic: This can be made to be more restrictive by specifying icmp type and code",
+    description:
+      "ICMP All Traffic: This can be made to be more restrictive by specifying icmp type and code",
     protocol: "icmp",
     port: "None",
   },
@@ -590,13 +592,15 @@ export const defaultApplications: JuniperSrxApplication[] = [
   },
   {
     name: "junos-ns-global",
-    description: "NS-Global (Management protocol for Juniper Networks Firewall/VPN devices)",
+    description:
+      "NS-Global (Management protocol for Juniper Networks Firewall/VPN devices)",
     protocol: "tcp",
     port: "15397",
   },
   {
     name: "junos-ns-global-pro",
-    description: "NS-Global-PRO (Monitoring system for the Juniper Networks Firewall/VPN devices)",
+    description:
+      "NS-Global-PRO (Monitoring system for the Juniper Networks Firewall/VPN devices)",
     protocol: "tcp",
     port: "15397",
   },
