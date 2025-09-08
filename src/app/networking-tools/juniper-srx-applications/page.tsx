@@ -62,10 +62,10 @@ export default function JuniperSrxApplicationsPage() {
             <Table>
               <TableHeader className="sticky top-0 bg-card">
                 <TableRow>
-                  <TableHead className="w-[200px]">Name</TableHead>
+                  <TableHead>Name</TableHead>
+                  <TableHead>Protocol</TableHead>
+                  <TableHead>Port</TableHead>
                   <TableHead>Description</TableHead>
-                  <TableHead className="w-[100px]">Protocol</TableHead>
-                  <TableHead className="w-[100px]">Port</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -81,9 +81,11 @@ export default function JuniperSrxApplicationsPage() {
                       <TableCell className="font-medium font-code">
                         {app.name}
                       </TableCell>
-                      <TableCell>{app.description}</TableCell>
-                      <TableCell className="font-code">{app.protocol}</TableCell>
+                      <TableCell className="font-code">
+                        {app.protocol}
+                      </TableCell>
                       <TableCell className="font-code">{app.port}</TableCell>
+                      <TableCell>{app.description}</TableCell>
                     </TableRow>
                   ))
                 )}
