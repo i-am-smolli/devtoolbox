@@ -1,5 +1,5 @@
 # syntax=docker.io/docker/dockerfile:1
-FROM node:24-alpine AS base
+FROM node:25-alpine AS base
 
 FROM base AS deps
 
@@ -46,6 +46,7 @@ COPY --from=builder --chown=user:user /app/public ./public
 USER root
 RUN chmod +x docker/harden.sh
 RUN docker/harden.sh
+RUN rm -rf ./docker/harden.sh
 
 USER user
 
