@@ -1,6 +1,6 @@
 "use client";
 import { AlertCircle, Copy, Shuffle } from "lucide-react";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { PageHeader } from "@/components/page-header";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -85,7 +85,7 @@ export default function Base32ConverterPage() {
   const base32TextRef = useRef<HTMLTextAreaElement>(null);
 
   const adjustTextareaHeight = useCallback(
-    (textareaRef: React.RefObject<HTMLTextAreaElement>) => {
+    (textareaRef: React.RefObject<HTMLTextAreaElement | null>) => {
       if (textareaRef.current) {
         textareaRef.current.style.height = "auto";
         textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
@@ -96,11 +96,9 @@ export default function Base32ConverterPage() {
 
   useEffect(() => adjustTextareaHeight(plainTextRef), [
     adjustTextareaHeight,
-    plainText,
   ]);
   useEffect(() => adjustTextareaHeight(base32TextRef), [
     adjustTextareaHeight,
-    base32Text,
   ]);
 
   const handleEncode = () => {
