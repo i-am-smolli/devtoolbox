@@ -55,6 +55,12 @@ export const metadata: Metadata = {
 
 const tools = [
   {
+    title: "Base32 Encoder / Decoder",
+    description: "Encode text to Base32 or decode Base32 back to text.",
+    href: "/dev-tools/base32-converter",
+    icon: Shuffle,
+  },
+  {
     title: "Hex to Binary Converter",
     description: "Convert hexadecimal values to their binary representation.",
     href: "/dev-tools/hex-to-binary",
