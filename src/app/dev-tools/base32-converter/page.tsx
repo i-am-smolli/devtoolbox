@@ -94,12 +94,8 @@ export default function Base32ConverterPage() {
     [],
   );
 
-  useEffect(() => adjustTextareaHeight(plainTextRef), [
-    adjustTextareaHeight,
-  ]);
-  useEffect(() => adjustTextareaHeight(base32TextRef), [
-    adjustTextareaHeight,
-  ]);
+  useEffect(() => adjustTextareaHeight(plainTextRef), [adjustTextareaHeight]);
+  useEffect(() => adjustTextareaHeight(base32TextRef), [adjustTextareaHeight]);
 
   const handleEncode = () => {
     setError(null);
@@ -112,8 +108,7 @@ export default function Base32ConverterPage() {
       const encodedBytes = encoder.encode(plainText);
       setBase32Text(encodeBase32(encodedBytes));
     } catch (e: unknown) {
-      const message =
-        e instanceof Error ? e.message : "Could not encode text.";
+      const message = e instanceof Error ? e.message : "Could not encode text.";
       setError(`Encoding Error: ${message}`);
       setBase32Text("");
     }
