@@ -46,6 +46,11 @@ import {
 const navItems = [
   { href: "/", label: "Dashboard", icon: LayoutDashboard },
   {
+    href: "/dev-tools/base32-converter",
+    label: "Base32 Converter",
+    icon: Shuffle,
+  },
+  {
     href: "/dev-tools/base64-converter",
     label: "Base64 Converter",
     icon: Shuffle,

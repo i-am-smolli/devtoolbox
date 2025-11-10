@@ -7,6 +7,7 @@ const BASE_URL = process.env.SITE_URL || "https://devtoolbox.icu";
 // This list should be kept in sync with your actual available tool pages
 const pages: string[] = [
   "/", // Homepage
+  "/dev-tools/base32-converter",
   "/dev-tools/hex-to-binary",
   "/markdown-preview",
   "/markdown-to-html",
