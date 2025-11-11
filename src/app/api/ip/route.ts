@@ -11,8 +11,19 @@ export async function GET(request: NextRequest) {
     });
   }
 
-  // Fallback to request.ip if x-forwarded-for is not present
-  const ip = request.ip;
+  // Fallback: try to get IP from request headers or connection
+  const ip =
+    request.headers.get("x-real-ip") ||
+    request.headers.get("x-client-ip") ||
+    request.headers.get("cf-connecting-ip") ||
+    request.headers.get("fastly-client-ip") ||
+    request.headers.get("true-client-ip") ||
+    request.headers.get("x-cluster-client-ip") ||
+    request.headers.get("x-forwarded") ||
+    request.headers.get("forwarded-for") ||
+    request.headers.get("forwarded") ||
+    null;
+
   if (ip) {
     return new NextResponse(ip, {
       status: 200,
