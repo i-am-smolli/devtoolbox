@@ -24,9 +24,7 @@ export default function WhatIsMyIpPage() {
         const ip = await response.text();
         setIpAddress(ip);
       } catch (e: unknown) {
-        setError(
-          e instanceof Error ? e.message : "An unknown error occurred.",
-        );
+        setError(e instanceof Error ? e.message : "An unknown error occurred.");
       } finally {
         setIsLoading(false);
       }
@@ -62,13 +60,13 @@ export default function WhatIsMyIpPage() {
 
       <Card>
         <CardHeader>
-          <CardTitle className="font-headline">Your Public IP Address</CardTitle>
+          <CardTitle className="font-headline">
+            Your Public IP Address
+          </CardTitle>
         </CardHeader>
         <CardContent className="flex flex-col sm:flex-row items-center gap-4">
           {isLoading && <Skeleton className="h-12 w-full sm:w-64" />}
-          {error && (
-            <p className="text-destructive font-semibold">{error}</p>
-          )}
+          {error && <p className="text-destructive font-semibold">{error}</p>}
           {!isLoading && !error && ipAddress && (
             <>
               <p className="text-2xl md:text-3xl font-bold font-code bg-muted/50 px-4 py-2 rounded-md">
