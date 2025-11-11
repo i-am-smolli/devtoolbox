@@ -33,6 +33,7 @@ import {
   ShieldCheck,
   Shuffle,
   TerminalSquare,
+  Wifi,
 } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -267,6 +268,12 @@ const tools = [
     description: "Browse the default application list for Juniper SRX.",
     href: "/networking-tools/juniper-srx-applications",
     icon: ListTree,
+  },
+  {
+    title: "What Is My IP Address?",
+    description: "Quickly find your public IP address.",
+    href: "/networking-tools/what-is-my-ip",
+    icon: Wifi,
   },
 ];
 

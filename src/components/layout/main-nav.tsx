@@ -34,6 +34,7 @@ import {
   ShieldCheck,
   Shuffle,
   TerminalSquare,
+  Wifi,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -174,6 +175,11 @@ const navItems = [
     href: "/text-tools/lorem-ipsum-generator",
     label: "Lorem Ipsum Generator",
     icon: Pilcrow,
+  },
+  {
+    href: "/networking-tools/what-is-my-ip",
+    label: "What Is My IP",
+    icon: Wifi,
   },
 ];
 

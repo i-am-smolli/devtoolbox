@@ -41,6 +41,7 @@ const pages: string[] = [
   "/text-tools/lorem-ipsum-generator",
   "/dev-tools/icon-browser",
   "/networking-tools/juniper-srx-applications",
+  "/networking-tools/what-is-my-ip",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
