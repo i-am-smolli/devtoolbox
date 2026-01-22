@@ -9,6 +9,8 @@ registry:
     - KAMAL_REGISTRY_PASSWORD
 
 builder:
+  provenance: true
+  sbom: true
   arch: amd64
 
 # Deploy to these servers.
