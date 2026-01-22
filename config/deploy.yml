@@ -13,7 +13,13 @@ builder:
   sbom: true
   arch: amd64
 
-# Deploy to these servers.
+# --- RUNTIME HARDENING ---
+options:
+  read-only: true
+  tmpfs: /tmp
+  cap-drop: ALL
+  security-opt: no-new-privileges:true
+
 servers:
   - <%= ENV["KAMAL_SERVER"] %>
 
