@@ -47,7 +47,7 @@ COPY --from=builder --chown=user:user /app/public ./public
 USER root
 RUN chmod +x docker/harden.sh
 RUN docker/harden.sh
-RUN rm -rf ./docker/harden.sh
+RUN rm -rf ./docker
 
 USER user
 
