@@ -1,5 +1,6 @@
 # syntax=docker.io/docker/dockerfile:1
 FROM node:25-alpine AS base
+RUN npm install -g npm@latest
 
 FROM base AS deps
 
