@@ -11,7 +11,9 @@ registry:
 builder:
   provenance: true
   sbom: true
-  arch: amd64
+  arch: 
+    - amd64
+    - arm64
 
 servers:
   - <%= ENV["KAMAL_SERVER"] %>
