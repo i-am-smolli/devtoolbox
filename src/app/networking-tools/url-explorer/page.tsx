@@ -26,7 +26,7 @@ interface ParsedUrlDetails {
   pathname: string;
   search: string;
   hash: string;
-  queryParams: { key: string; value: string }[];
+  queryParams: { id: string; key: string; value: string }[];
 }
 
 const initialUrl =
@@ -50,9 +50,9 @@ export default function UrlExplorerPage() {
     }
     try {
       const url = new URL(currentInput);
-      const queryParams: { key: string; value: string }[] = [];
+      const queryParams: { id: string; key: string; value: string }[] = [];
       url.searchParams.forEach((value, key) => {
-        queryParams.push({ key, value });
+        queryParams.push({ id: crypto.randomUUID(), key, value });
       });
 
       setParsedDetails({
@@ -167,8 +167,8 @@ export default function UrlExplorerPage() {
                       </TableRow>
                     </TableHeader>
                     <TableBody>
-                      {parsedDetails.queryParams.map((param, index) => (
-                        <TableRow key={`${param.key}-${index}`}>
+                      {parsedDetails.queryParams.map((param) => (
+                        <TableRow key={param.id}>
                           <TableCell className="font-code break-all">
                             {param.key}
                           </TableCell>
