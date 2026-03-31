@@ -55,7 +55,7 @@ export default function UuidGeneratorPage() {
       return;
     }
 
-    if (!window.crypto || !window.crypto.randomUUID) {
+    if (!window.crypto?.randomUUID) {
       setError("Crypto API (randomUUID) is not available in this browser.");
       return;
     }

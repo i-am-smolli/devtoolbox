@@ -72,7 +72,7 @@ export default function HashGeneratorPage() {
     }
 
     const subtleAlgoName = SUBTLE_CRYPTO_ALGO_MAP[selectedAlgorithm];
-    if (!subtleAlgoName || !window.crypto || !window.crypto.subtle) {
+    if (!subtleAlgoName || !window.crypto?.subtle) {
       setError(
         "SubtleCrypto API is not available in this browser or algorithm is not supported.",
       );
