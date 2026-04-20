@@ -1,19 +1,15 @@
 # syntax=docker.io/docker/dockerfile:1
+### Install dependencies
 FROM node:25-alpine AS base
-RUN npm install -g npm@latest
+RUN npm install -g npm@11.12.1
 
 FROM base AS deps
-
 WORKDIR /app
 
-COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* .npmrc* ./
-RUN \
-  if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
-  elif [ -f package-lock.json ]; then npm ci; \
-  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm i --frozen-lockfile; \
-  else echo "Lockfile not found." && exit 1; \
-  fi
+COPY package.json package-lock.json* ./
+RUN npm ci --omit=dev && npm cache clean --force
 
+### Build the application
 FROM base AS builder
 WORKDIR /app
 
@@ -23,35 +19,19 @@ COPY . .
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV BUILD_STANDALONE=true
 
-RUN \
-  if [ -f yarn.lock ]; then yarn run build; \
-  elif [ -f package-lock.json ]; then npm run build; \
-  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm run build; \
-  else echo "Lockfile not found." && exit 1; \
-  fi
+RUN npm run build
 
-FROM base AS runner
+### Production image
+FROM gcr.io/distroless/nodejs24-debian13@sha256:482fabdb0f0353417ab878532bb3bf45df925e3741c285a68038fb138b714cba 
 WORKDIR /app
 
+ENV HOSTNAME="0.0.0.0"
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
 
-RUN addgroup --system --gid 1001 user
-RUN adduser --system --uid 1001 user
-
-COPY /docker/harden.sh ./docker/harden.sh
-COPY --from=builder --chown=user:user /app/.next/standalone ./
-COPY --from=builder --chown=user:user /app/.next/static ./.next/static
-COPY --from=builder --chown=user:user /app/public ./public 
-
-USER root
-RUN chmod +x docker/harden.sh
-RUN docker/harden.sh
-RUN rm -rf ./docker
-
-USER user
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
+COPY --from=builder /app/public ./public 
 
 EXPOSE 3000
-
-ENV HOSTNAME="0.0.0.0"
-CMD ["node", "server.js"]
+CMD ["server.js"]
