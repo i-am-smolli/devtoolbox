@@ -1,7 +1,7 @@
 # syntax=docker.io/docker/dockerfile:1
 ### Install dependencies
 FROM node:25-alpine@sha256:bdf2cca6fe3dabd014ea60163eca3f0f7015fbd5c7ee1b0e9ccb4ced6eb02ef4 AS base
-RUN npm install -g npm@11.12.1
+RUN npm install -g npm@11.14.0
 
 FROM base AS deps
 WORKDIR /app
