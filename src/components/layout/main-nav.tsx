@@ -28,6 +28,7 @@ import {
   Palette,
   Pilcrow,
   QrCode,
+  Radar,
   RadioTower,
   ScanSearch,
   SearchCode,
@@ -149,6 +150,11 @@ const navItems = [
     href: "/networking-tools/nmap-command-generator",
     label: "Nmap Command Gen",
     icon: ScanSearch,
+  },
+  {
+    href: "/networking-tools/shodan-query-builder",
+    label: "Shodan Query Builder",
+    icon: Radar,
   },
   {
     href: "/networking-tools/tcpdump-command-generator",
