@@ -43,9 +43,6 @@
     "tailwind-merge": "^3.6.0",
     "tailwindcss-animate": "^1.0.7"
   },
-  "overrides": {
-    "postcss": "^8.5.10"
-  },
   "devDependencies": {
     "@biomejs/biome": "^2.4.15",
     "@types/js-yaml": "^4.0.9",
