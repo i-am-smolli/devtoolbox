@@ -1,7 +1,7 @@
 "use client";
 
 import { AlertCircle, Copy, Plus, Search, Trash2 } from "lucide-react";
-import { useCallback, useEffect, useId, useRef, useState } from "react";
+import { SetStateAction, useCallback, useEffect, useId, useRef, useState } from "react";
 import { InfoTooltip } from "@/components/InfoTooltip";
 import { PageHeader } from "@/components/page-header";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -455,7 +455,7 @@ export default function ShodanQueryBuilderPage() {
               </InfoTooltip>
               <Select
                 value={port}
-                onValueChange={(v) => {
+                onValueChange={(v: SetStateAction<string>) => {
                   setPort(v);
                   if (v) setCustomPort("");
                 }}
@@ -500,7 +500,7 @@ export default function ShodanQueryBuilderPage() {
               </InfoTooltip>
               <Select
                 value={product}
-                onValueChange={(v) => {
+                onValueChange={(v: SetStateAction<string>) => {
                   setProduct(v);
                   if (v) setCustomProduct("");
                 }}
@@ -689,7 +689,7 @@ export default function ShodanQueryBuilderPage() {
               <Checkbox
                 id={sslExpiredId}
                 checked={sslExpired}
-                onCheckedChange={(checked) => setSslExpired(!!checked)}
+                onCheckedChange={(checked: boolean) => setSslExpired(!!checked)}
               />
               <Label htmlFor={sslExpiredId} className="cursor-pointer">
                 Expired SSL Certificates
@@ -702,7 +702,7 @@ export default function ShodanQueryBuilderPage() {
               <Checkbox
                 id={hasScreenshotId}
                 checked={hasScreenshot}
-                onCheckedChange={(checked) => setHasScreenshot(!!checked)}
+                onCheckedChange={(checked: boolean) => setHasScreenshot(!!checked)}
               />
               <Label htmlFor={hasScreenshotId} className="cursor-pointer">
                 Has Screenshot
@@ -751,7 +751,7 @@ export default function ShodanQueryBuilderPage() {
               <div className="flex items-center space-x-2 pt-5">
                 <Checkbox
                   checked={f.negate}
-                  onCheckedChange={(checked) =>
+                  onCheckedChange={(checked: boolean) =>
                     updateFilter(f.id, "negate", !!checked)
                   }
                   aria-label="Negate filter"
@@ -762,7 +762,7 @@ export default function ShodanQueryBuilderPage() {
                 <Label>Filter</Label>
                 <Select
                   value={f.filter}
-                  onValueChange={(v) => updateFilter(f.id, "filter", v)}
+                  onValueChange={(v: string) => updateFilter(f.id, "filter", v)}
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Select filter" />
