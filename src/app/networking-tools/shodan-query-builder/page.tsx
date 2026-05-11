@@ -1,7 +1,14 @@
 "use client";
 
 import { AlertCircle, Copy, Plus, Search, Trash2 } from "lucide-react";
-import { SetStateAction, useCallback, useEffect, useId, useRef, useState } from "react";
+import {
+  type SetStateAction,
+  useCallback,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+} from "react";
 import { InfoTooltip } from "@/components/InfoTooltip";
 import { PageHeader } from "@/components/page-header";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -702,7 +709,9 @@ export default function ShodanQueryBuilderPage() {
               <Checkbox
                 id={hasScreenshotId}
                 checked={hasScreenshot}
-                onCheckedChange={(checked: boolean) => setHasScreenshot(!!checked)}
+                onCheckedChange={(checked: boolean) =>
+                  setHasScreenshot(!!checked)
+                }
               />
               <Label htmlFor={hasScreenshotId} className="cursor-pointer">
                 Has Screenshot
