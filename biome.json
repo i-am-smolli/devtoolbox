@@ -9,9 +9,11 @@
     "ignoreUnknown": false,
     "includes": [
       "**",
-      "!**/node_modules/",
+      "!**/node_modules",
       "!**/.next",
-      "!**/src/app/globals.css"
+      "!**/src/app/globals.css",
+      "!playwright-report",
+      "!test-results"
     ]
   },
   "formatter": {
