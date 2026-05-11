@@ -22,7 +22,7 @@ ENV BUILD_STANDALONE=true
 RUN npm run build
 
 ### Production image
-FROM gcr.io/distroless/nodejs24-debian13@sha256:482fabdb0f0353417ab878532bb3bf45df925e3741c285a68038fb138b714cba 
+FROM gcr.io/distroless/nodejs24-debian13@sha256:f16acace4aa70086d4a2caad6c716f01e3e2fe0dd8274c4530c7c17d987bdb1a
 WORKDIR /app
 
 ENV HOSTNAME="0.0.0.0"
