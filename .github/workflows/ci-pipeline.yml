@@ -24,17 +24,22 @@ jobs:
         with:
           node-version: "25"
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.0.9
+
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: Run Typechecks
-        run: npm run typecheck
+        run: pnpm run typecheck
 
       - name: Run Linter
-        run: npm run lint
+        run: pnpm run lint
 
       - name: Run knip
-        run: npx knip
+        run: pnpm dlx knip
         
       - name: Run Build
-        run: npm run build
+        run: pnpm run build
