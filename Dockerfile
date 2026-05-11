@@ -1,13 +1,15 @@
 # syntax=docker.io/docker/dockerfile:1
-### Install dependencies
+### Install (installation) dependencies
 FROM node:25-alpine@sha256:bdf2cca6fe3dabd014ea60163eca3f0f7015fbd5c7ee1b0e9ccb4ced6eb02ef4 AS base
-RUN npm install -g npm@11.14.0
+RUN npm install -g npm@11.14.1
+RUN npm install -g pnpm@11.0.9
 
+### Install dependencies
 FROM base AS deps
 WORKDIR /app
 
-COPY package.json package-lock.json* ./
-RUN npm ci --omit=dev && npm cache clean --force
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+RUN pnpm install --frozen-lockfile 
 
 ### Build the application
 FROM base AS builder
@@ -19,7 +21,7 @@ COPY . .
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV BUILD_STANDALONE=true
 
-RUN npm run build
+RUN pnpm run build
 
 ### Production image
 FROM gcr.io/distroless/nodejs24-debian13@sha256:f16acace4aa70086d4a2caad6c716f01e3e2fe0dd8274c4530c7c17d987bdb1a
