@@ -126,8 +126,8 @@ const ALLOWED_EXTERNAL_DOMAINS = [
     "localhost",
     "127.0.0.1",
     "plausible.devtoolbox.icu", // https://plausible.devtoolbox.icu/devtoolbox.icu 
-    // public instance for analytics (no personal data collected)
-    // you can view yourself, the dashboard is public
+                                // public instance for analytics (no personal data collected)
+                                // you can view yourself, the dashboard is public
     "placehold.co",             // placeholder images used in markdown-preview demo content
 ] as const;
 
