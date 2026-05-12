@@ -147,7 +147,9 @@ test.describe("Network Audit - Supply Chain Check", () => {
 
       page.on("websocket", (ws) => {
         const url = new URL(ws.url());
-        const isAllowed = ALLOWED_EXTERNAL_DOMAINS.some((domain) => url.hostname === domain);
+        const isAllowed = ALLOWED_EXTERNAL_DOMAINS.some(
+          (domain) => url.hostname === domain,
+        );
         if (!isAllowed) {
           unexpectedRequests.push(`[WebSocket] ${ws.url()} (from ${route})`);
         }
