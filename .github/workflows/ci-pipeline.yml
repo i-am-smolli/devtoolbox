@@ -30,7 +30,7 @@ jobs:
           version: 11.0.9
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install --frozen-lockfile --ignore-scripts
 
       - name: Run Typechecks
         run: pnpm run typecheck
@@ -48,4 +48,4 @@ jobs:
         run: pnpm exec playwright install --with-deps
       
       - name: Run Tests
-        run: pnpm run test
+        run: pnpm run predeploy
