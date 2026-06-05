@@ -24,7 +24,7 @@ ENV BUILD_STANDALONE=true
 RUN pnpm run build
 
 ### Production image
-FROM gcr.io/distroless/nodejs24-debian13@sha256:e7192174b2b2e5db60cb8f8fc3dcb8cb8e0456f961387c4e0556118f09dcb7c8
+FROM cgr.dev/chainguard/node:latest
 WORKDIR /app
 
 ENV HOSTNAME="0.0.0.0"
