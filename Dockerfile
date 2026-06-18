@@ -1,6 +1,6 @@
 # syntax=docker.io/docker/dockerfile:1
 ### Install (installation) dependencies
-FROM node:26-alpine@sha256:144769ec3f32e8ee36b3cfde91e82bee25d9367b20f31a151f3f7eea3a2a8541 AS base
+FROM node:26-alpine@sha256:3ad34ca6292aec4a91d8ddeb9229e29d9c2f689efd0dd242860889ac71842eba AS base
 RUN npm install -g npm@11.16.0
 RUN npm install -g pnpm@11.5.2
 
