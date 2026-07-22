@@ -1,6 +1,6 @@
 "use client";
 
-import yaml from "js-yaml";
+import * as yaml from "js-yaml";
 import { AlertCircle, ArrowRightLeft, Copy } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 import { PageHeader } from "@/components/page-header";

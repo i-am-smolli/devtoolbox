@@ -3,4 +3,4 @@ allowBuilds:
 
 overrides:
   vite: 8.0.16
-  postcss: 8.5.15
+  postcss: 8.5.20
