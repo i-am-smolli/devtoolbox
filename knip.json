@@ -1,6 +1,6 @@
 {
-  "$schema": "https://unpkg.com/knip@5/schema.json",
+  "$schema": "https://unpkg.com/knip@6/schema.json",
   "entry": ["src/app/**/page.tsx"],
-  "project": ["src/**/*.{ts,tsx}"],
-  "ignoreDependencies": ["tailwindcss-animate"]
+  "project": ["src/**/*.{ts,tsx,css}"],
+  "ignoreDependencies": ["sharp", "tailwindcss"]
 }
