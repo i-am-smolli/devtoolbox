@@ -2,7 +2,7 @@
 ### Install (installation) dependencies
 FROM node:26-alpine@sha256:a2dc166a387cc6ca1e62d0c8e265e49ca985d6e60abc9fe6e6c3d6ce8e63f606 AS base
 RUN npm install -g npm@11.16.0
-RUN npm install -g pnpm@11.5.2
+RUN npm install -g pnpm@12.4.2
 
 ### Install dependencies
 FROM base AS deps
