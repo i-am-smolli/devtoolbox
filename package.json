@@ -59,7 +59,7 @@
     "knip": "^6.35.1",
     "nock": "^14.0.17",
     "postcss": "8.5.28",
-    "typescript": "^6.0.3",
+    "typescript": "^7.0.2",
     "vitest": "^4.1.11"
   }
 }
